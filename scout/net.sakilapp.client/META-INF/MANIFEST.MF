@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: net.sakilapp.client
+Bundle-SymbolicName: net.sakilapp.client;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: net.sakilapp.client.Activator
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.scout.rt.client;visibility:=reexport,
+ net.sakilapp.shared
+Export-Package: net.sakilapp.client,
+ net.sakilapp.client.ui.desktop
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
