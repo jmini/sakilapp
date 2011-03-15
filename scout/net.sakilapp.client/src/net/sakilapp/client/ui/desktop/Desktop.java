@@ -10,8 +10,10 @@
  ******************************************************************************/
 package net.sakilapp.client.ui.desktop;
 
+import java.util.ArrayList;
 
 import net.sakilapp.client.ClientSession;
+import net.sakilapp.client.ui.desktop.outlines.CatalogOutline;
 import net.sakilapp.shared.Texts;
 
 import org.eclipse.scout.commons.annotations.Order;
@@ -23,99 +25,106 @@ import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.desktop.AbstractDesktop;
 import org.eclipse.scout.rt.client.ui.desktop.IDesktop;
 import org.eclipse.scout.rt.client.ui.desktop.bookmark.menu.AbstractBookmarkMenu;
+import org.eclipse.scout.rt.client.ui.desktop.outline.IOutline;
 import org.eclipse.scout.rt.client.ui.form.ScoutInfoForm;
 import org.eclipse.scout.rt.client.ui.form.outline.DefaultOutlineTableForm;
 import org.eclipse.scout.rt.client.ui.form.outline.DefaultOutlineTreeForm;
 
-public class Desktop extends AbstractDesktop implements IDesktop{
+public class Desktop extends AbstractDesktop implements IDesktop {
   private static IScoutLogger logger = ScoutLogManager.getLogger(Desktop.class);
 
-  public Desktop(){
+  public Desktop() {
   }
 
   @Override
-  public String getConfiguredTitle(){
+  public String getConfiguredTitle() {
     return Texts.get("ApplicationTitle");
   }
 
+  @Override
+  protected Class<? extends IOutline>[] getConfiguredOutlines() {
+    ArrayList<Class<? extends IOutline>> list = new ArrayList<Class<? extends IOutline>>();
+    list.add(CatalogOutline.class);
 
+    @SuppressWarnings("unchecked")
+    Class<? extends IOutline>[] result = (Class<? extends IOutline>[]) list.toArray(new Class<?>[list.size()]);
+    return result;
+  }
 
   @Override
   protected void execOpened() throws ProcessingException {
     // outline tree
     DefaultOutlineTreeForm treeForm = new DefaultOutlineTreeForm();
     treeForm.startView();
-  
+
     //outline table
     DefaultOutlineTableForm tableForm = new DefaultOutlineTableForm();
     tableForm.startView();
-  
+
     if (getAvailableOutlines().length > 0) {
       setOutline(getAvailableOutlines()[0]);
     }
-  
+
   }
 
-
-
   @Order(10.0)
-  public class FileMenu extends AbstractMenu{
+  public class FileMenu extends AbstractMenu {
 
     @Override
-    public String getConfiguredText(){
+    public String getConfiguredText() {
       return Texts.get("FileMenu");
     }
 
     @Order(100.0)
-    public class ExitMenu extends AbstractMenu{
+    public class ExitMenu extends AbstractMenu {
 
       @Override
-      public String getConfiguredText(){
+      public String getConfiguredText() {
         return Texts.get("ExitMenu");
       }
 
       @Override
-      public void execAction() throws ProcessingException{
+      public void execAction() throws ProcessingException {
         ClientSyncJob.getCurrentSession(ClientSession.class).stopSession();
       }
     }
   }
 
   @Order(20.0)
-  public class ToolsMenu extends AbstractMenu{
+  public class ToolsMenu extends AbstractMenu {
 
     @Override
-    public String getConfiguredText(){
+    public String getConfiguredText() {
       return Texts.get("ToolsMenu");
     }
   }
 
   @Order(25)
-  public class BookmarkMenu extends AbstractBookmarkMenu{
-    public BookmarkMenu(){
+  public class BookmarkMenu extends AbstractBookmarkMenu {
+    public BookmarkMenu() {
       super(Desktop.this);
     }
   }
 
   @Order(30.0)
-  public class HelpMenu extends AbstractMenu{
+  public class HelpMenu extends AbstractMenu {
 
     @Override
-    public String getConfiguredText(){
+    public String getConfiguredText() {
       return Texts.get("HelpMenu");
     }
 
     @Order(10.0)
-    public class AboutMenu extends AbstractMenu{
+    public class AboutMenu extends AbstractMenu {
 
       @Override
-      public String getConfiguredText(){
+      public String getConfiguredText() {
         return Texts.get("AboutMenu");
       }
 
       @Override
-      public void execAction() throws ProcessingException{
-        ScoutInfoForm form=new ScoutInfoForm();
+      public void execAction() throws ProcessingException {
+        ScoutInfoForm form = new ScoutInfoForm();
         form.startModify();
       }
     }

@@ -30,11 +30,11 @@
    </vm>
 
    <plugins>
-      <plugin id="net.sakilapp.client" fragment=""/>
-      <plugin id="net.sakilapp.shared" fragment=""/>
-      <plugin id="net.sakilapp.ui.swing" fragment=""/>
-      <plugin id="ch.qos.logback.core"/>
+      <plugin id="ch.qos.logback.core" fragment=""/>
       <plugin id="ch.qos.logback.slf4j" fragment="true"/>
+      <plugin id="net.sakilapp.client"/>
+      <plugin id="net.sakilapp.shared"/>
+      <plugin id="net.sakilapp.ui.swing"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.net"/>
@@ -57,10 +57,10 @@
       <plugin id="org.eclipse.swt"/>
       <plugin id="org.eclipse.swt.gtk.linux.x86" fragment="true"/>
       <plugin id="org.eclipse.update.configurator"/>
-      <plugin id="org.slf4j.api"/>
-      <plugin id="org.slf4j.jcl"/>
-      <plugin id="org.slf4j.jul"/>
-      <plugin id="org.slf4j.log4j"/>
+      <plugin id="org.slf4j.api" fragment=""/>
+      <plugin id="org.slf4j.jcl" fragment=""/>
+      <plugin id="org.slf4j.jul" fragment=""/>
+      <plugin id="org.slf4j.log4j" fragment=""/>
    </plugins>
 
 

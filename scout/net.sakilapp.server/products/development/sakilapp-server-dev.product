@@ -28,9 +28,9 @@
    </vm>
 
    <plugins>
-      <plugin id="net.sakilapp.server" fragment=""/>
-      <plugin id="net.sakilapp.shared" fragment=""/>
       <plugin id="javax.servlet"/>
+      <plugin id="net.sakilapp.server"/>
+      <plugin id="net.sakilapp.shared"/>
       <plugin id="org.apache.commons.codec"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.jobs"/>
@@ -52,6 +52,7 @@
       <plugin id="org.eclipse.scout.http.servletfilter"/>
       <plugin id="org.eclipse.scout.rt.jdbc.derby"/>
       <plugin id="org.eclipse.scout.rt.server"/>
+      <plugin id="org.eclipse.scout.rt.server.jdbc.mysql517.fragment" fragment="true"/>
       <plugin id="org.eclipse.scout.rt.shared"/>
       <plugin id="org.eclipse.scout.service"/>
       <plugin id="org.eclipse.update.configurator"/>

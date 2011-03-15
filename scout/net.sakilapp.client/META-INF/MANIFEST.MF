@@ -9,5 +9,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.client;visibility:=reexport,
  net.sakilapp.shared
 Export-Package: net.sakilapp.client,
- net.sakilapp.client.ui.desktop
+ net.sakilapp.client.ui.desktop,
+ net.sakilapp.client.ui.desktop.outlines,
+ net.sakilapp.client.ui.desktop.outlines.pages
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
