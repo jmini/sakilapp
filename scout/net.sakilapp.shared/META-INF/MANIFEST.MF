@@ -9,4 +9,5 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.scout.rt.shared;visibility:=reexport
 Export-Package: net.sakilapp.shared,
+ net.sakilapp.shared.formdata,
  net.sakilapp.shared.services.outline

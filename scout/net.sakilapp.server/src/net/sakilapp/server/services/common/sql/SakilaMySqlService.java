@@ -1,9 +1,15 @@
 package net.sakilapp.server.services.common.sql;
 
 import org.eclipse.scout.rt.server.services.common.jdbc.AbstractSqlService;
+import org.eclipse.scout.rt.server.services.common.jdbc.style.ISqlStyle;
 import org.eclipse.scout.service.IService;
 
 public class SakilaMySqlService extends AbstractSqlService implements IService {
+
+  @Override
+  protected Class<? extends ISqlStyle> getConfiguredSqlStyle() {
+    return MysqlSqlStyle.class;
+  }
 
   @Override
   protected String getConfiguredJdbcDriverName() {
