@@ -6,6 +6,7 @@
     <service class="net.sakilapp.server.services.custom.security.AccessControlService" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory" session="net.sakilapp.server.ServerSession"/>
     <service class="net.sakilapp.server.services.common.sql.SakilaMySqlService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
     <service class="net.sakilapp.server.services.outline.CatalogOutlineService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
+    <service class="net.sakilapp.server.services.lookup.LanguageLookupService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
   </extension>
   <extension point="org.eclipse.equinox.http.registry.servlets">
     <servlet alias="/process" class="org.eclipse.scout.rt.server.ServiceTunnelServlet">
