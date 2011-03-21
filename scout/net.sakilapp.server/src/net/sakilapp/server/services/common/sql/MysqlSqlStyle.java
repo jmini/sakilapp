@@ -48,8 +48,8 @@ public class MysqlSqlStyle extends AbstractSqlStyle {
   public String getNvlToken() {
     return "IFNULL";
   }
-  
-  @Override 
+
+  @Override
   public String createStartsWith(String attribute, String bindName) {
     return "upper(" + attribute + ") like upper(concat(" + adaptBindName(bindName) + ",'%'))";
   }
@@ -77,10 +77,5 @@ public class MysqlSqlStyle extends AbstractSqlStyle {
   @Override
   public String createNotContains(String attribute, String bindName) {
     return "upper(" + attribute + ") not like upper(concat('%'," + adaptBindName(bindName) + ",'%'))";
-  }
-
-  @Override
-  public String createContains(String attribute, String bindName) {
-    return "upper(" + attribute + ") like upper(concat('%'," + adaptBindName(bindName) + ",'%'))";
   }
 }
