@@ -8,7 +8,6 @@ import org.eclipse.scout.rt.server.services.common.jdbc.style.AbstractSqlStyle;
 
 /**
  * Scout SqlStyle for MySql.
- * This should be part of the package: org.eclipse.scout.rt.server.services.common.jdbc.style
  */
 public class MysqlSqlStyle extends AbstractSqlStyle {
   private static final long serialVersionUID = 1L;
@@ -49,11 +48,39 @@ public class MysqlSqlStyle extends AbstractSqlStyle {
   public String getNvlToken() {
     return "IFNULL";
   }
+  
+  @Override 
+  public String createStartsWith(String attribute, String bindName) {
+    return "upper(" + attribute + ") like upper(concat(" + adaptBindName(bindName) + ",'%'))";
+  }
 
-  //TODO: modify all the create functions with the concat function
+  @Override
+  public String createNotStartsWith(String attribute, String bindName) {
+    return "upper(" + attribute + ") not like upper(concat(" + adaptBindName(bindName) + ",'%'))";
+  }
+
+  @Override
+  public String createEndsWith(String attribute, String bindName) {
+    return "upper(" + attribute + ") like upper(concat('%'," + adaptBindName(bindName) + "))";
+  }
+
+  @Override
+  public String createNotEndsWith(String attribute, String bindName) {
+    return "upper(" + attribute + ") not like upper(concat('%'," + adaptBindName(bindName) + "))";
+  }
+
   @Override
   public String createContains(String attribute, String bindName) {
     return "upper(" + attribute + ") like upper(concat('%'," + adaptBindName(bindName) + ",'%'))";
   }
 
+  @Override
+  public String createNotContains(String attribute, String bindName) {
+    return "upper(" + attribute + ") not like upper(concat('%'," + adaptBindName(bindName) + ",'%'))";
+  }
+
+  @Override
+  public String createContains(String attribute, String bindName) {
+    return "upper(" + attribute + ") like upper(concat('%'," + adaptBindName(bindName) + ",'%'))";
+  }
 }
