@@ -20,10 +20,18 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
     filmsStatementBuilder.setValueDefinition(FilmsSearchFormData.FilmIdTo.class, "film_id", DataModelConstants.OPERATOR_LE);
     filmsStatementBuilder.setValueDefinition(FilmsSearchFormData.Title.class, "title", DataModelConstants.OPERATOR_CONTAINS);
 
-    //TODO: use the search form, remove the limit
     Object[][] result = SQL.select(
         "select      film_id, " +
-            "        title " +
+            "        title, " +
+            "        release_year, " +
+            "        language_id, " +
+            "        original_language_id, " +
+            "        length, " +
+            "        concat(convert(rental_rate, char), '$ / ', convert(rental_duration, char), ' Days'), " +
+            "        replacement_cost, " +
+            "        rating, " +
+            "        special_features," +
+            "        last_update" +
             " from   film " +
             " where  1 = 1 " +
             filmsStatementBuilder.build(filter.getFormData()),
