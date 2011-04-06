@@ -15,14 +15,18 @@
  ******************************************************************************/
 package net.sakilapp.client.ui.desktop.outlines;
 
-import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutline;
-import net.sakilapp.shared.Texts;
-import net.sakilapp.client.ui.desktop.outlines.pages.FilmsTablePage;
 import java.util.Collection;
+
+import net.sakilapp.client.ui.desktop.outlines.pages.ActorsTablePage;
+import net.sakilapp.client.ui.desktop.outlines.pages.CategoriesTablePage;
+import net.sakilapp.client.ui.desktop.outlines.pages.FilmsTablePage;
+import net.sakilapp.shared.Texts;
+
 import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutline;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
 
-public class CatalogOutline extends AbstractOutline{
+public class CatalogOutline extends AbstractOutline {
 
   @Override
   protected String getConfiguredTitle() {
@@ -31,8 +35,8 @@ public class CatalogOutline extends AbstractOutline{
 
   @Override
   protected void execCreateChildPages(Collection<IPage> pageList) throws ProcessingException {
-  FilmsTablePage filmsTablePage = new FilmsTablePage();
-    pageList.add(filmsTablePage);
-  
+    pageList.add(new FilmsTablePage());
+    pageList.add(new CategoriesTablePage());
+    pageList.add(new ActorsTablePage());
   }
 }

@@ -22,6 +22,7 @@ import net.sakilapp.shared.services.code.RatingCodeType;
 import net.sakilapp.shared.services.lookup.LanguageLookupCall;
 import net.sakilapp.shared.services.outline.ICatalogOutlineService;
 
+import org.eclipse.scout.commons.annotations.FormData;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.client.ui.basic.cell.Cell;
@@ -41,15 +42,8 @@ import org.eclipse.scout.service.SERVICES;
 
 public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> {
 
-  @Override
-  protected boolean getConfiguredSearchRequired() {
-    return true;
-  }
-
-  @Override
-  protected String getConfiguredTitle() {
-    return Texts.get("AllFilms");
-  }
+  private Long m_categoryId;
+  private Long m_actorId;
 
   @Override
   protected String getConfiguredIconId() {
@@ -62,28 +56,53 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
   }
 
   @Override
+  protected boolean getConfiguredSearchRequired() {
+    return true;
+  }
+
+  @Override
+  protected String getConfiguredTitle() {
+    return Texts.get("AllFilms");
+  }
+
+  @Override
   protected Object[][] execLoadTableData(SearchFilter filter) throws ProcessingException {
-    //TODO: add a search Form and use it.
-    return SERVICES.getService(ICatalogOutlineService.class).loadFilms(filter);
+    return SERVICES.getService(ICatalogOutlineService.class).loadFilms(filter, getCategoryId(), getActorId());
+  }
+
+  @FormData
+  public Long getActorId() {
+    return m_actorId;
+  }
+
+  @FormData
+  public void setActorId(Long actorId) {
+    m_actorId = actorId;
+  }
+
+  @FormData
+  public Long getCategoryId() {
+    return m_categoryId;
+  }
+
+  @FormData
+  public void setCategoryId(Long category) {
+    m_categoryId = category;
   }
 
   @Order(10.0)
   public class Table extends AbstractTable {
 
-    public LastUpdateColumn getLastUpdateColumn() {
-      return getColumnSet().getColumnByClass(LastUpdateColumn.class);
-    }
-
     public FilmIdColumn getFilmIdColumn() {
       return getColumnSet().getColumnByClass(FilmIdColumn.class);
     }
 
-    public TitleColumn getTitleColumn() {
-      return getColumnSet().getColumnByClass(TitleColumn.class);
-    }
-
     public LanguageColumn getLanguageColumn() {
       return getColumnSet().getColumnByClass(LanguageColumn.class);
+    }
+
+    public LastUpdateColumn getLastUpdateColumn() {
+      return getColumnSet().getColumnByClass(LastUpdateColumn.class);
     }
 
     public LengthColumn getLengthColumn() {
@@ -114,6 +133,10 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
       return getColumnSet().getColumnByClass(SpecialFeaturesColumn.class);
     }
 
+    public TitleColumn getTitleColumn() {
+      return getColumnSet().getColumnByClass(TitleColumn.class);
+    }
+
     @Order(10.0)
     public class FilmIdColumn extends AbstractLongColumn {
 
@@ -124,7 +147,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected int getConfiguredWidth() {
-        return 60;
+        return 30;
       }
     }
 
@@ -144,14 +167,15 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
     @Order(40.0)
     public class ReleaseYearColumn extends AbstractDateColumn {
-      @Override
-      protected String getConfiguredHeaderText() {
-        return Texts.get("ReleaseYear");
-      }
 
       @Override
       protected String getConfiguredFormat() {
         return "yyyy";
+      }
+
+      @Override
+      protected String getConfiguredHeaderText() {
+        return Texts.get("ReleaseYear");
       }
 
       @Override
@@ -210,7 +234,6 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
       protected int getConfiguredWidth() {
         return 60;
       }
-
     }
 
     @Order(80.0)
@@ -225,7 +248,6 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
       protected int getConfiguredWidth() {
         return 110;
       }
-
     }
 
     @Order(90.0)
@@ -253,13 +275,13 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
     public class RatingColumn extends AbstractSmartColumn<String> {
 
       @Override
-      protected String getConfiguredHeaderText() {
-        return Texts.get("Rating");
+      protected Class<? extends ICodeType> getConfiguredCodeType() {
+        return RatingCodeType.class;
       }
 
       @Override
-      protected Class<? extends ICodeType> getConfiguredCodeType() {
-        return RatingCodeType.class;
+      protected String getConfiguredHeaderText() {
+        return Texts.get("Rating");
       }
 
       @Override
@@ -280,7 +302,6 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
       protected int getConfiguredWidth() {
         return 170;
       }
-
     }
 
     @Order(120.0)

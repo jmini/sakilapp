@@ -21,5 +21,9 @@ import org.eclipse.scout.service.IService;
 
 public interface ICatalogOutlineService extends IService {
 
-  public Object[][] loadFilms(SearchFilter filter) throws ProcessingException;
+  public Object[][] loadActors(SearchFilter filter) throws ProcessingException;
+
+  public Object[][] loadCategories(SearchFilter filter) throws ProcessingException;
+
+  public Object[][] loadFilms(SearchFilter filter, Long categoryIdFilter, Long actorIdFilter) throws ProcessingException;
 }

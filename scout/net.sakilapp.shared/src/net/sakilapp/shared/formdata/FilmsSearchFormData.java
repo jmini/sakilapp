@@ -4,7 +4,7 @@ import org.eclipse.scout.rt.shared.data.form.fields.AbstractValueFieldData;
 import org.eclipse.scout.rt.shared.data.form.AbstractFormData;
 import org.eclipse.scout.commons.annotations.FormDataChecksum;
 
-@FormDataChecksum(548332364l)
+@FormDataChecksum(938296025l)
 public class FilmsSearchFormData extends AbstractFormData {
   private static final long serialVersionUID = 1L;
 
