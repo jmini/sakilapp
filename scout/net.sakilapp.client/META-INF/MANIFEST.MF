@@ -12,5 +12,6 @@ Export-Package: net.sakilapp.client,
  net.sakilapp.client.ui.desktop,
  net.sakilapp.client.ui.desktop.outlines,
  net.sakilapp.client.ui.desktop.outlines.pages,
- net.sakilapp.client.ui.searchforms
+ net.sakilapp.client.ui.searchforms,
+ net.sakilapp.client.ui.forms
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

@@ -15,7 +15,8 @@ Export-Package: net.sakilapp.server,
  net.sakilapp.server.services.custom.security,
  net.sakilapp.server.services.outline,
  net.sakilapp.server.services.common.sql,
- net.sakilapp.server.services.lookup
+ net.sakilapp.server.services.lookup,
+ net.sakilapp.server.services.process
 Bundle-ClassPath: .
 Import-Package: javax.servlet;version="2.4.0",
  javax.servlet.http;version="2.4.0"

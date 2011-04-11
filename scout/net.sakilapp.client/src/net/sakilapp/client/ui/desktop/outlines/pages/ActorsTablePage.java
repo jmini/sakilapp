@@ -106,7 +106,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected int getConfiguredWidth() {
-        return 30;
+        return 60;
       }
     }
 
@@ -125,7 +125,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected int getConfiguredWidth() {
-        return 160;
+        return 220;
       }
     }
 
@@ -144,7 +144,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected int getConfiguredWidth() {
-        return 160;
+        return 220;
       }
     }
 

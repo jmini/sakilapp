@@ -12,4 +12,6 @@ Export-Package: net.sakilapp.shared,
  net.sakilapp.shared.formdata,
  net.sakilapp.shared.services.outline,
  net.sakilapp.shared.services.code,
- net.sakilapp.shared.services.lookup
+ net.sakilapp.shared.services.lookup,
+ net.sakilapp.shared.security,
+ net.sakilapp.shared.services.process

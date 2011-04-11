@@ -49,12 +49,26 @@
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.scout.commons"/>
+      <plugin id="org.eclipse.scout.commons.source"/>
       <plugin id="org.eclipse.scout.http.servletfilter"/>
+      <plugin id="org.eclipse.scout.http.servletfilter.source"/>
+      <plugin id="org.eclipse.scout.net.source"/>
+      <plugin id="org.eclipse.scout.nls.sdk.source"/>
+      <plugin id="org.eclipse.scout.rt.client.source"/>
       <plugin id="org.eclipse.scout.rt.jdbc.derby"/>
+      <plugin id="org.eclipse.scout.rt.jdbc.derby.source"/>
       <plugin id="org.eclipse.scout.rt.server"/>
       <plugin id="org.eclipse.scout.rt.server.jdbc.mysql517.fragment" fragment="true"/>
+      <plugin id="org.eclipse.scout.rt.server.jdbc.mysql517.fragment.source"/>
+      <plugin id="org.eclipse.scout.rt.server.source"/>
       <plugin id="org.eclipse.scout.rt.shared"/>
+      <plugin id="org.eclipse.scout.rt.shared.source"/>
+      <plugin id="org.eclipse.scout.rt.ui.swing.source"/>
+      <plugin id="org.eclipse.scout.rt.ui.swt.source"/>
+      <plugin id="org.eclipse.scout.sdk.source"/>
+      <plugin id="org.eclipse.scout.sdk.ui.source"/>
       <plugin id="org.eclipse.scout.service"/>
+      <plugin id="org.eclipse.scout.service.source"/>
       <plugin id="org.eclipse.update.configurator"/>
       <plugin id="org.mortbay.jetty.server"/>
       <plugin id="org.mortbay.jetty.util"/>

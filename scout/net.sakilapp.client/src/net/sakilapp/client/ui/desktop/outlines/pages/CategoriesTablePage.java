@@ -15,12 +15,14 @@
  ******************************************************************************/
 package net.sakilapp.client.ui.desktop.outlines.pages;
 
+import net.sakilapp.client.ui.forms.CategoryForm;
 import net.sakilapp.client.ui.searchforms.CategoriesSearchForm;
 import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.services.outline.ICatalogOutlineService;
 
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.basic.table.AbstractTable;
 import org.eclipse.scout.rt.client.ui.basic.table.ITableRow;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractDateColumn;
@@ -103,7 +105,7 @@ public class CategoriesTablePage extends AbstractPageWithTable<CategoriesTablePa
 
       @Override
       protected int getConfiguredWidth() {
-        return 30;
+        return 60;
       }
     }
 
@@ -122,7 +124,7 @@ public class CategoriesTablePage extends AbstractPageWithTable<CategoriesTablePa
 
       @Override
       protected int getConfiguredWidth() {
-        return 160;
+        return 340;
       }
     }
 
@@ -142,6 +144,74 @@ public class CategoriesTablePage extends AbstractPageWithTable<CategoriesTablePa
       @Override
       protected int getConfiguredWidth() {
         return 160;
+      }
+    }
+
+    @Order(10.0)
+    public class NewMenu extends AbstractMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return ScoutTexts.get("NewButton");
+      }
+
+      @Override
+      protected boolean getConfiguredEmptySpaceAction() {
+        return true;
+      }
+
+      @Override
+      protected boolean getConfiguredSingleSelectionAction() {
+        return false;
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        CategoryForm form = new CategoryForm();
+        form.startNew();
+        form.waitFor();
+        if (form.isFormStored()) {
+          reloadPage();
+        }
+      }
+    }
+
+    @Order(20.0)
+    public class EditMenu extends AbstractMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return ScoutTexts.get("EditMenu");
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        CategoryForm form = new CategoryForm();
+        form.setCategoryId(getCategoryIdColumn().getSelectedValue());
+        form.startModify();
+        form.waitFor();
+        if (form.isFormStored()) {
+          reloadPage();
+        }
+      }
+    }
+
+    @Order(30.0)
+    public class DeleteMenu extends AbstractMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return ScoutTexts.get("DeleteMenu");
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        //TODO: call delete operation (CategoryProcessService)
+
+        boolean result = false;
+        if (result) {
+          reloadPage();
+        }
       }
     }
   }

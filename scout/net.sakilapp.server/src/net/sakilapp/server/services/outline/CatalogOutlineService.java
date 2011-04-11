@@ -81,6 +81,7 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
     filmsStatementBuilder.setValueDefinition(FilmsSearchFormData.FilmIdFrom.class, "film_id", DataModelConstants.OPERATOR_GE);
     filmsStatementBuilder.setValueDefinition(FilmsSearchFormData.FilmIdTo.class, "film_id", DataModelConstants.OPERATOR_LE);
     filmsStatementBuilder.setValueDefinition(FilmsSearchFormData.Title.class, "title", DataModelConstants.OPERATOR_CONTAINS);
+    //TODO: complete the list
 
     //subselect in the where statement for categories
     String sqlWhereCategory;
