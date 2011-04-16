@@ -103,7 +103,7 @@ public class CategoriesSearchForm extends AbstractSearchForm {
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("Catgories");
+    return Texts.get("Categories");
   }
 
   @Override

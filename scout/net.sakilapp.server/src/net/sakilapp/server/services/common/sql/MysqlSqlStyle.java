@@ -64,6 +64,28 @@ public class MysqlSqlStyle extends AbstractSqlStyle {
     return "IFNULL";
   }
 
+  //TODO add other create* functions.
+
+  @Override
+  public String createDateGE(String attribute, String bindName) {
+    return attribute + ">=DATE(" + adaptBindName(bindName) + ")";
+  }
+
+  @Override
+  public String createDateGT(String attribute, String bindName) {
+    return attribute + ">DATE(" + adaptBindName(bindName) + ")";
+  }
+
+  @Override
+  public String createDateLE(String attribute, String bindName) {
+    return attribute + "<DATE(" + adaptBindName(bindName) + ") + INTERVAL 1 DAY";
+  }
+
+  @Override
+  public String createDateLT(String attribute, String bindName) {
+    return attribute + "<DATE(" + adaptBindName(bindName) + ")";
+  }
+
   @Override
   public String createStartsWith(String attribute, String bindName) {
     return "upper(" + attribute + ") like upper(concat(" + adaptBindName(bindName) + ",'%'))";

@@ -15,16 +15,19 @@
  ******************************************************************************/
 package net.sakilapp.client.ui.desktop.outlines.pages;
 
+import net.sakilapp.client.ui.forms.FilmForm;
 import net.sakilapp.client.ui.searchforms.FilmsSearchForm;
 import net.sakilapp.shared.Icons;
 import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.services.code.RatingCodeType;
 import net.sakilapp.shared.services.lookup.LanguageLookupCall;
 import net.sakilapp.shared.services.outline.ICatalogOutlineService;
+import net.sakilapp.shared.services.process.IFilmProcessService;
 
 import org.eclipse.scout.commons.annotations.FormData;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.basic.cell.Cell;
 import org.eclipse.scout.rt.client.ui.basic.table.AbstractTable;
 import org.eclipse.scout.rt.client.ui.basic.table.ITableRow;
@@ -34,6 +37,7 @@ import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractSmartColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.AbstractPageWithTable;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.ISearchForm;
+import org.eclipse.scout.rt.client.ui.messagebox.MessageBox;
 import org.eclipse.scout.rt.shared.ScoutTexts;
 import org.eclipse.scout.rt.shared.services.common.code.ICodeType;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
@@ -320,6 +324,79 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
       @Override
       protected int getConfiguredWidth() {
         return 110;
+      }
+    }
+
+    @Order(10.0)
+    public class NewMenu extends AbstractMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return ScoutTexts.get("NewMenu");
+      }
+
+      @Override
+      protected boolean getConfiguredEmptySpaceAction() {
+        return true;
+      }
+
+      @Override
+      protected boolean getConfiguredSingleSelectionAction() {
+        return false;
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        FilmForm form = new FilmForm();
+        form.startNew();
+        form.waitFor();
+        if (form.isFormStored()) {
+          reloadPage();
+        }
+      }
+    }
+
+    @Order(20.0)
+    public class EditMenu extends AbstractMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return ScoutTexts.get("EditMenu");
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        FilmForm form = new FilmForm();
+        form.setFilmId(getFilmIdColumn().getSelectedValue());
+        form.startModify();
+        form.waitFor();
+        if (form.isFormStored()) {
+          reloadPage();
+        }
+      }
+    }
+
+    @Order(30.0)
+    public class DeleteMenu extends AbstractMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return ScoutTexts.get("DeleteMenu");
+      }
+
+      @Override
+      protected boolean getConfiguredMultiSelectionAction() {
+        return true;
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        if (MessageBox.showDeleteConfirmationMessage(Texts.get("Films"), getTable().getTitleColumn().getSelectedValues())) {
+          boolean result = SERVICES.getService(IFilmProcessService.class).delete(getTable().getFilmIdColumn().getSelectedValues());
+          if (result) {
+            reloadPage();
+          }
+        }
       }
     }
   }

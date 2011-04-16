@@ -15,12 +15,16 @@
  ******************************************************************************/
 package net.sakilapp.client.ui.desktop.outlines.pages;
 
+import net.sakilapp.client.ui.forms.ActorForm;
 import net.sakilapp.client.ui.searchforms.ActorsSearchForm;
 import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.services.outline.ICatalogOutlineService;
+import net.sakilapp.shared.services.process.IActorProcessService;
 
+import org.eclipse.scout.commons.StringUtility;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.basic.table.AbstractTable;
 import org.eclipse.scout.rt.client.ui.basic.table.ITableRow;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractDateColumn;
@@ -29,7 +33,9 @@ import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.AbstractPageWithTable;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.ISearchForm;
+import org.eclipse.scout.rt.client.ui.messagebox.MessageBox;
 import org.eclipse.scout.rt.shared.AbstractIcons;
+import org.eclipse.scout.rt.shared.ScoutTexts;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.service.SERVICES;
 
@@ -69,8 +75,8 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
       return getColumnSet().getColumnByClass(FirstNameColumn.class);
     }
 
-    public FirstNameColumn getLastNameColumn() {
-      return getColumnSet().getColumnByClass(FirstNameColumn.class);
+    public LastNameColumn getLastNameColumn() {
+      return getColumnSet().getColumnByClass(LastNameColumn.class);
     }
 
     public LastUpdateColumn getLastUpdateColumn() {
@@ -164,6 +170,86 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
       @Override
       protected int getConfiguredWidth() {
         return 160;
+      }
+    }
+
+    @Order(10.0)
+    public class NewMenu extends AbstractMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return ScoutTexts.get("NewMenu");
+      }
+
+      @Override
+      protected boolean getConfiguredEmptySpaceAction() {
+        return true;
+      }
+
+      @Override
+      protected boolean getConfiguredSingleSelectionAction() {
+        return false;
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        ActorForm form = new ActorForm();
+        form.startNew();
+        form.waitFor();
+        if (form.isFormStored()) {
+          reloadPage();
+        }
+      }
+    }
+
+    @Order(20.0)
+    public class EditMenu extends AbstractMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return ScoutTexts.get("EditMenu");
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        ActorForm form = new ActorForm();
+        form.setActorId(getActorIdColumn().getSelectedValue());
+        form.startModify();
+        form.waitFor();
+        if (form.isFormStored()) {
+          reloadPage();
+        }
+      }
+    }
+
+    @Order(30.0)
+    public class DeleteMenu extends AbstractMenu {
+
+      @Override
+      protected String getConfiguredText() {
+        return ScoutTexts.get("DeleteMenu");
+      }
+
+      @Override
+      protected boolean getConfiguredMultiSelectionAction() {
+        return true;
+      }
+
+      @Override
+      protected void execAction() throws ProcessingException {
+        String[] actors = new String[getTable().getSelectedRowCount()];
+        String[] firstNames = getTable().getFirstNameColumn().getSelectedValues();
+        String[] lastNames = getTable().getLastNameColumn().getSelectedValues();
+        for (int i = 0; i < actors.length; i++) {
+          actors[i] = StringUtility.join(" ", firstNames[i], lastNames[i]);
+        }
+
+        if (MessageBox.showDeleteConfirmationMessage(Texts.get("Actor"), actors)) {
+          boolean result = SERVICES.getService(IActorProcessService.class).delete(getTable().getActorIdColumn().getSelectedValues());
+          if (result) {
+            reloadPage();
+          }
+        }
       }
     }
   }

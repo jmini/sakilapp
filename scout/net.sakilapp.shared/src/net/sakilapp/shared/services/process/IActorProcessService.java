@@ -15,21 +15,20 @@
  ******************************************************************************/
 package net.sakilapp.shared.services.process;
 
-import net.sakilapp.shared.formdata.CategoryFormData;
+import net.sakilapp.shared.formdata.ActorFormData;
 
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.service.IService;
 
-public interface ICategoryProcessService extends IService {
+public interface IActorProcessService extends IService {
 
-  CategoryFormData prepareCreate(CategoryFormData formData) throws ProcessingException;
+  ActorFormData prepareCreate(ActorFormData formData) throws ProcessingException;
 
-  CategoryFormData create(CategoryFormData formData) throws ProcessingException;
+  ActorFormData create(ActorFormData formData) throws ProcessingException;
 
-  CategoryFormData load(CategoryFormData formData) throws ProcessingException;
+  ActorFormData load(ActorFormData formData) throws ProcessingException;
 
-  CategoryFormData store(CategoryFormData formData) throws ProcessingException;
+  ActorFormData store(ActorFormData formData) throws ProcessingException;
 
-  boolean delete(Long[] categoryIds) throws ProcessingException;
-
+  boolean delete(Long[] actorIds) throws ProcessingException;
 }

@@ -13,23 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
-package net.sakilapp.shared.services.process;
+package net.sakilapp.shared.security;
 
-import net.sakilapp.shared.formdata.CategoryFormData;
+import java.security.BasicPermission;
 
-import org.eclipse.scout.commons.exception.ProcessingException;
-import org.eclipse.scout.service.IService;
+public class CreateActorPermission extends BasicPermission {
 
-public interface ICategoryProcessService extends IService {
+  private static final long serialVersionUID = 0L;
 
-  CategoryFormData prepareCreate(CategoryFormData formData) throws ProcessingException;
-
-  CategoryFormData create(CategoryFormData formData) throws ProcessingException;
-
-  CategoryFormData load(CategoryFormData formData) throws ProcessingException;
-
-  CategoryFormData store(CategoryFormData formData) throws ProcessingException;
-
-  boolean delete(Long[] categoryIds) throws ProcessingException;
-
+  public CreateActorPermission() {
+    super("CreateActor");
+  }
 }

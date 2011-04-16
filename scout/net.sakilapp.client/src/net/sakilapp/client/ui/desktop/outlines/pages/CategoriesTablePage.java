@@ -19,6 +19,7 @@ import net.sakilapp.client.ui.forms.CategoryForm;
 import net.sakilapp.client.ui.searchforms.CategoriesSearchForm;
 import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.services.outline.ICatalogOutlineService;
+import net.sakilapp.shared.services.process.ICategoryProcessService;
 
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
@@ -31,6 +32,7 @@ import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.AbstractPageWithTable;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.ISearchForm;
+import org.eclipse.scout.rt.client.ui.messagebox.MessageBox;
 import org.eclipse.scout.rt.shared.AbstractIcons;
 import org.eclipse.scout.rt.shared.ScoutTexts;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
@@ -152,7 +154,7 @@ public class CategoriesTablePage extends AbstractPageWithTable<CategoriesTablePa
 
       @Override
       protected String getConfiguredText() {
-        return ScoutTexts.get("NewButton");
+        return ScoutTexts.get("NewMenu");
       }
 
       @Override
@@ -205,12 +207,17 @@ public class CategoriesTablePage extends AbstractPageWithTable<CategoriesTablePa
       }
 
       @Override
-      protected void execAction() throws ProcessingException {
-        //TODO: call delete operation (CategoryProcessService)
+      protected boolean getConfiguredMultiSelectionAction() {
+        return true;
+      }
 
-        boolean result = false;
-        if (result) {
-          reloadPage();
+      @Override
+      protected void execAction() throws ProcessingException {
+        if (MessageBox.showDeleteConfirmationMessage(Texts.get("Categories"), getTable().getNameColumn().getSelectedValues())) {
+          boolean result = SERVICES.getService(ICategoryProcessService.class).delete(getTable().getCategoryIdColumn().getSelectedValues());
+          if (result) {
+            reloadPage();
+          }
         }
       }
     }

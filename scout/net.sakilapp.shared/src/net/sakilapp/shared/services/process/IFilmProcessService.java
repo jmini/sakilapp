@@ -15,21 +15,20 @@
  ******************************************************************************/
 package net.sakilapp.shared.services.process;
 
-import net.sakilapp.shared.formdata.CategoryFormData;
+import net.sakilapp.shared.formdata.FilmFormData;
 
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.service.IService;
 
-public interface ICategoryProcessService extends IService {
+public interface IFilmProcessService extends IService {
 
-  CategoryFormData prepareCreate(CategoryFormData formData) throws ProcessingException;
+  FilmFormData prepareCreate(FilmFormData formData) throws ProcessingException;
 
-  CategoryFormData create(CategoryFormData formData) throws ProcessingException;
+  FilmFormData create(FilmFormData formData) throws ProcessingException;
 
-  CategoryFormData load(CategoryFormData formData) throws ProcessingException;
+  FilmFormData load(FilmFormData formData) throws ProcessingException;
 
-  CategoryFormData store(CategoryFormData formData) throws ProcessingException;
+  FilmFormData store(FilmFormData formData) throws ProcessingException;
 
-  boolean delete(Long[] categoryIds) throws ProcessingException;
-
+  boolean delete(Long[] filmIds) throws ProcessingException;
 }

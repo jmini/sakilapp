@@ -16,12 +16,12 @@
 package net.sakilapp.server.services.process;
 
 import net.sakilapp.shared.Texts;
-import net.sakilapp.shared.formdata.CategoryFormData;
-import net.sakilapp.shared.security.CreateCategoryPermission;
-import net.sakilapp.shared.security.DeleteCategoryPermission;
-import net.sakilapp.shared.security.ReadCategoryPermission;
-import net.sakilapp.shared.security.UpdateCategoryPermission;
-import net.sakilapp.shared.services.process.ICategoryProcessService;
+import net.sakilapp.shared.formdata.ActorFormData;
+import net.sakilapp.shared.security.CreateActorPermission;
+import net.sakilapp.shared.security.DeleteActorPermission;
+import net.sakilapp.shared.security.ReadActorPermission;
+import net.sakilapp.shared.security.UpdateActorPermission;
+import net.sakilapp.shared.services.process.IActorProcessService;
 
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.exception.VetoException;
@@ -30,78 +30,80 @@ import org.eclipse.scout.rt.server.services.common.jdbc.SQL;
 import org.eclipse.scout.rt.shared.services.common.security.ACCESS;
 import org.eclipse.scout.service.AbstractService;
 
-public class CategoryProcessService extends AbstractService implements ICategoryProcessService {
+public class ActorProcessService extends AbstractService implements IActorProcessService {
 
-  public CategoryFormData prepareCreate(CategoryFormData formData) throws ProcessingException {
-    if (!ACCESS.check(new CreateCategoryPermission())) {
+  public ActorFormData prepareCreate(ActorFormData formData) throws ProcessingException {
+    if (!ACCESS.check(new CreateActorPermission())) {
       throw new VetoException(Texts.get("AuthorizationFailed"));
     }
     //Nothing to do for the preparation of the creation.
     return formData;
   }
 
-  public CategoryFormData create(CategoryFormData formData) throws ProcessingException {
-    if (!ACCESS.check(new CreateCategoryPermission())) {
+  public ActorFormData create(ActorFormData formData) throws ProcessingException {
+    if (!ACCESS.check(new CreateActorPermission())) {
       throw new VetoException(Texts.get("AuthorizationFailed"));
     }
-
     //TODO: Add a Sync block?
     SQL.insert(
-        " insert into      category(name) " +
-            " values (:categoryName) ",
+        " insert into      actor(first_name, last_name) " +
+            " values (:firstName, :lastName) ",
         formData
         );
     SQL.selectInto(
-        " select      category_id, " +
+        " select      actor_id, " +
             "             last_update " +
-            " from        category " +
-            " where       category_id = LAST_INSERT_ID() " +
+            " from        actor " +
+            " where       actor_id = LAST_INSERT_ID() " +
             " into        :id, " +
             "             :lastUpdate ",
         formData.getMetadataBox());
     return formData;
   }
 
-  public CategoryFormData load(CategoryFormData formData) throws ProcessingException {
-    if (!ACCESS.check(new ReadCategoryPermission())) {
+  public ActorFormData load(ActorFormData formData) throws ProcessingException {
+    if (!ACCESS.check(new ReadActorPermission())) {
       throw new VetoException(Texts.get("AuthorizationFailed"));
     }
     SQL.selectInto(
-            "select      last_update, " +
-                "            name " +
-                " from       category " +
-                " where      category_id = :id " +
-                " into       :lastUpdate, " +
-                "            :categoryName ",
-            formData.getMetadataBox(),
+        "select      last_update, " +
+            "            first_name," +
+            "            last_name " +
+            " from       actor " +
+            " where      actor_id = :id " +
+            " into       :lastUpdate, " +
+            "            :firstName," +
+            "            :lastName ",
+        formData.getMetadataBox(),
         formData
         );
 
     return formData;
   }
 
-  public CategoryFormData store(CategoryFormData formData) throws ProcessingException {
-    if (!ACCESS.check(new UpdateCategoryPermission())) {
+  public ActorFormData store(ActorFormData formData) throws ProcessingException {
+    if (!ACCESS.check(new UpdateActorPermission())) {
       throw new VetoException(Texts.get("AuthorizationFailed"));
     }
     SQL.update(
-        " update      category " +
-            " set         name = :categoryName " +
-            " where       category_id = :id ",
+        " update      actor " +
+            " set         first_name = :firstName," +
+            "             last_name = :lastName " +
+            " where       actor_id = :id ",
         formData.getMetadataBox(),
         formData
         );
     return formData;
   }
 
-  public boolean delete(Long[] categoryIds) throws ProcessingException {
-    if (!ACCESS.check(new DeleteCategoryPermission())) {
+  public boolean delete(Long[] actorIds) throws ProcessingException {
+    if (!ACCESS.check(new DeleteActorPermission())) {
       throw new VetoException(Texts.get("AuthorizationFailed"));
     }
     int nbRows = SQL.delete(
-        " delete       from category" +
-            " where    category_id = :id",
-        new NVPair("id", categoryIds)
+        " delete       from actor" +
+            " where    actor_id = :id",
+        new NVPair("id", actorIds)
         );
     return nbRows > 0;
   }

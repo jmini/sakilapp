@@ -1,13 +1,10 @@
 package net.sakilapp.shared.formdata;
 
 import java.util.Date;
-
-import org.eclipse.scout.rt.shared.data.form.AbstractFormData;
 import org.eclipse.scout.rt.shared.data.form.fields.AbstractValueFieldData;
-import org.eclipse.scout.commons.annotations.FormDataChecksum;
+import org.eclipse.scout.rt.shared.data.form.AbstractFormData;
 
-@FormDataChecksum(2116434561l)
-  public class CategoriesSearchFormData extends AbstractFormData {
+public class CategoriesSearchFormData extends AbstractFormData {
   private static final long serialVersionUID = 1L;
 
   public CategoriesSearchFormData() {
@@ -38,7 +35,6 @@ import org.eclipse.scout.commons.annotations.FormDataChecksum;
 
     public CategoryIdFrom() {
     }
-
   }
 
   public class CategoryIdTo extends AbstractValueFieldData<Long> {
@@ -46,7 +42,6 @@ import org.eclipse.scout.commons.annotations.FormDataChecksum;
 
     public CategoryIdTo() {
     }
-
   }
 
   public class LastUpdateFrom extends AbstractValueFieldData<Date> {
@@ -54,7 +49,6 @@ import org.eclipse.scout.commons.annotations.FormDataChecksum;
 
     public LastUpdateFrom() {
     }
-
   }
 
   public class LastUpdateTo extends AbstractValueFieldData<Date> {
@@ -62,7 +56,6 @@ import org.eclipse.scout.commons.annotations.FormDataChecksum;
 
     public LastUpdateTo() {
     }
-
   }
 
   public class Name extends AbstractValueFieldData<String> {
@@ -70,6 +63,5 @@ import org.eclipse.scout.commons.annotations.FormDataChecksum;
 
     public Name() {
     }
-
   }
 }
