@@ -26,6 +26,7 @@ import net.sakilapp.shared.services.process.IFilmProcessService;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.exception.VetoException;
 import org.eclipse.scout.commons.holders.NVPair;
+import org.eclipse.scout.commons.holders.StringHolder;
 import org.eclipse.scout.rt.server.services.common.jdbc.SQL;
 import org.eclipse.scout.rt.shared.services.common.security.ACCESS;
 import org.eclipse.scout.service.AbstractService;
@@ -66,16 +67,44 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
     if (!ACCESS.check(new ReadFilmPermission())) {
       throw new VetoException(Texts.get("AuthorizationFailed"));
     }
+
+    StringHolder SpecialFeatureList = new StringHolder();
     SQL.selectInto(
-        "select      last_update " +
-            //TODO: add fields            "            name " +
+        "select      last_update, " +
+            "            title, " +
+            "            description, " +
+            "            CONVERT(release_year, CHAR(4)), " +
+            "            language_id, " +
+            "            original_language_id, " +
+            "            rental_duration, " +
+            "            rental_rate, " +
+            "            length, " +
+            "            replacement_cost, " +
+            "            rating, " +
+            "            special_features " +
             " from       film " +
             " where      film_id = :id " +
-            " into       :lastUpdate " +
-            "             ",
+            " into       :lastUpdate, " +
+            "            :Title, " +
+            "            :Description, " +
+            "            :ReleaseYear, " +
+            "            :Language, " +
+            "            :OriginalLanguage, " +
+            "            :RentalDuration, " +
+            "            :RentalRate, " +
+            "            :Length, " +
+            "            :ReplacementCost, " +
+            "            :Rating," +
+            "            :SpecialFeatureList",
         formData.getMetadataBox(),
+        new NVPair("SpecialFeatureList", SpecialFeatureList),
         formData
         );
+
+    String specialFeatureList = SpecialFeatureList.getValue();
+    if (specialFeatureList != null) {
+      formData.getSpecialFeatures().setValue(specialFeatureList.split(","));
+    }
 
     return formData;
   }

@@ -22,10 +22,23 @@ import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBo
 import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.FilmIdBox;
 import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.FilmIdBox.FilmIdFrom;
 import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.FilmIdBox.FilmIdTo;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.LanguageField;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.LengthField;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.OriginalLanguageField;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.RatingField;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.ReleaseYearBox;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.ReleaseYearBox.ReleaseYearFrom;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.ReleaseYearBox.ReleaseYearTo;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.RentalPriceField;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.RentalPriceField.RentalDurationField;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.RentalPriceField.RentalRateField;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.ReplacementCostField;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.SpecialFeaturesField;
 import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.TitleField;
 import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.FilmsSearchFormData;
 import net.sakilapp.shared.services.code.RatingCodeType;
+import net.sakilapp.shared.services.code.SpecialFeatureCodeType;
 import net.sakilapp.shared.services.lookup.LanguageLookupCall;
 
 import org.eclipse.scout.commons.annotations.FormData;
@@ -37,11 +50,12 @@ import org.eclipse.scout.rt.client.ui.form.AbstractFormHandler;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractResetButton;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractSearchButton;
 import org.eclipse.scout.rt.client.ui.form.fields.datefield.AbstractDateField;
+import org.eclipse.scout.rt.client.ui.form.fields.doublefield.AbstractDoubleField;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
+import org.eclipse.scout.rt.client.ui.form.fields.integerfield.AbstractIntegerField;
 import org.eclipse.scout.rt.client.ui.form.fields.listbox.AbstractListBox;
 import org.eclipse.scout.rt.client.ui.form.fields.longfield.AbstractLongField;
 import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBox;
-import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
 import org.eclipse.scout.rt.client.ui.form.fields.tabbox.AbstractTabBox;
 import org.eclipse.scout.rt.shared.ScoutTexts;
@@ -62,22 +76,6 @@ public class FilmsSearchForm extends AbstractSearchForm {
     super();
   }
 
-  public FieldBox getFieldBox() {
-    return getFieldByClass(FieldBox.class);
-  }
-
-  public FilmIdBox getFilmIdBox() {
-    return getFieldByClass(FilmIdBox.class);
-  }
-
-  public FilmIdFrom getFilmIdFrom() {
-    return getFieldByClass(FilmIdFrom.class);
-  }
-
-  public FilmIdTo getFilmIdTo() {
-    return getFieldByClass(FilmIdTo.class);
-  }
-
   public MainBox getMainBox() {
     return getFieldByClass(MainBox.class);
   }
@@ -94,8 +92,72 @@ public class FilmsSearchForm extends AbstractSearchForm {
     return getFieldByClass(TabBox.class);
   }
 
+  public FieldBox getFieldBox() {
+    return getFieldByClass(FieldBox.class);
+  }
+
+  public FilmIdBox getFilmIdBox() {
+    return getFieldByClass(FilmIdBox.class);
+  }
+
+  public FilmIdFrom getFilmIdFrom() {
+    return getFieldByClass(FilmIdFrom.class);
+  }
+
+  public FilmIdTo getFilmIdTo() {
+    return getFieldByClass(FilmIdTo.class);
+  }
+
   public TitleField getTitleField() {
     return getFieldByClass(TitleField.class);
+  }
+
+  public ReleaseYearBox getReleaseYearBox() {
+    return getFieldByClass(ReleaseYearBox.class);
+  }
+
+  public ReleaseYearFrom getReleaseYearFrom() {
+    return getFieldByClass(ReleaseYearFrom.class);
+  }
+
+  public ReleaseYearTo getReleaseYearTo() {
+    return getFieldByClass(ReleaseYearTo.class);
+  }
+
+  public LanguageField getLanguageField() {
+    return getFieldByClass(LanguageField.class);
+  }
+
+  public OriginalLanguageField getOriginalLanguageField() {
+    return getFieldByClass(OriginalLanguageField.class);
+  }
+
+  public LengthField getLengthField() {
+    return getFieldByClass(LengthField.class);
+  }
+
+  public RentalPriceField getRentalPriceField() {
+    return getFieldByClass(RentalPriceField.class);
+  }
+
+  public RentalRateField getRentalRateField() {
+    return getFieldByClass(RentalRateField.class);
+  }
+
+  public RentalDurationField getRentalDurationField() {
+    return getFieldByClass(RentalDurationField.class);
+  }
+
+  public ReplacementCostField getReplacementCostField() {
+    return getFieldByClass(ReplacementCostField.class);
+  }
+
+  public RatingField getRatingField() {
+    return getFieldByClass(RatingField.class);
+  }
+
+  public SpecialFeaturesField getSpecialFeaturesField() {
+    return getFieldByClass(SpecialFeaturesField.class);
   }
 
   @Override
@@ -184,8 +246,13 @@ public class FilmsSearchForm extends AbstractSearchForm {
         }
 
         @Order(40.0)
-        public class LanguageField extends AbstractSmartField<Long> {
+        public class LanguageField extends AbstractListBox<Long> {
 
+          @Override
+          protected int getConfiguredGridH() {
+            return 4;
+          }
+          
           @Override
           protected String getConfiguredLabel() {
             return ScoutTexts.get("Language");
@@ -198,8 +265,13 @@ public class FilmsSearchForm extends AbstractSearchForm {
         }
 
         @Order(50.0)
-        public class OriginalLanguageField extends AbstractSmartField<Long> {
+        public class OriginalLanguageField extends AbstractListBox<Long> {
 
+          @Override
+          protected int getConfiguredGridH() {
+            return 4;
+          }
+          
           @Override
           protected String getConfiguredLabel() {
             return Texts.get("OriginalLanguage");
@@ -221,11 +293,20 @@ public class FilmsSearchForm extends AbstractSearchForm {
         }
 
         @Order(70.0)
-        public class RentalPriceField extends AbstractStringField {
+        public class RentalPriceField extends AbstractSequenceBox {
 
           @Override
           protected String getConfiguredLabel() {
             return Texts.get("RentalPrice");
+          }
+
+          //TODO: from - to
+          @Order(10.0)
+          public class RentalRateField extends AbstractDoubleField {
+          }
+
+          @Order(20.0)
+          public class RentalDurationField extends AbstractIntegerField {
           }
         }
 
@@ -242,6 +323,11 @@ public class FilmsSearchForm extends AbstractSearchForm {
         public class RatingField extends AbstractListBox<String> {
 
           @Override
+          protected int getConfiguredGridH() {
+            return 4;
+          }
+
+          @Override
           protected String getConfiguredLabel() {
             return Texts.get("Rating");
           }
@@ -253,11 +339,21 @@ public class FilmsSearchForm extends AbstractSearchForm {
         }
 
         @Order(100.0)
-        public class SpecialFeaturesField extends AbstractStringField {
+        public class SpecialFeaturesField extends AbstractListBox<String> {
+
+          @Override
+          protected int getConfiguredGridH() {
+            return 4;
+          }
 
           @Override
           protected String getConfiguredLabel() {
             return Texts.get("SpecialFeatures");
+          }
+
+          @Override
+          protected Class<? extends ICodeType> getConfiguredCodeType() {
+            return SpecialFeatureCodeType.class;
           }
         }
 

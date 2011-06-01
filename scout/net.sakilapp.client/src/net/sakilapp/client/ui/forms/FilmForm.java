@@ -16,12 +16,28 @@
 package net.sakilapp.client.ui.forms;
 
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.CancelButton;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.DescriptionField;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.LanguageField;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.LengthField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.MetadataBox;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.OkButton;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.OriginalLanguageField;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.RatingField;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.ReleaseYearField;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.RentalPriceBox;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.ReplacementCostField;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.SpecialFeaturesField;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.TitleField;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.RentalPriceField.RentalDurationField;
+import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.RentalPriceField.RentalRateField;
 import net.sakilapp.client.ui.template.formfield.AbstractMetadataBox;
 import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.FilmFormData;
 import net.sakilapp.shared.security.UpdateFilmPermission;
+import net.sakilapp.shared.services.code.RatingCodeType;
+import net.sakilapp.shared.services.code.SpecialFeatureCodeType;
+import net.sakilapp.shared.services.lookup.LanguageLookupCall;
+import net.sakilapp.shared.services.lookup.YearLookupCall;
 import net.sakilapp.shared.services.process.IFilmProcessService;
 
 import org.eclipse.scout.commons.annotations.FormData;
@@ -31,7 +47,16 @@ import org.eclipse.scout.rt.client.ui.form.AbstractForm;
 import org.eclipse.scout.rt.client.ui.form.AbstractFormHandler;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractCancelButton;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractOkButton;
+import org.eclipse.scout.rt.client.ui.form.fields.doublefield.AbstractDoubleField;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
+import org.eclipse.scout.rt.client.ui.form.fields.integerfield.AbstractIntegerField;
+import org.eclipse.scout.rt.client.ui.form.fields.listbox.AbstractListBox;
+import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBox;
+import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
+import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
+import org.eclipse.scout.rt.shared.ScoutTexts;
+import org.eclipse.scout.rt.shared.services.common.code.ICodeType;
+import org.eclipse.scout.rt.shared.services.lookup.LookupCall;
 import org.eclipse.scout.service.SERVICES;
 
 @FormData(value = FilmFormData.class, sdkCommand = FormData.SdkCommand.CREATE)
@@ -58,6 +83,18 @@ public class FilmForm extends AbstractForm {
     return getFieldByClass(CancelButton.class);
   }
 
+  public DescriptionField getDescriptionField() {
+    return getFieldByClass(DescriptionField.class);
+  }
+
+  public LanguageField getLanguageField() {
+    return getFieldByClass(LanguageField.class);
+  }
+
+  public LengthField getLengthField() {
+    return getFieldByClass(LengthField.class);
+  }
+
   public MainBox getMainBox() {
     return getFieldByClass(MainBox.class);
   }
@@ -68,6 +105,42 @@ public class FilmForm extends AbstractForm {
 
   public OkButton getOkButton() {
     return getFieldByClass(OkButton.class);
+  }
+
+  public OriginalLanguageField getOriginalLanguageField() {
+    return getFieldByClass(OriginalLanguageField.class);
+  }
+
+  public RatingField getRatingField() {
+    return getFieldByClass(RatingField.class);
+  }
+
+  public ReleaseYearField getReleaseYearField() {
+    return getFieldByClass(ReleaseYearField.class);
+  }
+
+  public RentalDurationField getRentalDurationField() {
+    return getFieldByClass(RentalDurationField.class);
+  }
+
+  public RentalPriceBox getRentalPriceBox() {
+    return getFieldByClass(RentalPriceBox.class);
+  }
+
+  public RentalRateField getRentalRateField() {
+    return getFieldByClass(RentalRateField.class);
+  }
+
+  public ReplacementCostField getReplacementCostField() {
+    return getFieldByClass(ReplacementCostField.class);
+  }
+
+  public SpecialFeaturesField getSpecialFeaturesField() {
+    return getFieldByClass(SpecialFeaturesField.class);
+  }
+
+  public TitleField getTitleField() {
+    return getFieldByClass(TitleField.class);
   }
 
   /**
@@ -98,13 +171,204 @@ public class FilmForm extends AbstractForm {
 
     }
 
-    //TODO: add fields
+    @Order(20.0)
+    public class TitleField extends AbstractStringField {
+
+      @Override
+      protected String getConfiguredLabel() {
+        return ScoutTexts.get("Title");
+      }
+    }
+
+    @Order(25.0)
+    public class DescriptionField extends AbstractStringField {
+
+      @Override
+      protected int getConfiguredGridH() {
+        return 4;
+      }
+
+      @Override
+      protected String getConfiguredLabel() {
+        return Texts.get("Description");
+      }
+
+      @Override
+      protected boolean getConfiguredMultilineText() {
+        return true;
+      }
+
+      @Override
+      protected boolean getConfiguredWrapText() {
+        return true;
+      }
+    }
 
     @Order(30.0)
-    public class OkButton extends AbstractOkButton {
+    public class ReleaseYearField extends AbstractSmartField<Integer> {
+
+      @Override
+      protected String getConfiguredLabel() {
+        return Texts.get("ReleaseYear");
+      }
+
+      @Override
+      protected Class<? extends LookupCall> getConfiguredLookupCall() {
+        return YearLookupCall.class;
+      }
     }
 
     @Order(40.0)
+    public class LanguageField extends AbstractSmartField<Long> {
+
+      @Override
+      protected String getConfiguredLabel() {
+        return ScoutTexts.get("Language");
+      }
+
+      @Override
+      protected Class<? extends LookupCall> getConfiguredLookupCall() {
+        return LanguageLookupCall.class;
+      }
+    }
+
+    @Order(50.0)
+    public class OriginalLanguageField extends AbstractSmartField<Long> {
+
+      @Override
+      protected String getConfiguredLabel() {
+        return Texts.get("OriginalLanguage");
+      }
+
+      @Override
+      protected Class<? extends LookupCall> getConfiguredLookupCall() {
+        return LanguageLookupCall.class;
+      }
+    }
+
+    @Order(60.0)
+    public class LengthField extends AbstractIntegerField {
+
+      @Override
+      protected String getConfiguredLabel() {
+        return Texts.get("Length");
+      }
+    }
+
+    @Order(70.0)
+    public class RentalPriceBox extends AbstractSequenceBox {
+
+      @Override
+      protected String getConfiguredLabel() {
+        return Texts.get("RentalPrice");
+      }
+
+      @Order(10.0)
+      public class RentalRateField extends AbstractDoubleField {
+
+        @Override
+        protected String execFormatValue(Double validValue) {
+          String f = super.execFormatValue(validValue);
+          if (validValue != null) {
+            f = f + " $";
+          }
+          return f;
+        }
+
+        @Override
+        protected Double execParseValue(String text) throws ProcessingException {
+          String t = text.replaceAll("\\$", "");
+          return super.execParseValue(t);
+        }
+      }
+
+      @Order(20.0)
+      public class RentalDurationField extends AbstractIntegerField {
+
+        @Override
+        protected String getConfiguredLabel() {
+          return Texts.get("Slash");
+        }
+
+        @Override
+        protected String execFormatValue(Integer validValue) {
+          String f = super.execFormatValue(validValue);
+          if (validValue != null) {
+            f = f + " " + Texts.get("Days");
+          }
+          return f;
+        }
+
+        @Override
+        protected Integer execParseValue(String text) throws ProcessingException {
+          String t = text.replaceAll(Texts.get("Days"), "");
+          return super.execParseValue(t);
+        }
+      }
+    }
+
+    @Order(80.0)
+    public class ReplacementCostField extends AbstractDoubleField {
+
+      @Override
+      protected String getConfiguredLabel() {
+        return Texts.get("ReplacementCost");
+      }
+
+      @Override
+      protected String execFormatValue(Double validValue) {
+        String f = super.execFormatValue(validValue);
+        if (validValue != null) {
+          f = f + " $";
+        }
+        return f;
+      }
+
+      @Override
+      protected Double execParseValue(String text) throws ProcessingException {
+        String t = text.replaceAll("\\$", "");
+        return super.execParseValue(t);
+      }
+    }
+
+    @Order(90.0)
+    public class RatingField extends AbstractSmartField<String> {
+
+      @Override
+      protected Class<? extends ICodeType<?>> getConfiguredCodeType() {
+        return RatingCodeType.class;
+      }
+
+      @Override
+      protected String getConfiguredLabel() {
+        return Texts.get("Rating");
+      }
+    }
+
+    @Order(100.0)
+    public class SpecialFeaturesField extends AbstractListBox<String> {
+
+      @Override
+      protected Class<? extends ICodeType> getConfiguredCodeType() {
+        return SpecialFeatureCodeType.class;
+      }
+
+      @Override
+      protected int getConfiguredGridH() {
+        return 8;
+      }
+
+      @Override
+      protected String getConfiguredLabel() {
+        return Texts.get("SpecialFeatures");
+      }
+    }
+
+    @Order(110.0)
+    public class OkButton extends AbstractOkButton {
+    }
+
+    @Order(120.0)
     public class CancelButton extends AbstractCancelButton {
     }
   }

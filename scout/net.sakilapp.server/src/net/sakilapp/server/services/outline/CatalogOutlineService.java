@@ -68,7 +68,7 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
             "        name, " +
             "        last_update" +
             " from   category " +
-            " where  1 = 1 " +
+            " and  1 = 1 " +
             categoriesStatementBuilder.build(filter.getFormData()),
             categoriesStatementBuilder.getBindMap());
     return result;

@@ -50,8 +50,12 @@ public class FilmsSearchFormData extends AbstractFormData {
     return getFieldByClass(ReleaseYearTo.class);
   }
 
-  public RentalPrice getRentalPrice() {
-    return getFieldByClass(RentalPrice.class);
+  public RentalDuration getRentalDuration() {
+    return getFieldByClass(RentalDuration.class);
+  }
+
+  public RentalRate getRentalRate() {
+    return getFieldByClass(RentalRate.class);
   }
 
   public ReplacementCost getReplacementCost() {
@@ -80,7 +84,7 @@ public class FilmsSearchFormData extends AbstractFormData {
     }
   }
 
-  public class Language extends AbstractValueFieldData<Long> {
+  public class Language extends AbstractValueFieldData<Long[]> {
     private static final long serialVersionUID = 1L;
 
     public Language() {
@@ -108,7 +112,7 @@ public class FilmsSearchFormData extends AbstractFormData {
     }
   }
 
-  public class OriginalLanguage extends AbstractValueFieldData<Long> {
+  public class OriginalLanguage extends AbstractValueFieldData<Long[]> {
     private static final long serialVersionUID = 1L;
 
     public OriginalLanguage() {
@@ -136,10 +140,17 @@ public class FilmsSearchFormData extends AbstractFormData {
     }
   }
 
-  public class RentalPrice extends AbstractValueFieldData<String> {
+  public class RentalDuration extends AbstractValueFieldData<Integer> {
     private static final long serialVersionUID = 1L;
 
-    public RentalPrice() {
+    public RentalDuration() {
+    }
+  }
+
+  public class RentalRate extends AbstractValueFieldData<Double> {
+    private static final long serialVersionUID = 1L;
+
+    public RentalRate() {
     }
   }
 
@@ -150,7 +161,7 @@ public class FilmsSearchFormData extends AbstractFormData {
     }
   }
 
-  public class SpecialFeatures extends AbstractValueFieldData<String> {
+  public class SpecialFeatures extends AbstractValueFieldData<String[]> {
     private static final long serialVersionUID = 1L;
 
     public SpecialFeatures() {
