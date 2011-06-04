@@ -79,12 +79,12 @@ public class CategoriesTablePage extends AbstractPageWithTable<CategoriesTablePa
       return getColumnSet().getColumnByClass(CategoryIdColumn.class);
     }
 
-    public LastUpdateColumn getLastUpdateColumn() {
-      return getColumnSet().getColumnByClass(LastUpdateColumn.class);
-    }
-
     public NameColumn getNameColumn() {
       return getColumnSet().getColumnByClass(NameColumn.class);
+    }
+
+    public LastUpdateColumn getLastUpdateColumn() {
+      return getColumnSet().getColumnByClass(LastUpdateColumn.class);
     }
 
     @Order(10.0)

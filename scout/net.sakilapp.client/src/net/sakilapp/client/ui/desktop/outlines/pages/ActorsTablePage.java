@@ -71,6 +71,10 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
   @Order(10.0)
   public class Table extends AbstractTable {
 
+    public ActorIdColumn getActorIdColumn() {
+      return getColumnSet().getColumnByClass(ActorIdColumn.class);
+    }
+
     public FirstNameColumn getFirstNameColumn() {
       return getColumnSet().getColumnByClass(FirstNameColumn.class);
     }
@@ -86,10 +90,6 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
     @Override
     protected String getConfiguredDefaultIconId() {
       return AbstractIcons.Folder;
-    }
-
-    public ActorIdColumn getActorIdColumn() {
-      return getColumnSet().getColumnByClass(ActorIdColumn.class);
     }
 
     @Order(10.0)

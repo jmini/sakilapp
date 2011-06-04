@@ -49,7 +49,7 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
             " from   actor " +
             " where  1 = 1 " +
             actorsStatementBuilder.build(filter.getFormData()),
-            actorsStatementBuilder.getBindMap());
+        actorsStatementBuilder.getBindMap());
     return result;
   }
 
@@ -68,9 +68,9 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
             "        name, " +
             "        last_update" +
             " from   category " +
-            " and  1 = 1 " +
+            " where  1 = 1 " +
             categoriesStatementBuilder.build(filter.getFormData()),
-            categoriesStatementBuilder.getBindMap());
+        categoriesStatementBuilder.getBindMap());
     return result;
   }
 
@@ -118,10 +118,10 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
             sqlWhereCategory +
             sqlWhereActor +
             filmsStatementBuilder.build(filter.getFormData()),
-            filmsStatementBuilder.getBindMap(),
-            new NVPair("categoryId", categoryIdFilter),
-            new NVPair("actorId", actorIdFilter)
-            );
+        filmsStatementBuilder.getBindMap(),
+        new NVPair("categoryId", categoryIdFilter),
+        new NVPair("actorId", actorIdFilter)
+        );
 
     return result;
   }

@@ -15,7 +15,9 @@
  ******************************************************************************/
 package net.sakilapp.client.ui.forms;
 
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.ActorsTableField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.CancelButton;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.CategoriesTableField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.DescriptionField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.LanguageField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.LengthField;
@@ -25,11 +27,11 @@ import net.sakilapp.client.ui.forms.FilmForm.MainBox.OriginalLanguageField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.RatingField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.ReleaseYearField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.RentalPriceBox;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.RentalPriceBox.RentalDurationField;
+import net.sakilapp.client.ui.forms.FilmForm.MainBox.RentalPriceBox.RentalRateField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.ReplacementCostField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.SpecialFeaturesField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.TitleField;
-import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.RentalPriceField.RentalDurationField;
-import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.RentalPriceField.RentalRateField;
 import net.sakilapp.client.ui.template.formfield.AbstractMetadataBox;
 import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.FilmFormData;
@@ -43,6 +45,10 @@ import net.sakilapp.shared.services.process.IFilmProcessService;
 import org.eclipse.scout.commons.annotations.FormData;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
+import org.eclipse.scout.rt.client.ui.basic.table.AbstractTable;
+import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractLongColumn;
+import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.form.AbstractForm;
 import org.eclipse.scout.rt.client.ui.form.AbstractFormHandler;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractCancelButton;
@@ -54,6 +60,8 @@ import org.eclipse.scout.rt.client.ui.form.fields.listbox.AbstractListBox;
 import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBox;
 import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
+import org.eclipse.scout.rt.client.ui.form.fields.tablefield.AbstractTableField;
+import org.eclipse.scout.rt.client.ui.messagebox.MessageBox;
 import org.eclipse.scout.rt.shared.ScoutTexts;
 import org.eclipse.scout.rt.shared.services.common.code.ICodeType;
 import org.eclipse.scout.rt.shared.services.lookup.LookupCall;
@@ -79,8 +87,16 @@ public class FilmForm extends AbstractForm {
     startInternal(new FilmForm.NewHandler());
   }
 
+  public ActorsTableField getActorsTableField() {
+    return getFieldByClass(ActorsTableField.class);
+  }
+
   public CancelButton getCancelButton() {
     return getFieldByClass(CancelButton.class);
+  }
+
+  public CategoriesTableField getCategoriesTableField() {
+    return getFieldByClass(CategoriesTableField.class);
   }
 
   public DescriptionField getDescriptionField() {
@@ -175,17 +191,32 @@ public class FilmForm extends AbstractForm {
     public class TitleField extends AbstractStringField {
 
       @Override
+      protected int getConfiguredGridW() {
+        return 2;
+      }
+
+      @Override
       protected String getConfiguredLabel() {
         return ScoutTexts.get("Title");
       }
+
+      @Override
+      protected boolean getConfiguredMandatory() {
+        return true;
+      }
     }
 
-    @Order(25.0)
+    @Order(30.0)
     public class DescriptionField extends AbstractStringField {
 
       @Override
       protected int getConfiguredGridH() {
         return 4;
+      }
+
+      @Override
+      protected int getConfiguredGridW() {
+        return 2;
       }
 
       @Override
@@ -204,7 +235,7 @@ public class FilmForm extends AbstractForm {
       }
     }
 
-    @Order(30.0)
+    @Order(40.0)
     public class ReleaseYearField extends AbstractSmartField<Integer> {
 
       @Override
@@ -218,7 +249,7 @@ public class FilmForm extends AbstractForm {
       }
     }
 
-    @Order(40.0)
+    @Order(50.0)
     public class LanguageField extends AbstractSmartField<Long> {
 
       @Override
@@ -230,9 +261,14 @@ public class FilmForm extends AbstractForm {
       protected Class<? extends LookupCall> getConfiguredLookupCall() {
         return LanguageLookupCall.class;
       }
+
+      @Override
+      protected boolean getConfiguredMandatory() {
+        return true;
+      }
     }
 
-    @Order(50.0)
+    @Order(60.0)
     public class OriginalLanguageField extends AbstractSmartField<Long> {
 
       @Override
@@ -246,7 +282,7 @@ public class FilmForm extends AbstractForm {
       }
     }
 
-    @Order(60.0)
+    @Order(70.0)
     public class LengthField extends AbstractIntegerField {
 
       @Override
@@ -255,7 +291,7 @@ public class FilmForm extends AbstractForm {
       }
     }
 
-    @Order(70.0)
+    @Order(80.0)
     public class RentalPriceBox extends AbstractSequenceBox {
 
       @Override
@@ -265,6 +301,11 @@ public class FilmForm extends AbstractForm {
 
       @Order(10.0)
       public class RentalRateField extends AbstractDoubleField {
+
+        @Override
+        protected boolean getConfiguredMandatory() {
+          return true;
+        }
 
         @Override
         protected String execFormatValue(Double validValue) {
@@ -291,6 +332,11 @@ public class FilmForm extends AbstractForm {
         }
 
         @Override
+        protected boolean getConfiguredMandatory() {
+          return true;
+        }
+
+        @Override
         protected String execFormatValue(Integer validValue) {
           String f = super.execFormatValue(validValue);
           if (validValue != null) {
@@ -307,12 +353,17 @@ public class FilmForm extends AbstractForm {
       }
     }
 
-    @Order(80.0)
+    @Order(90.0)
     public class ReplacementCostField extends AbstractDoubleField {
 
       @Override
       protected String getConfiguredLabel() {
         return Texts.get("ReplacementCost");
+      }
+
+      @Override
+      protected boolean getConfiguredMandatory() {
+        return true;
       }
 
       @Override
@@ -331,7 +382,7 @@ public class FilmForm extends AbstractForm {
       }
     }
 
-    @Order(90.0)
+    @Order(100.0)
     public class RatingField extends AbstractSmartField<String> {
 
       @Override
@@ -345,7 +396,7 @@ public class FilmForm extends AbstractForm {
       }
     }
 
-    @Order(100.0)
+    @Order(110.0)
     public class SpecialFeaturesField extends AbstractListBox<String> {
 
       @Override
@@ -355,7 +406,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected int getConfiguredGridH() {
-        return 8;
+        return 7;
       }
 
       @Override
@@ -364,11 +415,270 @@ public class FilmForm extends AbstractForm {
       }
     }
 
-    @Order(110.0)
+    @Order(120.0)
+    public class ActorsTableField extends AbstractTableField<ActorsTableField.Table> {
+
+      @Override
+      protected int getConfiguredGridH() {
+        return 6;
+      }
+
+      @Override
+      protected int getConfiguredGridW() {
+        return 2;
+      }
+
+      @Override
+      protected String getConfiguredLabel() {
+        return Texts.get("Actors");
+      }
+
+      @Order(10.0)
+      public class Table extends AbstractTable {
+        public ActorIdColumn getActorIdColumn() {
+          return getColumnSet().getColumnByClass(ActorIdColumn.class);
+        }
+
+        public FirstNameColumn getFirstNameColumn() {
+          return getColumnSet().getColumnByClass(FirstNameColumn.class);
+        }
+
+        public LastNameColumn getLastNameColumn() {
+          return getColumnSet().getColumnByClass(LastNameColumn.class);
+        }
+
+        @Order(10.0)
+        public class ActorIdColumn extends AbstractLongColumn {
+
+          @Override
+          protected String getConfiguredHeaderText() {
+            return Texts.get("Id");
+          }
+
+          @Override
+          protected boolean getConfiguredPrimaryKey() {
+            return true;
+          }
+
+          @Override
+          protected boolean getConfiguredVisible() {
+            return false;
+          }
+
+          @Override
+          protected int getConfiguredWidth() {
+            return 60;
+          }
+        }
+
+        @Order(20.0)
+        public class FirstNameColumn extends AbstractStringColumn {
+
+          @Override
+          protected String getConfiguredHeaderText() {
+            return Texts.get("FirstName");
+          }
+
+          @Override
+          protected boolean getConfiguredSummary() {
+            return true;
+          }
+
+          @Override
+          protected int getConfiguredWidth() {
+            return 220;
+          }
+        }
+
+        @Order(30.0)
+        public class LastNameColumn extends AbstractStringColumn {
+
+          @Override
+          protected String getConfiguredHeaderText() {
+            return Texts.get("LastName");
+          }
+
+          @Override
+          protected boolean getConfiguredSummary() {
+            return true;
+          }
+
+          @Override
+          protected int getConfiguredWidth() {
+            return 220;
+          }
+        }
+
+        @Order(10.0)
+        public class AddMenu extends AbstractMenu {
+
+          @Override
+          protected boolean getConfiguredEmptySpaceAction() {
+            return true;
+          }
+
+          @Override
+          protected boolean getConfiguredSingleSelectionAction() {
+            return false;
+          }
+
+          @Override
+          protected String getConfiguredText() {
+            return ScoutTexts.get("SC_Label_AddToDictionary");
+          }
+
+          @Override
+          protected void execAction() throws ProcessingException {
+            //TODO: add a search dialog to add actors. Check for unique actor. Recreate deleted rows
+            MessageBox.showOkMessage("TODO", "To be implemented", "add actor with id 1");
+            addRowsByMatrix(new Object[]{new Object[]{1L, "First Name (id 1)", "Last Name (id 1)"}});
+          }
+        }
+
+        @Order(20.0)
+        public class DeleteMenu extends AbstractMenu {
+
+          @Override
+          protected String getConfiguredText() {
+            return ScoutTexts.get("DeleteMenu");
+          }
+
+          @Override
+          protected boolean getConfiguredMultiSelectionAction() {
+            return true;
+          }
+
+          @Override
+          protected void execAction() throws ProcessingException {
+            deleteRows(getSelectedRows());
+          }
+        }
+      }
+    }
+
+    @Order(130.0)
+    public class CategoriesTableField extends AbstractTableField<CategoriesTableField.Table> {
+
+      @Override
+      protected int getConfiguredGridH() {
+        return 4;
+      }
+
+      @Override
+      protected int getConfiguredGridW() {
+        return 2;
+      }
+
+      @Override
+      protected String getConfiguredLabel() {
+        return Texts.get("Categories");
+      }
+
+      @Order(10.0)
+      public class Table extends AbstractTable {
+        public CategoryIdColumn getCategoryIdColumn() {
+          return getColumnSet().getColumnByClass(CategoryIdColumn.class);
+        }
+
+        public NameColumn getNameColumn() {
+          return getColumnSet().getColumnByClass(NameColumn.class);
+        }
+
+        @Order(10.0)
+        public class CategoryIdColumn extends AbstractLongColumn {
+
+          @Override
+          protected String getConfiguredHeaderText() {
+            return Texts.get("Id");
+          }
+
+          @Override
+          protected boolean getConfiguredPrimaryKey() {
+            return true;
+          }
+
+          @Override
+          protected boolean getConfiguredVisible() {
+            return false;
+          }
+
+          @Override
+          protected int getConfiguredWidth() {
+            return 60;
+          }
+        }
+
+        @Order(20.0)
+        public class NameColumn extends AbstractStringColumn {
+
+          @Override
+          protected String getConfiguredHeaderText() {
+            return ScoutTexts.get("Name");
+          }
+
+          @Override
+          protected boolean getConfiguredSummary() {
+            return true;
+          }
+
+          @Override
+          protected int getConfiguredWidth() {
+            return 340;
+          }
+        }
+
+        @Order(10.0)
+        public class AddMenu extends AbstractMenu {
+
+          @Override
+          protected boolean getConfiguredEmptySpaceAction() {
+            return true;
+          }
+
+          @Override
+          protected boolean getConfiguredSingleSelectionAction() {
+            return false;
+          }
+
+          @Override
+          protected String getConfiguredText() {
+            return ScoutTexts.get("SC_Label_AddToDictionary");
+          }
+
+          @Override
+          protected void execAction() throws ProcessingException {
+            //TODO: add a search dialog to add categories. Check for unique category. Recreate deleted rows
+            MessageBox.showOkMessage("TODO", "To be implemented", "add category with id 1");
+            addRowsByMatrix(new Object[]{new Object[]{1L, "Category id 1"}});
+          }
+        }
+
+        @Order(20.0)
+        public class DeleteMenu extends AbstractMenu {
+
+          @Override
+          protected String getConfiguredText() {
+            return ScoutTexts.get("DeleteMenu");
+          }
+
+          @Override
+          protected boolean getConfiguredMultiSelectionAction() {
+            return true;
+          }
+
+          @Override
+          protected void execAction() throws ProcessingException {
+            deleteRows(getSelectedRows());
+          }
+        }
+      }
+    }
+
+    @Order(140.0)
     public class OkButton extends AbstractOkButton {
     }
 
-    @Order(120.0)
+    @Order(150.0)
     public class CancelButton extends AbstractCancelButton {
     }
   }

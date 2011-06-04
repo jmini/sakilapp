@@ -17,14 +17,18 @@ package net.sakilapp.server.services.process;
 
 import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.FilmFormData;
+import net.sakilapp.shared.formdata.FilmFormData.ActorsTable;
+import net.sakilapp.shared.formdata.FilmFormData.CategoriesTable;
 import net.sakilapp.shared.security.CreateFilmPermission;
 import net.sakilapp.shared.security.DeleteFilmPermission;
 import net.sakilapp.shared.security.ReadFilmPermission;
 import net.sakilapp.shared.security.UpdateFilmPermission;
 import net.sakilapp.shared.services.process.IFilmProcessService;
 
+import org.eclipse.scout.commons.StringUtility;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.exception.VetoException;
+import org.eclipse.scout.commons.holders.ITableHolder;
 import org.eclipse.scout.commons.holders.NVPair;
 import org.eclipse.scout.commons.holders.StringHolder;
 import org.eclipse.scout.rt.server.services.common.jdbc.SQL;
@@ -45,21 +49,48 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
     if (!ACCESS.check(new CreateFilmPermission())) {
       throw new VetoException(Texts.get("AuthorizationFailed"));
     }
+
     //TODO: Add a Sync block?
-//TODO: insert film values
-//    SQL.insert(
-//        " insert into      category(name) " +
-//            " values (:categoryName) ",
-//        formData
-//        );
-//    SQL.selectInto(
-//        " select      film_id, " +
-//            "             last_update " +
-//            " from        film " +
-//            " where       film_id = LAST_INSERT_ID() " +
-//            " into        :id, " +
-//            "             :lastUpdate ",
-//        formData.getMetadataBox());
+    SQL.insert(
+        " insert into   film( " +
+            " title, " +
+            " description, " +
+            " release_year, " +
+            " language_id, " +
+            " original_language_id, " +
+            " rental_duration, " +
+            " rental_rate, " +
+            " length, " +
+            " replacement_cost, " +
+            " rating, " +
+            " special_features " +
+            " ) values( " +
+            " :Title, " +
+            " :Description, " +
+            " :ReleaseYear, " +
+            " :Language, " +
+            " :OriginalLanguage, " +
+            " :RentalDuration, " +
+            " :RentalRate, " +
+            " :Length, " +
+            " :ReplacementCost, " +
+            " :Rating," +
+            " :SpecialFeatureList " +
+            " ) ",
+        new NVPair("SpecialFeatureList", StringUtility.join(",", formData.getSpecialFeatures().getValue())),
+        formData
+        );
+    SQL.selectInto(
+        " select      film_id, " +
+            "             last_update " +
+            " from        film " +
+            " where       film_id = LAST_INSERT_ID() " +
+            " into        :id, " +
+            "             :lastUpdate ",
+        formData.getMetadataBox());
+
+    storeFilmActor(formData);
+    storeFilmCategory(formData);
     return formData;
   }
 
@@ -101,6 +132,32 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
         formData
         );
 
+    SQL.selectInto(
+        "select      actor_id, " +
+            "        first_name, " +
+            "        last_name " +
+            " from   actor " +
+            " where  1 = 1 " +
+            " and    actor_id in (select actor_id from film_actor where film_id = :id) " +
+            " into   :ActorId, " +
+            "        :FirstName," +
+            "        :LastName ",
+        formData.getMetadataBox(),
+        formData.getActorsTable()
+        );
+
+    SQL.selectInto(
+        "select      category_id, " +
+            "        name " +
+            " from   category " +
+            " where  1 = 1 " +
+            " and    category_id in (select category_id from film_category where film_id = :id) " +
+            " into   :CategoryId, " +
+            "        :Name ",
+        formData.getMetadataBox(),
+        formData.getCategoriesTable()
+        );
+
     String specialFeatureList = SpecialFeatureList.getValue();
     if (specialFeatureList != null) {
       formData.getSpecialFeatures().setValue(specialFeatureList.split(","));
@@ -113,15 +170,106 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
     if (!ACCESS.check(new UpdateFilmPermission())) {
       throw new VetoException(Texts.get("AuthorizationFailed"));
     }
-    //TODO: update
-//    SQL.update(
-//        " update      film " +
-//            " set         name = :categoryName " +
-//            " where       category_id = :id ",
-//        formData.getMetadataBox(),
-//        formData
-//        );
+
+    SQL.update(
+        " update      film " +
+            " set         title                = :Title, " +
+            "             description          = :Description, " +
+            "             release_year         = :ReleaseYear, " +
+            "             language_id          = :Language, " +
+            "             original_language_id = :OriginalLanguage, " +
+            "             rental_duration      = :RentalDuration, " +
+            "             rental_rate          = :RentalRate, " +
+            "             length               = :Length, " +
+            "             replacement_cost     = :ReplacementCost, " +
+            "             rating               = :Rating," +
+            "             special_features     = :SpecialFeatureList" +
+            " where       film_id = :id ",
+        formData.getMetadataBox(),
+        new NVPair("SpecialFeatureList", StringUtility.join(",", formData.getSpecialFeatures().getValue())),
+        formData
+        );
+    storeFilmActor(formData);
+    storeFilmCategory(formData);
     return formData;
+  }
+
+  /**
+   * @param formData
+   * @throws ProcessingException
+   */
+  private void storeFilmActor(FilmFormData formData) throws ProcessingException {
+    ActorsTable table = formData.getActorsTable();
+    for (int i = 0; i < table.getRowCount(); i++) {
+      switch (table.getRowState(i)) {
+        case ITableHolder.STATUS_INSERTED:
+          SQL.insert(
+              " insert into film_actor(" +
+                  "    film_id, " +
+                  "    actor_id " +
+                  " ) values( " +
+                  "    :id, " +
+                  "    :ActorId " +
+                  " ) ",
+              formData.getMetadataBox(),
+              new NVPair("ActorId", table.getActorId(i))
+              );
+          break;
+        case ITableHolder.STATUS_DELETED:
+          SQL.delete(
+              " delete       from film_actor " +
+                  " where    film_id = :id " +
+                  " and      actor_id = :ActorId",
+              formData.getMetadataBox(),
+              new NVPair("ActorId", table.getActorId(i))
+              );
+          break;
+        case ITableHolder.STATUS_NON_CHANGED:
+        case ITableHolder.STATUS_UPDATED:
+        default:
+          //Do nothing
+          break;
+      }
+    }
+  }
+
+  /**
+   * @param formData
+   * @throws ProcessingException
+   */
+  private void storeFilmCategory(FilmFormData formData) throws ProcessingException {
+    CategoriesTable table = formData.getCategoriesTable();
+    for (int i = 0; i < table.getRowCount(); i++) {
+      switch (table.getRowState(i)) {
+        case ITableHolder.STATUS_INSERTED:
+          SQL.insert(
+              " insert into film_category(" +
+                  "    film_id, " +
+                  "    category_id " +
+                  " ) values( " +
+                  "    :id, " +
+                  "    :CategoryId " +
+                  " ) ",
+              formData.getMetadataBox(),
+              new NVPair("CategoryId", table.getCategoryId(i))
+              );
+          break;
+        case ITableHolder.STATUS_DELETED:
+          SQL.delete(
+              " delete       from film_category " +
+                  " where    film_id = :id " +
+                  " and      category_id = :CategoryId",
+              formData.getMetadataBox(),
+              new NVPair("CategoryId", table.getCategoryId(i))
+              );
+          break;
+        case ITableHolder.STATUS_NON_CHANGED:
+        case ITableHolder.STATUS_UPDATED:
+        default:
+          //Do nothing
+          break;
+      }
+    }
   }
 
   public boolean delete(Long[] filmIds) throws ProcessingException {
