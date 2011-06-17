@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.sakilapp.server.services.process;
 
+import java.util.HashMap;
+
 import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.FilmFormData;
 import net.sakilapp.shared.formdata.FilmFormData.ActorsTable;
@@ -32,6 +34,7 @@ import org.eclipse.scout.commons.holders.ITableHolder;
 import org.eclipse.scout.commons.holders.NVPair;
 import org.eclipse.scout.commons.holders.StringHolder;
 import org.eclipse.scout.rt.server.services.common.jdbc.SQL;
+import org.eclipse.scout.rt.shared.data.form.fields.tablefield.AbstractTableFieldData;
 import org.eclipse.scout.rt.shared.services.common.security.ACCESS;
 import org.eclipse.scout.service.AbstractService;
 
@@ -200,6 +203,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
    */
   private void storeFilmActor(FilmFormData formData) throws ProcessingException {
     ActorsTable table = formData.getActorsTable();
+    cleanupTable(table, 0);
     for (int i = 0; i < table.getRowCount(); i++) {
       switch (table.getRowState(i)) {
         case ITableHolder.STATUS_INSERTED:
@@ -239,6 +243,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
    */
   private void storeFilmCategory(FilmFormData formData) throws ProcessingException {
     CategoriesTable table = formData.getCategoriesTable();
+    cleanupTable(table, 0);
     for (int i = 0; i < table.getRowCount(); i++) {
       switch (table.getRowState(i)) {
         case ITableHolder.STATUS_INSERTED:
@@ -262,6 +267,50 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
               formData.getMetadataBox(),
               new NVPair("CategoryId", table.getCategoryId(i))
               );
+          break;
+        case ITableHolder.STATUS_NON_CHANGED:
+        case ITableHolder.STATUS_UPDATED:
+        default:
+          //Do nothing
+          break;
+      }
+    }
+  }
+
+  /**
+   * This function clean the status if a row was deleted and added
+   * TODO: make the check client-side.
+   * 
+   * @param table
+   *          the tableFieldData
+   * @param valueColumn
+   *          the index of the column that need to be compared.
+   */
+  private void cleanupTable(AbstractTableFieldData table, int valueColumn) {
+    HashMap<Object, Integer> deletedMap = new HashMap<Object, Integer>();
+    HashMap<Object, Integer> insertedMap = new HashMap<Object, Integer>();
+
+    for (int i = 0; i < table.getRowCount(); i++) {
+      switch (table.getRowState(i)) {
+        case ITableHolder.STATUS_INSERTED:
+          if (deletedMap.containsKey(table.getValueAt(i, valueColumn))) {
+            Integer index = deletedMap.get(table.getValueAt(i, valueColumn));
+            table.setRowState(index.intValue(), ITableHolder.STATUS_UPDATED);
+            table.setRowState(i, ITableHolder.STATUS_UPDATED);
+          }
+          else {
+            insertedMap.put(table.getValueAt(i, valueColumn), Integer.valueOf(i));
+          }
+          break;
+        case ITableHolder.STATUS_DELETED:
+          if (insertedMap.containsKey(table.getValueAt(i, valueColumn))) {
+            Integer index = insertedMap.get(table.getValueAt(i, valueColumn));
+            table.setRowState(index.intValue(), ITableHolder.STATUS_UPDATED);
+            table.setRowState(i, ITableHolder.STATUS_UPDATED);
+          }
+          else {
+            deletedMap.put(table.getValueAt(i, valueColumn), Integer.valueOf(i));
+          }
           break;
         case ITableHolder.STATUS_NON_CHANGED:
         case ITableHolder.STATUS_UPDATED:

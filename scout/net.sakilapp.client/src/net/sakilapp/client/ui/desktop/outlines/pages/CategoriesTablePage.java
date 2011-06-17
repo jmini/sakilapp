@@ -50,6 +50,10 @@ public class CategoriesTablePage extends AbstractPageWithTable<CategoriesTablePa
     return CategoriesSearchForm.class;
   }
 
+  protected CategoriesSearchForm getSearchForm() {
+    return (CategoriesSearchForm) getSearchFormInternal();
+  }
+
   @Override
   protected String getConfiguredTitle() {
     return Texts.get("ByCategory");
@@ -173,6 +177,7 @@ public class CategoriesTablePage extends AbstractPageWithTable<CategoriesTablePa
         form.startNew();
         form.waitFor();
         if (form.isFormStored()) {
+          getSearchForm().resetAndSelectCategory(form.getMetadataBox().getIdField().getValue());
           reloadPage();
         }
       }

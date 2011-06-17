@@ -51,6 +51,10 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
     return ActorsSearchForm.class;
   }
 
+  protected ActorsSearchForm getSearchForm() {
+    return (ActorsSearchForm) getSearchFormInternal();
+  }
+
   @Override
   protected Object[][] execLoadTableData(SearchFilter filter) throws ProcessingException {
     return SERVICES.getService(ICatalogOutlineService.class).loadActors(filter);
@@ -197,6 +201,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
         form.startNew();
         form.waitFor();
         if (form.isFormStored()) {
+          getSearchForm().resetAndSelectActor(form.getMetadataBox().getIdField().getValue());
           reloadPage();
         }
       }

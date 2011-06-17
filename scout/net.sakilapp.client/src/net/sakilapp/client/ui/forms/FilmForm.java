@@ -15,6 +15,8 @@
  ******************************************************************************/
 package net.sakilapp.client.ui.forms;
 
+import net.sakilapp.client.ui.desktop.outlines.pages.ActorsTablePage;
+import net.sakilapp.client.ui.desktop.outlines.pages.CategoriesTablePage;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.ActorsTableField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.CancelButton;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.CategoriesTableField;
@@ -42,11 +44,13 @@ import net.sakilapp.shared.services.lookup.LanguageLookupCall;
 import net.sakilapp.shared.services.lookup.YearLookupCall;
 import net.sakilapp.shared.services.process.IFilmProcessService;
 
+import org.eclipse.scout.commons.CompareUtility;
 import org.eclipse.scout.commons.annotations.FormData;
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.basic.table.AbstractTable;
+import org.eclipse.scout.rt.client.ui.basic.table.ITableRow;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractLongColumn;
 import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.form.AbstractForm;
@@ -61,7 +65,6 @@ import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBo
 import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
 import org.eclipse.scout.rt.client.ui.form.fields.tablefield.AbstractTableField;
-import org.eclipse.scout.rt.client.ui.messagebox.MessageBox;
 import org.eclipse.scout.rt.shared.ScoutTexts;
 import org.eclipse.scout.rt.shared.services.common.code.ICodeType;
 import org.eclipse.scout.rt.shared.services.lookup.LookupCall;
@@ -447,6 +450,15 @@ public class FilmForm extends AbstractForm {
           return getColumnSet().getColumnByClass(LastNameColumn.class);
         }
 
+        private ITableRow searchRowByActorId(ITableRow[] rows, Long id) {
+          for (ITableRow r : rows) {
+            if (CompareUtility.equals(id, getActorIdColumn().getValue(r))) {
+              return r;
+            }
+          }
+          return null;
+        }
+        
         @Order(10.0)
         public class ActorIdColumn extends AbstractLongColumn {
 
@@ -529,9 +541,24 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected void execAction() throws ProcessingException {
-            //TODO: add a search dialog to add actors. Check for unique actor. Recreate deleted rows
-            MessageBox.showOkMessage("TODO", "To be implemented", "add actor with id 1");
-            addRowsByMatrix(new Object[]{new Object[]{1L, "First Name (id 1)", "Last Name (id 1)"}});
+            ActorsSelectForm f = new ActorsSelectForm();
+            f.startDisplay();
+            f.waitFor();
+            if (f.isFormStored()) {
+              ActorsTablePage.Table insertTable = f.getTable();
+              for (ITableRow insertRow : insertTable.getSelectedRows()) {
+                Long actorId = insertTable.getActorIdColumn().getValue(insertRow);
+                //TODO: when Scout allows to resume a single row in the client, check if the row r is not in the deletedRow and resume it instead of insert.
+                ITableRow r = searchRowByActorId(getRows(), actorId);
+                if (r == null) {
+                  addRowsByMatrix(new Object[]{new Object[]{
+                      actorId,
+                      insertTable.getFirstNameColumn().getValue(insertRow),
+                      insertTable.getLastNameColumn().getValue(insertRow),
+                  }});
+                }
+              }
+            }
           }
         }
 
@@ -582,6 +609,15 @@ public class FilmForm extends AbstractForm {
 
         public NameColumn getNameColumn() {
           return getColumnSet().getColumnByClass(NameColumn.class);
+        }
+
+        private ITableRow searchRowByCategoryId(ITableRow[] rows, Long id) {
+          for (ITableRow r : rows) {
+            if (CompareUtility.equals(id, getCategoryIdColumn().getValue(r))) {
+              return r;
+            }
+          }
+          return null;
         }
 
         @Order(10.0)
@@ -647,9 +683,23 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected void execAction() throws ProcessingException {
-            //TODO: add a search dialog to add categories. Check for unique category. Recreate deleted rows
-            MessageBox.showOkMessage("TODO", "To be implemented", "add category with id 1");
-            addRowsByMatrix(new Object[]{new Object[]{1L, "Category id 1"}});
+            CategoriesSelectForm f = new CategoriesSelectForm();
+            f.startDisplay();
+            f.waitFor();
+            if (f.isFormStored()) {
+              CategoriesTablePage.Table insertTable = f.getTable();
+              for (ITableRow insertRow : insertTable.getSelectedRows()) {
+                Long categoryId = insertTable.getCategoryIdColumn().getValue(insertRow);
+                //TODO: when Scout allows to resume a single row in the client, check if the row r is not in the deletedRow and resume it instead of insert.
+                ITableRow r = searchRowByCategoryId(getRows(), categoryId);
+                if (r == null) {
+                  addRowsByMatrix(new Object[]{new Object[]{
+                      categoryId,
+                      insertTable.getNameColumn().getValue(insertRow)
+                  }});
+                }
+              }
+            }
           }
         }
 
@@ -701,6 +751,7 @@ public class FilmForm extends AbstractForm {
       FilmFormData formData = new FilmFormData();
       exportFormData(formData);
       formData = service.store(formData);
+      importFormData(formData);
     }
   }
 
@@ -721,6 +772,7 @@ public class FilmForm extends AbstractForm {
       FilmFormData formData = new FilmFormData();
       exportFormData(formData);
       formData = service.create(formData);
+      importFormData(formData);
     }
   }
 }

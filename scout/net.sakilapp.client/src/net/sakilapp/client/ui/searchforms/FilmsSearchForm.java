@@ -72,6 +72,20 @@ public class FilmsSearchForm extends AbstractSearchForm {
     return Texts.get("Films");
   }
 
+  /**
+   * reset the search form and set filmId as new value.
+   * 
+   * @param filmId
+   *          id of the film
+   */
+  public void resetAndSelectFilm(Long filmId) throws ProcessingException {
+    doReset();
+    getFilmIdFrom().setValue(filmId);
+    getFilmIdTo().setValue(filmId);
+    doSaveWithoutMarkerChange();
+    resetSearchFilter();
+  }
+
   public FilmsSearchForm() throws ProcessingException {
     super();
   }
@@ -252,7 +266,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
           protected int getConfiguredGridH() {
             return 4;
           }
-          
+
           @Override
           protected String getConfiguredLabel() {
             return ScoutTexts.get("Language");
@@ -271,7 +285,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
           protected int getConfiguredGridH() {
             return 4;
           }
-          
+
           @Override
           protected String getConfiguredLabel() {
             return Texts.get("OriginalLanguage");

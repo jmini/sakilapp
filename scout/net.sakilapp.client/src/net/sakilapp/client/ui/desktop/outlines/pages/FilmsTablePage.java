@@ -59,6 +59,10 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
     return FilmsSearchForm.class;
   }
 
+  protected FilmsSearchForm getSearchForm() {
+    return (FilmsSearchForm) getSearchFormInternal();
+  }
+
   @Override
   protected boolean getConfiguredSearchRequired() {
     return true;
@@ -351,6 +355,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
         form.startNew();
         form.waitFor();
         if (form.isFormStored()) {
+          getSearchForm().resetAndSelectFilm(form.getMetadataBox().getIdField().getValue());
           reloadPage();
         }
       }

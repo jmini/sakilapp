@@ -53,6 +53,20 @@ public class CategoriesSearchForm extends AbstractSearchForm {
     super();
   }
 
+  /**
+   * reset the search form and set categoryId as new value.
+   * 
+   * @param categoryId
+   *          id of the category
+   */
+  public void resetAndSelectCategory(Long categoryId) throws ProcessingException {
+    doReset();
+    getCategoryIdFrom().setValue(categoryId);
+    getCategoryIdTo().setValue(categoryId);
+    doSaveWithoutMarkerChange();
+    resetSearchFilter();
+  }
+
   public CategoryIdBox getCategoryIdBox() {
     return getFieldByClass(CategoryIdBox.class);
   }

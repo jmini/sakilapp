@@ -109,7 +109,7 @@ public class ActorForm extends AbstractForm {
     }
 
     @Order(20.0)
-    public class FirstNameField extends AbstractStringField{
+    public class FirstNameField extends AbstractStringField {
 
       @Override
       protected int getConfiguredGridW() {
@@ -128,7 +128,7 @@ public class ActorForm extends AbstractForm {
     }
 
     @Order(30.0)
-    public class LastNameField extends AbstractStringField{
+    public class LastNameField extends AbstractStringField {
 
       @Override
       protected int getConfiguredGridW() {
@@ -173,6 +173,7 @@ public class ActorForm extends AbstractForm {
       ActorFormData formData = new ActorFormData();
       exportFormData(formData);
       formData = service.store(formData);
+      importFormData(formData);
     }
   }
 
@@ -193,6 +194,7 @@ public class ActorForm extends AbstractForm {
       ActorFormData formData = new ActorFormData();
       exportFormData(formData);
       formData = service.create(formData);
+      importFormData(formData);
     }
   }
 }

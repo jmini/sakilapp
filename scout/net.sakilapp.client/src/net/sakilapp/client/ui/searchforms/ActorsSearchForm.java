@@ -54,6 +54,20 @@ public class ActorsSearchForm extends AbstractSearchForm {
     super();
   }
 
+  /**
+   * reset the search form and set filmId as new value.
+   * 
+   * @param actorId
+   *          id of the actor
+   */
+  public void resetAndSelectActor(Long actorId) throws ProcessingException {
+    doReset();
+    getActorIdFrom().setValue(actorId);
+    getActorIdTo().setValue(actorId);
+    doSaveWithoutMarkerChange();
+    resetSearchFilter();
+  }
+
   public ActorIdBox getActorIdBox() {
     return getFieldByClass(ActorIdBox.class);
   }

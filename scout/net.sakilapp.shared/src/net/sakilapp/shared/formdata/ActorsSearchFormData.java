@@ -3,9 +3,7 @@ package net.sakilapp.shared.formdata;
 import java.util.Date;
 import org.eclipse.scout.rt.shared.data.form.fields.AbstractValueFieldData;
 import org.eclipse.scout.rt.shared.data.form.AbstractFormData;
-import org.eclipse.scout.commons.annotations.FormDataChecksum;
 
-@FormDataChecksum(1907529616l)
 public class ActorsSearchFormData extends AbstractFormData {
   private static final long serialVersionUID = 1L;
 
@@ -41,7 +39,6 @@ public class ActorsSearchFormData extends AbstractFormData {
 
     public ActorIdFrom() {
     }
-
   }
 
   public class ActorIdTo extends AbstractValueFieldData<Long> {
@@ -49,7 +46,6 @@ public class ActorsSearchFormData extends AbstractFormData {
 
     public ActorIdTo() {
     }
-
   }
 
   public class FirstName extends AbstractValueFieldData<String> {
@@ -57,7 +53,6 @@ public class ActorsSearchFormData extends AbstractFormData {
 
     public FirstName() {
     }
-
   }
 
   public class LastName extends AbstractValueFieldData<String> {
@@ -65,7 +60,6 @@ public class ActorsSearchFormData extends AbstractFormData {
 
     public LastName() {
     }
-
   }
 
   public class LastUpdateFrom extends AbstractValueFieldData<Date> {
@@ -73,7 +67,6 @@ public class ActorsSearchFormData extends AbstractFormData {
 
     public LastUpdateFrom() {
     }
-
   }
 
   public class LastUpdateTo extends AbstractValueFieldData<Date> {
@@ -81,6 +74,5 @@ public class ActorsSearchFormData extends AbstractFormData {
 
     public LastUpdateTo() {
     }
-
   }
 }

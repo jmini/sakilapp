@@ -150,6 +150,7 @@ public class CategoryForm extends AbstractForm {
       CategoryFormData formData = new CategoryFormData();
       exportFormData(formData);
       formData = service.store(formData);
+      importFormData(formData);
     }
   }
 
@@ -170,6 +171,7 @@ public class CategoryForm extends AbstractForm {
       CategoryFormData formData = new CategoryFormData();
       exportFormData(formData);
       formData = service.create(formData);
+      importFormData(formData);
     }
   }
 }
