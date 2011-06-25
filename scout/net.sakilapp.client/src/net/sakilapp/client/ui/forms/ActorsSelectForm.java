@@ -99,7 +99,7 @@ public class ActorsSelectForm extends AbstractForm {
   public class DisplayHandler extends AbstractFormHandler {
     @Override
     protected void execLoad() throws ProcessingException {
-      getDisplayPageField().setPage(new ActorsTablePage());
+      getDisplayPageField().setPage(new ActorsTablePage(true));
     }
 
     @Override

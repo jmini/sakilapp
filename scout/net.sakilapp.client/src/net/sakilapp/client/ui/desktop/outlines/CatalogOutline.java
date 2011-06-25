@@ -36,7 +36,7 @@ public class CatalogOutline extends AbstractOutline {
   @Override
   protected void execCreateChildPages(Collection<IPage> pageList) throws ProcessingException {
     pageList.add(new FilmsTablePage());
-    pageList.add(new CategoriesTablePage());
-    pageList.add(new ActorsTablePage());
+    pageList.add(new CategoriesTablePage(false));
+    pageList.add(new ActorsTablePage(false));
   }
 }

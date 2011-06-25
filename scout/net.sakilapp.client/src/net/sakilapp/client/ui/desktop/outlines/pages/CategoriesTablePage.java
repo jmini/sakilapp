@@ -39,6 +39,11 @@ import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.service.SERVICES;
 
 public class CategoriesTablePage extends AbstractPageWithTable<CategoriesTablePage.Table> {
+  private final boolean m_usedInSelectForm;
+
+  public CategoriesTablePage(boolean usedInSelectForm) {
+    m_usedInSelectForm = usedInSelectForm;
+  }
 
   @Override
   protected String getConfiguredIconId() {
@@ -60,7 +65,18 @@ public class CategoriesTablePage extends AbstractPageWithTable<CategoriesTablePa
   }
 
   @Override
+  protected IPage execCreateVirtualChildPage(ITableRow row) throws ProcessingException {
+    if (m_usedInSelectForm) {
+      return null;
+    }
+    return super.execCreateVirtualChildPage(row);
+  }
+
+  @Override
   protected IPage execCreateChildPage(ITableRow row) throws ProcessingException {
+    if (m_usedInSelectForm) {
+      return null;
+    }
     FilmsTablePage page = new FilmsTablePage();
     page.setCategoryId(getTable().getCategoryIdColumn().getValue(row));
     return page;

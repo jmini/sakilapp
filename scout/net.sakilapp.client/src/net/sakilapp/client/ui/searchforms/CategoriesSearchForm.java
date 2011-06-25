@@ -138,6 +138,11 @@ public class CategoriesSearchForm extends AbstractSearchForm {
       public class FieldBox extends AbstractGroupBox {
 
         @Override
+        protected int getConfiguredGridColumnCount() {
+          return 1;
+        }
+
+        @Override
         public String getConfiguredLabel() {
           return Texts.get("searchCriteria");
         }

@@ -287,36 +287,20 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
    *          the index of the column that need to be compared.
    */
   private void cleanupTable(AbstractTableFieldData table, int valueColumn) {
-    HashMap<Object, Integer> deletedMap = new HashMap<Object, Integer>();
     HashMap<Object, Integer> insertedMap = new HashMap<Object, Integer>();
 
     for (int i = 0; i < table.getRowCount(); i++) {
-      switch (table.getRowState(i)) {
-        case ITableHolder.STATUS_INSERTED:
-          if (deletedMap.containsKey(table.getValueAt(i, valueColumn))) {
-            Integer index = deletedMap.get(table.getValueAt(i, valueColumn));
-            table.setRowState(index.intValue(), ITableHolder.STATUS_UPDATED);
-            table.setRowState(i, ITableHolder.STATUS_UPDATED);
-          }
-          else {
-            insertedMap.put(table.getValueAt(i, valueColumn), Integer.valueOf(i));
-          }
-          break;
-        case ITableHolder.STATUS_DELETED:
-          if (insertedMap.containsKey(table.getValueAt(i, valueColumn))) {
-            Integer index = insertedMap.get(table.getValueAt(i, valueColumn));
-            table.setRowState(index.intValue(), ITableHolder.STATUS_UPDATED);
-            table.setRowState(i, ITableHolder.STATUS_UPDATED);
-          }
-          else {
-            deletedMap.put(table.getValueAt(i, valueColumn), Integer.valueOf(i));
-          }
-          break;
-        case ITableHolder.STATUS_NON_CHANGED:
-        case ITableHolder.STATUS_UPDATED:
-        default:
-          //Do nothing
-          break;
+      if (ITableHolder.STATUS_INSERTED == table.getRowState(i)) {
+        insertedMap.put(table.getValueAt(i, valueColumn), Integer.valueOf(i));
+      }
+    }
+
+    for (int i = 0; i < table.getRowCount(); i++) {
+      if (ITableHolder.STATUS_DELETED == table.getRowState(i) &&
+          insertedMap.containsKey(table.getValueAt(i, valueColumn))) {
+        Integer index = insertedMap.get(table.getValueAt(i, valueColumn));
+        table.setRowState(index.intValue(), ITableHolder.STATUS_UPDATED);
+        table.setRowState(i, ITableHolder.STATUS_UPDATED);
       }
     }
   }

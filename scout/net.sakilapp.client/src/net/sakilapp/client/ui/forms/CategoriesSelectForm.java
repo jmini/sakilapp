@@ -99,7 +99,7 @@ public class CategoriesSelectForm extends AbstractForm {
   public class DisplayHandler extends AbstractFormHandler {
     @Override
     protected void execLoad() throws ProcessingException {
-      getDisplayPageField().setPage(new CategoriesTablePage());
+      getDisplayPageField().setPage(new CategoriesTablePage(true));
     }
 
     @Override
