@@ -6,8 +6,8 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.sakilapp.server.Activator
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.core.runtime,
- net.sakilapp.shared,
- org.eclipse.scout.rt.server,
+ net.sakilapp.shared;visibility:=reexport,
+ org.eclipse.scout.rt.server;visibility:=reexport,
  org.eclipse.scout.http.servletfilter,
  org.eclipse.equinox.http.registry,
  org.eclipse.scout.rt.jdbc.derby
