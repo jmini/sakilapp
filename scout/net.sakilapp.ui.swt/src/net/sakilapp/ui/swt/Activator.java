@@ -10,15 +10,16 @@
  ******************************************************************************/
 package net.sakilapp.ui.swt;
 
+import net.sakilapp.client.ClientSession;
+
+import org.eclipse.scout.rt.ui.swt.ISwtEnvironment;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
-import net.sakilapp.client.ClientSession;
-import org.eclipse.scout.rt.ui.swt.ISwtEnvironment;
 
-/** <h3>Activator</h3>
- *  All view ids and perspective ids are kept here.
-*/
-public class Activator implements BundleActivator{
+/**
+ * <h3>Activator</h3> All view ids and perspective ids are kept here.
+ */
+public class Activator implements BundleActivator {
 
   // the plugin id
   public static final String BUNDLE_ID = "net.sakilapp.ui.swt";
@@ -52,4 +53,3 @@ public class Activator implements BundleActivator{
     return m_environment;
   }
 }
-

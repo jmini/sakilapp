@@ -11,7 +11,6 @@
 package net.sakilapp.ui.swt.application;
 
 import org.eclipse.jface.action.ICoolBarManager;
-
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
@@ -26,37 +25,56 @@ import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 
-/** <h3>ApplicationActionBarAdvisor</h3>
- *  Used for menu contributions.
-*/
+/**
+ * <h3>ApplicationActionBarAdvisor</h3> Used for menu contributions.
+ */
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
+  private IWorkbenchAction exitAction;
+  private IWorkbenchAction aboutAction1;
+  private IWorkbenchAction aboutAction2;
+  private IWorkbenchAction aboutAction3;
 
-	private IWorkbenchAction exitAction;
+  public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
+    super(configurer);
+  }
 
-	public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
-		super(configurer);
-	}
+  @Override
+  protected void makeActions(IWorkbenchWindow window) {
+    exitAction = ActionFactory.QUIT.create(window);
+    register(exitAction);
 
-	@Override
-	protected void makeActions(IWorkbenchWindow window) {
-		exitAction = ActionFactory.QUIT.create(window);
-		register(exitAction);
-	}
+    //TODO JBR: change these Actions => should correspond IViewButton of the scout desktop
+    aboutAction1 = ActionFactory.ABOUT.create(window);
+    aboutAction1.setText("Catalog");
+    register(aboutAction1);
 
-	@Override
-	protected void fillMenuBar(IMenuManager menuBar) {
-		MenuManager fileMenu = new MenuManager("&File",
-				IWorkbenchActionConstants.M_FILE);
-		menuBar.add(fileMenu);
-		fileMenu.add(new Separator("additions"));
+    aboutAction2 = ActionFactory.ABOUT.create(window);
+    aboutAction2.setText("Retail");
+    register(aboutAction2);
+
+    aboutAction3 = ActionFactory.ABOUT.create(window);
+    aboutAction3.setText("Customers");
+    register(aboutAction3);
+  }
+
+  @Override
+  protected void fillMenuBar(IMenuManager menuBar) {
+    MenuManager fileMenu = new MenuManager("&File",
+        IWorkbenchActionConstants.M_FILE);
+    menuBar.add(fileMenu);
+    fileMenu.add(new Separator("additions"));
     fileMenu.add(new Separator("exit"));
     fileMenu.add(exitAction);
-	}
+  }
 
-	@Override
-	protected void fillCoolBar(ICoolBarManager coolBar) {
-	  IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
+  @Override
+  protected void fillCoolBar(ICoolBarManager coolBar) {
+    IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
     coolBar.add(new ToolBarContributionItem(toolbar, "org.eclipse.ui.main.toolbar"));
-	}
+    toolbar.add(aboutAction1);
+    toolbar.add(aboutAction2);
+    toolbar.add(aboutAction3);
+  }
+
 }
