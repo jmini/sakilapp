@@ -14,6 +14,8 @@ import java.util.ArrayList;
 
 import net.sakilapp.client.ClientSession;
 import net.sakilapp.client.ui.desktop.outlines.CatalogOutline;
+import net.sakilapp.client.ui.desktop.outlines.CustomersOutline;
+import net.sakilapp.client.ui.desktop.outlines.RetailOutline;
 import net.sakilapp.shared.Texts;
 
 import org.eclipse.scout.commons.annotations.Order;
@@ -25,6 +27,7 @@ import org.eclipse.scout.rt.client.ui.action.menu.AbstractMenu;
 import org.eclipse.scout.rt.client.ui.desktop.AbstractDesktop;
 import org.eclipse.scout.rt.client.ui.desktop.IDesktop;
 import org.eclipse.scout.rt.client.ui.desktop.bookmark.menu.AbstractBookmarkMenu;
+import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutlineViewButton;
 import org.eclipse.scout.rt.client.ui.desktop.outline.IOutline;
 import org.eclipse.scout.rt.client.ui.form.ScoutInfoForm;
 import org.eclipse.scout.rt.client.ui.form.outline.DefaultOutlineTableForm;
@@ -37,18 +40,20 @@ public class Desktop extends AbstractDesktop implements IDesktop {
   }
 
   @Override
-  public String getConfiguredTitle() {
-    return Texts.get("ApplicationTitle");
-  }
-
-  @Override
   protected Class<? extends IOutline>[] getConfiguredOutlines() {
     ArrayList<Class<? extends IOutline>> list = new ArrayList<Class<? extends IOutline>>();
     list.add(CatalogOutline.class);
+    list.add(RetailOutline.class);
+    list.add(CustomersOutline.class);
 
     @SuppressWarnings("unchecked")
     Class<? extends IOutline>[] result = (Class<? extends IOutline>[]) list.toArray(new Class<?>[list.size()]);
     return result;
+  }
+
+  @Override
+  protected String getConfiguredTitle() {
+    return Texts.get("Sakilapp");
   }
 
   @Override
@@ -64,7 +69,27 @@ public class Desktop extends AbstractDesktop implements IDesktop {
     if (getAvailableOutlines().length > 0) {
       setOutline(getAvailableOutlines()[0]);
     }
+  }
 
+  @Order(10.0)
+  public class CatalogOutlineViewButton extends AbstractOutlineViewButton {
+    public CatalogOutlineViewButton() {
+      super(Desktop.this, CatalogOutline.class);
+    }
+  }
+
+  @Order(20.0)
+  public class RetailOutlineViewButton extends AbstractOutlineViewButton {
+    public RetailOutlineViewButton() {
+      super(Desktop.this, RetailOutline.class);
+    }
+  }
+
+  @Order(30.0)
+  public class CustomersOutlineViewButton extends AbstractOutlineViewButton {
+    public CustomersOutlineViewButton() {
+      super(Desktop.this, CustomersOutline.class);
+    }
   }
 
   @Order(10.0)
@@ -128,7 +153,5 @@ public class Desktop extends AbstractDesktop implements IDesktop {
         form.startModify();
       }
     }
-
   }
-
 }

@@ -31,9 +31,9 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
   private IWorkbenchAction exitAction;
-  private IWorkbenchAction aboutAction1;
-  private IWorkbenchAction aboutAction2;
-  private IWorkbenchAction aboutAction3;
+  private IWorkbenchAction catalogAction;
+  private IWorkbenchAction retailAction;
+  private IWorkbenchAction customersAction;
 
   public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
     super(configurer);
@@ -45,17 +45,17 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     register(exitAction);
 
     //TODO JBR: change these Actions => should correspond IViewButton of the scout desktop
-    aboutAction1 = ActionFactory.ABOUT.create(window);
-    aboutAction1.setText("Catalog");
-    register(aboutAction1);
+    catalogAction = ActionFactory.ABOUT.create(window); //net.sakilapp.client.ui.desktop.Desktop.CatalogOutlineViewButton
+    catalogAction.setText("Catalog");
+    register(catalogAction);
 
-    aboutAction2 = ActionFactory.ABOUT.create(window);
-    aboutAction2.setText("Retail");
-    register(aboutAction2);
+    retailAction = ActionFactory.ABOUT.create(window); //net.sakilapp.client.ui.desktop.Desktop.RetailOutlineViewButton
+    retailAction.setText("Retail");
+    register(retailAction);
 
-    aboutAction3 = ActionFactory.ABOUT.create(window);
-    aboutAction3.setText("Customers");
-    register(aboutAction3);
+    customersAction = ActionFactory.ABOUT.create(window); //net.sakilapp.client.ui.desktop.Desktop.CustomersOutlineViewButton
+    customersAction.setText("Customers");
+    register(customersAction);
   }
 
   @Override
@@ -72,9 +72,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
   protected void fillCoolBar(ICoolBarManager coolBar) {
     IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
     coolBar.add(new ToolBarContributionItem(toolbar, "org.eclipse.ui.main.toolbar"));
-    toolbar.add(aboutAction1);
-    toolbar.add(aboutAction2);
-    toolbar.add(aboutAction3);
+    toolbar.add(catalogAction);
+    toolbar.add(customersAction);
+    toolbar.add(retailAction);
   }
 
 }
