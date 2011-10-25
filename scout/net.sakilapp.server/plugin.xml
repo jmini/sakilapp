@@ -10,6 +10,8 @@
     <service class="net.sakilapp.server.services.process.CategoryProcessService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
     <service class="net.sakilapp.server.services.process.FilmProcessService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
     <service class="net.sakilapp.server.services.process.ActorProcessService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
+    <service class="net.sakilapp.server.services.outline.CustomersOutlineService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
+    <service class="net.sakilapp.server.services.outline.RetailOutlineService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
   </extension>
   <extension point="org.eclipse.equinox.http.registry.servlets">
     <servlet alias="/process" class="org.eclipse.scout.rt.server.ServiceTunnelServlet">

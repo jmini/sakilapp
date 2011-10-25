@@ -6,6 +6,8 @@
     <proxy class="net.sakilapp.shared.services.process.ICategoryProcessService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
     <proxy class="net.sakilapp.shared.services.process.IFilmProcessService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
     <proxy class="net.sakilapp.shared.services.process.IActorProcessService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
+    <proxy class="net.sakilapp.shared.services.outline.ICustomersOutlineService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
+    <proxy class="net.sakilapp.shared.services.outline.IRetailOutlineService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
   </extension>
   <extension point="org.eclipse.scout.service.services">
   </extension>
