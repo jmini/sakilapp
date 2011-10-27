@@ -203,7 +203,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
    */
   private void storeFilmActor(FilmFormData formData) throws ProcessingException {
     ActorsTable table = formData.getActorsTable();
-    cleanupTable(table, 0);
+    cleanupTable(table, 0); //TODO: 0 stands for ActorIdColumn, BUG: 356426
     for (int i = 0; i < table.getRowCount(); i++) {
       switch (table.getRowState(i)) {
         case ITableHolder.STATUS_INSERTED:
@@ -243,7 +243,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
    */
   private void storeFilmCategory(FilmFormData formData) throws ProcessingException {
     CategoriesTable table = formData.getCategoriesTable();
-    cleanupTable(table, 0);
+    cleanupTable(table, 0); //TODO: 0 stands for CategoryIdColumn, BUG: 356426
     for (int i = 0; i < table.getRowCount(); i++) {
       switch (table.getRowState(i)) {
         case ITableHolder.STATUS_INSERTED:

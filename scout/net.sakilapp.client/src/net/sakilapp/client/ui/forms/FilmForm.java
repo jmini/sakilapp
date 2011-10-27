@@ -458,7 +458,7 @@ public class FilmForm extends AbstractForm {
           }
           return null;
         }
-        
+
         @Order(10.0)
         public class ActorIdColumn extends AbstractLongColumn {
 
@@ -548,7 +548,7 @@ public class FilmForm extends AbstractForm {
               ActorsTablePage.Table insertTable = f.getTable();
               for (ITableRow insertRow : insertTable.getSelectedRows()) {
                 Long actorId = insertTable.getActorIdColumn().getValue(insertRow);
-                //TODO: when Scout allows to resume a single row in the client, check if the row r is not in the deletedRow and resume it instead of insert.
+                //TODO: check if the row r is not in the deletedRows, if so discard it from the deleted rows [BUG 361985], and insert a row STATUS_NON_CHANGED.
                 ITableRow r = searchRowByActorId(getRows(), actorId);
                 if (r == null) {
                   addRowsByMatrix(new Object[]{new Object[]{
@@ -577,7 +577,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected void execAction() throws ProcessingException {
-            deleteRows(getSelectedRows());
+            deleteRows(getSelectedRows()); //TODO: if the row was new (STATUS_NEW) discard the row, else delete it.
           }
         }
       }
@@ -690,7 +690,7 @@ public class FilmForm extends AbstractForm {
               CategoriesTablePage.Table insertTable = f.getTable();
               for (ITableRow insertRow : insertTable.getSelectedRows()) {
                 Long categoryId = insertTable.getCategoryIdColumn().getValue(insertRow);
-                //TODO: when Scout allows to resume a single row in the client, check if the row r is not in the deletedRow and resume it instead of insert.
+                //TODO: check if the row r is not in the deletedRows, if so discard it from the deleted rows [BUG 361985], and insert a row STATUS_NON_CHANGED.
                 ITableRow r = searchRowByCategoryId(getRows(), categoryId);
                 if (r == null) {
                   addRowsByMatrix(new Object[]{new Object[]{
@@ -718,7 +718,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected void execAction() throws ProcessingException {
-            deleteRows(getSelectedRows());
+            deleteRows(getSelectedRows()); //TODO: if the row was new (STATUS_NEW) discard the row, else delete it.
           }
         }
       }
