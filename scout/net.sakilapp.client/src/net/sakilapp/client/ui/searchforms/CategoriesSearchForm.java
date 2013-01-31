@@ -26,7 +26,6 @@ import net.sakilapp.client.ui.searchforms.CategoriesSearchForm.MainBox.TabBox.Fi
 import net.sakilapp.client.ui.searchforms.CategoriesSearchForm.MainBox.TabBox.FieldBox.LastUpdateBox.LastUpdateFrom;
 import net.sakilapp.client.ui.searchforms.CategoriesSearchForm.MainBox.TabBox.FieldBox.LastUpdateBox.LastUpdateTo;
 import net.sakilapp.client.ui.searchforms.CategoriesSearchForm.MainBox.TabBox.FieldBox.NameField;
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.CategoriesSearchFormData;
 
 import org.eclipse.scout.commons.annotations.FormData;
@@ -43,7 +42,7 @@ import org.eclipse.scout.rt.client.ui.form.fields.longfield.AbstractLongField;
 import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBox;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
 import org.eclipse.scout.rt.client.ui.form.fields.tabbox.AbstractTabBox;
-import org.eclipse.scout.rt.shared.ScoutTexts;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 
 @FormData(value = CategoriesSearchFormData.class, sdkCommand = SdkCommand.CREATE)
@@ -117,7 +116,7 @@ public class CategoriesSearchForm extends AbstractSearchForm {
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("Categories");
+    return TEXTS.get("Categories");
   }
 
   @Override
@@ -144,7 +143,7 @@ public class CategoriesSearchForm extends AbstractSearchForm {
 
         @Override
         public String getConfiguredLabel() {
-          return Texts.get("searchCriteria");
+          return TEXTS.get("searchCriteria");
         }
 
         @Order(10.0)
@@ -152,7 +151,7 @@ public class CategoriesSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("Id");
+            return TEXTS.get("Id");
           }
 
           @Order(10.0)
@@ -160,7 +159,7 @@ public class CategoriesSearchForm extends AbstractSearchForm {
 
             @Override
             protected String getConfiguredLabel() {
-              return ScoutTexts.get("from");
+              return TEXTS.get("from");
             }
           }
 
@@ -169,7 +168,7 @@ public class CategoriesSearchForm extends AbstractSearchForm {
 
             @Override
             protected String getConfiguredLabel() {
-              return ScoutTexts.get("to");
+              return TEXTS.get("to");
             }
           }
         }
@@ -179,7 +178,7 @@ public class CategoriesSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return ScoutTexts.get("Name");
+            return TEXTS.get("Name");
           }
         }
 
@@ -188,7 +187,7 @@ public class CategoriesSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("LastUpdate");
+            return TEXTS.get("LastUpdate");
           }
 
           @Order(10.0)
@@ -196,7 +195,7 @@ public class CategoriesSearchForm extends AbstractSearchForm {
 
             @Override
             protected String getConfiguredLabel() {
-              return ScoutTexts.get("from");
+              return TEXTS.get("from");
             }
           }
 
@@ -205,7 +204,7 @@ public class CategoriesSearchForm extends AbstractSearchForm {
 
             @Override
             protected String getConfiguredLabel() {
-              return ScoutTexts.get("to");
+              return TEXTS.get("to");
             }
           }
         }

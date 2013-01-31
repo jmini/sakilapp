@@ -13,23 +13,22 @@ package net.sakilapp.ui.swing;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-public class Activator implements BundleActivator{
+public class Activator implements BundleActivator {
 
-  public static String PLUGIN_ID="net.sakilapp.ui.swing";
+  public static String PLUGIN_ID = "net.sakilapp.ui.swing";
 
   private static Activator plugin;
 
-  public static Activator getDefault(){
+  public static Activator getDefault() {
     return plugin;
   }
 
-  public void start(BundleContext context) throws Exception{
-    plugin=this;
+  public void start(BundleContext context) throws Exception {
+    plugin = this;
   }
 
-  public void stop(BundleContext context) throws Exception{
-    plugin=null;
+  public void stop(BundleContext context) throws Exception {
+    plugin = null;
   }
 
 }
-

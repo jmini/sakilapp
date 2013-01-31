@@ -20,7 +20,6 @@ import net.sakilapp.client.ui.desktop.outlines.pages.CategoriesTablePage.Table;
 import net.sakilapp.client.ui.forms.CategoriesSelectForm.MainBox.CancelButton;
 import net.sakilapp.client.ui.forms.CategoriesSelectForm.MainBox.DisplayPageField;
 import net.sakilapp.client.ui.forms.CategoriesSelectForm.MainBox.OkButton;
-import net.sakilapp.shared.Texts;
 
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
@@ -30,6 +29,7 @@ import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractCancelButton;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractOkButton;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.form.fields.pagefield.AbstractPageField;
+import org.eclipse.scout.rt.shared.TEXTS;
 
 public class CategoriesSelectForm extends AbstractForm {
 
@@ -39,7 +39,7 @@ public class CategoriesSelectForm extends AbstractForm {
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("SelectCategories");
+    return TEXTS.get("SelectCategories");
   }
 
   public void startDisplay() throws ProcessingException {

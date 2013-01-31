@@ -1,12 +1,12 @@
 package net.sakilapp.client.ui.desktop.outlines;
 
 import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutline;
-import net.sakilapp.shared.Texts;
+import org.eclipse.scout.rt.shared.TEXTS;
 
 public class RetailOutline extends AbstractOutline{
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("Retail");
+    return TEXTS.get("Retail");
   }
 }

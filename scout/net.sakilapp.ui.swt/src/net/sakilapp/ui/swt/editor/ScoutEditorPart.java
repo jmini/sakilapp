@@ -8,17 +8,14 @@
  * Contributors:
  *     BSI Business Systems Integration AG - initial API and implementation
  ******************************************************************************/
-package net.sakilapp.ui.swt.views;
+package net.sakilapp.ui.swt.editor;
 
 import net.sakilapp.ui.swt.Activator;
 
 import org.eclipse.scout.rt.ui.swt.ISwtEnvironment;
-import org.eclipse.scout.rt.ui.swt.window.desktop.view.AbstractScoutView;
+import org.eclipse.scout.rt.ui.swt.window.desktop.editor.AbstractScoutEditorPart;
 
-public class CenterView extends AbstractScoutView {
-
-  public CenterView() {
-  }
+public class ScoutEditorPart extends AbstractScoutEditorPart {
 
   @Override
   protected ISwtEnvironment getSwtEnvironment() {

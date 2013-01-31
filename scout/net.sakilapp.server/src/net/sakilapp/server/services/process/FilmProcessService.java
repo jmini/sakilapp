@@ -17,7 +17,6 @@ package net.sakilapp.server.services.process;
 
 import java.util.HashMap;
 
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.FilmFormData;
 import net.sakilapp.shared.formdata.FilmFormData.ActorsTable;
 import net.sakilapp.shared.formdata.FilmFormData.CategoriesTable;
@@ -34,6 +33,7 @@ import org.eclipse.scout.commons.holders.ITableHolder;
 import org.eclipse.scout.commons.holders.NVPair;
 import org.eclipse.scout.commons.holders.StringHolder;
 import org.eclipse.scout.rt.server.services.common.jdbc.SQL;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.data.form.fields.tablefield.AbstractTableFieldData;
 import org.eclipse.scout.rt.shared.services.common.security.ACCESS;
 import org.eclipse.scout.service.AbstractService;
@@ -42,7 +42,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
 
   public FilmFormData prepareCreate(FilmFormData formData) throws ProcessingException {
     if (!ACCESS.check(new CreateFilmPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     //Nothing to do for the preparation of the creation.
     return formData;
@@ -50,7 +50,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
 
   public FilmFormData create(FilmFormData formData) throws ProcessingException {
     if (!ACCESS.check(new CreateFilmPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
 
     //TODO: Add a Sync block?
@@ -99,7 +99,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
 
   public FilmFormData load(FilmFormData formData) throws ProcessingException {
     if (!ACCESS.check(new ReadFilmPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
 
     StringHolder SpecialFeatureList = new StringHolder();
@@ -171,7 +171,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
 
   public FilmFormData store(FilmFormData formData) throws ProcessingException {
     if (!ACCESS.check(new UpdateFilmPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
 
     SQL.update(
@@ -203,7 +203,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
    */
   private void storeFilmActor(FilmFormData formData) throws ProcessingException {
     ActorsTable table = formData.getActorsTable();
-    cleanupTable(table, 0); //TODO: 0 stands for ActorIdColumn, BUG: 356426
+    cleanupTable(table, ActorsTable.ACTOR_ID_COLUMN_ID);
     for (int i = 0; i < table.getRowCount(); i++) {
       switch (table.getRowState(i)) {
         case ITableHolder.STATUS_INSERTED:
@@ -243,7 +243,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
    */
   private void storeFilmCategory(FilmFormData formData) throws ProcessingException {
     CategoriesTable table = formData.getCategoriesTable();
-    cleanupTable(table, 0); //TODO: 0 stands for CategoryIdColumn, BUG: 356426
+    cleanupTable(table, CategoriesTable.CATEGORY_ID_COLUMN_ID);
     for (int i = 0; i < table.getRowCount(); i++) {
       switch (table.getRowState(i)) {
         case ITableHolder.STATUS_INSERTED:
@@ -307,7 +307,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
 
   public boolean delete(Long[] filmIds) throws ProcessingException {
     if (!ACCESS.check(new DeleteFilmPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     int nbRows = SQL.delete(
         " delete       from film" +

@@ -35,7 +35,6 @@ import net.sakilapp.client.ui.forms.FilmForm.MainBox.ReplacementCostField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.SpecialFeaturesField;
 import net.sakilapp.client.ui.forms.FilmForm.MainBox.TitleField;
 import net.sakilapp.client.ui.template.formfield.AbstractMetadataBox;
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.FilmFormData;
 import net.sakilapp.shared.security.UpdateFilmPermission;
 import net.sakilapp.shared.services.code.RatingCodeType;
@@ -65,7 +64,7 @@ import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBo
 import org.eclipse.scout.rt.client.ui.form.fields.smartfield.AbstractSmartField;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
 import org.eclipse.scout.rt.client.ui.form.fields.tablefield.AbstractTableField;
-import org.eclipse.scout.rt.shared.ScoutTexts;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.code.ICodeType;
 import org.eclipse.scout.rt.shared.services.lookup.LookupCall;
 import org.eclipse.scout.service.SERVICES;
@@ -79,7 +78,7 @@ public class FilmForm extends AbstractForm {
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("Film");
+    return TEXTS.get("Film");
   }
 
   public void startModify() throws ProcessingException {
@@ -200,7 +199,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return ScoutTexts.get("Title");
+        return TEXTS.get("Title");
       }
 
       @Override
@@ -224,7 +223,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("Description");
+        return TEXTS.get("Description");
       }
 
       @Override
@@ -243,7 +242,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("ReleaseYear");
+        return TEXTS.get("ReleaseYear");
       }
 
       @Override
@@ -257,7 +256,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return ScoutTexts.get("Language");
+        return TEXTS.get("Language");
       }
 
       @Override
@@ -276,7 +275,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("OriginalLanguage");
+        return TEXTS.get("OriginalLanguage");
       }
 
       @Override
@@ -290,7 +289,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("Length");
+        return TEXTS.get("Length");
       }
     }
 
@@ -299,7 +298,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("RentalPrice");
+        return TEXTS.get("RentalPrice");
       }
 
       @Order(10.0)
@@ -331,7 +330,7 @@ public class FilmForm extends AbstractForm {
 
         @Override
         protected String getConfiguredLabel() {
-          return Texts.get("Slash");
+          return TEXTS.get("Slash");
         }
 
         @Override
@@ -343,14 +342,14 @@ public class FilmForm extends AbstractForm {
         protected String execFormatValue(Integer validValue) {
           String f = super.execFormatValue(validValue);
           if (validValue != null) {
-            f = f + " " + Texts.get("Days");
+            f = f + " " + TEXTS.get("Days");
           }
           return f;
         }
 
         @Override
         protected Integer execParseValue(String text) throws ProcessingException {
-          String t = text.replaceAll(Texts.get("Days"), "");
+          String t = text.replaceAll(TEXTS.get("Days"), "");
           return super.execParseValue(t);
         }
       }
@@ -361,7 +360,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("ReplacementCost");
+        return TEXTS.get("ReplacementCost");
       }
 
       @Override
@@ -395,7 +394,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("Rating");
+        return TEXTS.get("Rating");
       }
     }
 
@@ -414,7 +413,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("SpecialFeatures");
+        return TEXTS.get("SpecialFeatures");
       }
     }
 
@@ -433,7 +432,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("Actors");
+        return TEXTS.get("Actors");
       }
 
       @Order(10.0)
@@ -464,7 +463,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected String getConfiguredHeaderText() {
-            return Texts.get("Id");
+            return TEXTS.get("Id");
           }
 
           @Override
@@ -488,7 +487,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected String getConfiguredHeaderText() {
-            return Texts.get("FirstName");
+            return TEXTS.get("FirstName");
           }
 
           @Override
@@ -507,7 +506,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected String getConfiguredHeaderText() {
-            return Texts.get("LastName");
+            return TEXTS.get("LastName");
           }
 
           @Override
@@ -536,7 +535,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected String getConfiguredText() {
-            return ScoutTexts.get("SC_Label_AddToDictionary");
+            return TEXTS.get("SC_Label_AddToDictionary");
           }
 
           @Override
@@ -567,7 +566,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected String getConfiguredText() {
-            return ScoutTexts.get("DeleteMenu");
+            return TEXTS.get("DeleteMenu");
           }
 
           @Override
@@ -598,7 +597,7 @@ public class FilmForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("Categories");
+        return TEXTS.get("Categories");
       }
 
       @Order(10.0)
@@ -625,7 +624,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected String getConfiguredHeaderText() {
-            return Texts.get("Id");
+            return TEXTS.get("Id");
           }
 
           @Override
@@ -649,7 +648,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected String getConfiguredHeaderText() {
-            return ScoutTexts.get("Name");
+            return TEXTS.get("Name");
           }
 
           @Override
@@ -678,7 +677,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected String getConfiguredText() {
-            return ScoutTexts.get("SC_Label_AddToDictionary");
+            return TEXTS.get("SC_Label_AddToDictionary");
           }
 
           @Override
@@ -708,7 +707,7 @@ public class FilmForm extends AbstractForm {
 
           @Override
           protected String getConfiguredText() {
-            return ScoutTexts.get("DeleteMenu");
+            return TEXTS.get("DeleteMenu");
           }
 
           @Override

@@ -15,7 +15,6 @@
  ******************************************************************************/
 package net.sakilapp.server.services.process;
 
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.CategoryFormData;
 import net.sakilapp.shared.security.CreateCategoryPermission;
 import net.sakilapp.shared.security.DeleteCategoryPermission;
@@ -27,6 +26,7 @@ import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.exception.VetoException;
 import org.eclipse.scout.commons.holders.NVPair;
 import org.eclipse.scout.rt.server.services.common.jdbc.SQL;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.security.ACCESS;
 import org.eclipse.scout.service.AbstractService;
 
@@ -34,7 +34,7 @@ public class CategoryProcessService extends AbstractService implements ICategory
 
   public CategoryFormData prepareCreate(CategoryFormData formData) throws ProcessingException {
     if (!ACCESS.check(new CreateCategoryPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     //Nothing to do for the preparation of the creation.
     return formData;
@@ -42,7 +42,7 @@ public class CategoryProcessService extends AbstractService implements ICategory
 
   public CategoryFormData create(CategoryFormData formData) throws ProcessingException {
     if (!ACCESS.check(new CreateCategoryPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
 
     //TODO: Add a Sync block?
@@ -64,7 +64,7 @@ public class CategoryProcessService extends AbstractService implements ICategory
 
   public CategoryFormData load(CategoryFormData formData) throws ProcessingException {
     if (!ACCESS.check(new ReadCategoryPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     SQL.selectInto(
             "select      last_update, " +
@@ -82,7 +82,7 @@ public class CategoryProcessService extends AbstractService implements ICategory
 
   public CategoryFormData store(CategoryFormData formData) throws ProcessingException {
     if (!ACCESS.check(new UpdateCategoryPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     SQL.update(
         " update      category " +
@@ -96,7 +96,7 @@ public class CategoryProcessService extends AbstractService implements ICategory
 
   public boolean delete(Long[] categoryIds) throws ProcessingException {
     if (!ACCESS.check(new DeleteCategoryPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     int nbRows = SQL.delete(
         " delete       from category" +

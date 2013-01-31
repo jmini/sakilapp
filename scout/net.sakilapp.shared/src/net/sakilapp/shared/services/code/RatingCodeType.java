@@ -15,10 +15,9 @@
  ******************************************************************************/
 package net.sakilapp.shared.services.code;
 
-import net.sakilapp.shared.Texts;
-
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.code.AbstractCode;
 import org.eclipse.scout.rt.shared.services.common.code.AbstractCodeType;
 
@@ -32,7 +31,7 @@ public class RatingCodeType extends AbstractCodeType<String> {
 
   @Override
   protected String getConfiguredText() {
-    return Texts.get("Rating");
+    return TEXTS.get("Rating");
   }
 
   @Override
@@ -52,7 +51,7 @@ public class RatingCodeType extends AbstractCodeType<String> {
 
     @Override
     protected String getConfiguredText() {
-      return Texts.get("PG");
+      return TEXTS.get("PG");
     }
   }
 
@@ -68,7 +67,7 @@ public class RatingCodeType extends AbstractCodeType<String> {
 
     @Override
     protected String getConfiguredText() {
-      return Texts.get("G");
+      return TEXTS.get("G");
     }
   }
 
@@ -79,7 +78,7 @@ public class RatingCodeType extends AbstractCodeType<String> {
 
     @Override
     protected String getConfiguredText() {
-      return Texts.get("NC17");
+      return TEXTS.get("NC17");
     }
 
     @Override
@@ -95,7 +94,7 @@ public class RatingCodeType extends AbstractCodeType<String> {
 
     @Override
     protected String getConfiguredText() {
-      return Texts.get("PG13");
+      return TEXTS.get("PG13");
     }
 
     @Override
@@ -116,7 +115,7 @@ public class RatingCodeType extends AbstractCodeType<String> {
 
     @Override
     protected String getConfiguredText() {
-      return Texts.get("R");
+      return TEXTS.get("R");
     }
   }
 

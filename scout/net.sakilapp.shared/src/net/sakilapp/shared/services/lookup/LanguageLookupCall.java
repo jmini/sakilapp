@@ -15,9 +15,8 @@
  ******************************************************************************/
 package net.sakilapp.shared.services.lookup;
 
-import org.eclipse.scout.rt.shared.services.lookup.LookupCall;
 import org.eclipse.scout.rt.shared.services.lookup.ILookupService;
-import net.sakilapp.shared.services.lookup.ILanguageLookupService;
+import org.eclipse.scout.rt.shared.services.lookup.LookupCall;
 
 public class LanguageLookupCall extends LookupCall{
 

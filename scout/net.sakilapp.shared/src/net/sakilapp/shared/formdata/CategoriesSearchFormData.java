@@ -1,8 +1,10 @@
 package net.sakilapp.shared.formdata;
 
 import java.util.Date;
-import org.eclipse.scout.rt.shared.data.form.fields.AbstractValueFieldData;
+
 import org.eclipse.scout.rt.shared.data.form.AbstractFormData;
+import org.eclipse.scout.rt.shared.data.form.ValidationRule;
+import org.eclipse.scout.rt.shared.data.form.fields.AbstractValueFieldData;
 
 public class CategoriesSearchFormData extends AbstractFormData {
   private static final long serialVersionUID = 1L;
@@ -30,38 +32,47 @@ public class CategoriesSearchFormData extends AbstractFormData {
     return getFieldByClass(Name.class);
   }
 
-  public class CategoryIdFrom extends AbstractValueFieldData<Long> {
+  public static class CategoryIdFrom extends AbstractValueFieldData<Long> {
     private static final long serialVersionUID = 1L;
 
     public CategoryIdFrom() {
     }
   }
 
-  public class CategoryIdTo extends AbstractValueFieldData<Long> {
+  public static class CategoryIdTo extends AbstractValueFieldData<Long> {
     private static final long serialVersionUID = 1L;
 
     public CategoryIdTo() {
     }
   }
 
-  public class LastUpdateFrom extends AbstractValueFieldData<Date> {
+  public static class LastUpdateFrom extends AbstractValueFieldData<Date> {
     private static final long serialVersionUID = 1L;
 
     public LastUpdateFrom() {
     }
   }
 
-  public class LastUpdateTo extends AbstractValueFieldData<Date> {
+  public static class LastUpdateTo extends AbstractValueFieldData<Date> {
     private static final long serialVersionUID = 1L;
 
     public LastUpdateTo() {
     }
   }
 
-  public class Name extends AbstractValueFieldData<String> {
+  public static class Name extends AbstractValueFieldData<String> {
     private static final long serialVersionUID = 1L;
 
     public Name() {
+    }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(java.util.Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.MAX_LENGTH, 4000);
     }
   }
 }

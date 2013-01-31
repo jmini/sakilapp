@@ -34,12 +34,13 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
     //TODO: add security
 
     FormDataStatementBuilder actorsStatementBuilder = new FormDataStatementBuilder(SQL.getSqlStyle());
-    actorsStatementBuilder.setValueDefinition(ActorsSearchFormData.ActorIdFrom.class, "actor_id", DataModelConstants.OPERATOR_GE);
-    actorsStatementBuilder.setValueDefinition(ActorsSearchFormData.ActorIdTo.class, "actor_id", DataModelConstants.OPERATOR_LE);
-    actorsStatementBuilder.setValueDefinition(ActorsSearchFormData.FirstName.class, "first_name", DataModelConstants.OPERATOR_CONTAINS);
-    actorsStatementBuilder.setValueDefinition(ActorsSearchFormData.LastName.class, "last_name", DataModelConstants.OPERATOR_CONTAINS);
-    actorsStatementBuilder.setValueDefinition(ActorsSearchFormData.LastUpdateFrom.class, "last_update", DataModelConstants.OPERATOR_DATE_GE);
-    actorsStatementBuilder.setValueDefinition(ActorsSearchFormData.LastUpdateTo.class, "last_update", DataModelConstants.OPERATOR_DATE_LE);
+    actorsStatementBuilder.setBasicDefinition(ActorsSearchFormData.ActorIdFrom.class, "actor_id", DataModelConstants.OPERATOR_GE);
+    actorsStatementBuilder.setBasicDefinition(ActorsSearchFormData.ActorIdTo.class, "actor_id", DataModelConstants.OPERATOR_LE);
+    actorsStatementBuilder.setBasicDefinition(ActorsSearchFormData.FirstName.class, "first_name", DataModelConstants.OPERATOR_CONTAINS);
+    actorsStatementBuilder.setBasicDefinition(ActorsSearchFormData.LastName.class, "last_name", DataModelConstants.OPERATOR_CONTAINS);
+    actorsStatementBuilder.setBasicDefinition(ActorsSearchFormData.LastUpdateFrom.class, "last_update", DataModelConstants.OPERATOR_DATE_GE);
+    actorsStatementBuilder.setBasicDefinition(ActorsSearchFormData.LastUpdateTo.class, "last_update", DataModelConstants.OPERATOR_DATE_LE);
+    actorsStatementBuilder.setBasicDefinition(ActorsSearchFormData.LastUpdateTo.class, "last_update", DataModelConstants.OPERATOR_DATE_LE);
 
     Object[][] result = SQL.select(
         "select      actor_id, " +
@@ -57,11 +58,11 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
     //TODO: add security
 
     FormDataStatementBuilder categoriesStatementBuilder = new FormDataStatementBuilder(SQL.getSqlStyle());
-    categoriesStatementBuilder.setValueDefinition(CategoriesSearchFormData.CategoryIdFrom.class, "category_id", DataModelConstants.OPERATOR_GE);
-    categoriesStatementBuilder.setValueDefinition(CategoriesSearchFormData.CategoryIdTo.class, "category_id", DataModelConstants.OPERATOR_LE);
-    categoriesStatementBuilder.setValueDefinition(CategoriesSearchFormData.Name.class, "name", DataModelConstants.OPERATOR_CONTAINS);
-    categoriesStatementBuilder.setValueDefinition(CategoriesSearchFormData.LastUpdateFrom.class, "last_update", DataModelConstants.OPERATOR_DATE_GE);
-    categoriesStatementBuilder.setValueDefinition(CategoriesSearchFormData.LastUpdateTo.class, "last_update", DataModelConstants.OPERATOR_DATE_LE);
+    categoriesStatementBuilder.setBasicDefinition(CategoriesSearchFormData.CategoryIdFrom.class, "category_id", DataModelConstants.OPERATOR_GE);
+    categoriesStatementBuilder.setBasicDefinition(CategoriesSearchFormData.CategoryIdTo.class, "category_id", DataModelConstants.OPERATOR_LE);
+    categoriesStatementBuilder.setBasicDefinition(CategoriesSearchFormData.Name.class, "name", DataModelConstants.OPERATOR_CONTAINS);
+    categoriesStatementBuilder.setBasicDefinition(CategoriesSearchFormData.LastUpdateFrom.class, "last_update", DataModelConstants.OPERATOR_DATE_GE);
+    categoriesStatementBuilder.setBasicDefinition(CategoriesSearchFormData.LastUpdateTo.class, "last_update", DataModelConstants.OPERATOR_DATE_LE);
 
     Object[][] result = SQL.select(
         "select      category_id, " +
@@ -78,9 +79,9 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
     //TODO: add security
 
     FormDataStatementBuilder filmsStatementBuilder = new FormDataStatementBuilder(SQL.getSqlStyle());
-    filmsStatementBuilder.setValueDefinition(FilmsSearchFormData.FilmIdFrom.class, "film_id", DataModelConstants.OPERATOR_GE);
-    filmsStatementBuilder.setValueDefinition(FilmsSearchFormData.FilmIdTo.class, "film_id", DataModelConstants.OPERATOR_LE);
-    filmsStatementBuilder.setValueDefinition(FilmsSearchFormData.Title.class, "title", DataModelConstants.OPERATOR_CONTAINS);
+    filmsStatementBuilder.setBasicDefinition(FilmsSearchFormData.FilmIdFrom.class, "film_id", DataModelConstants.OPERATOR_GE);
+    filmsStatementBuilder.setBasicDefinition(FilmsSearchFormData.FilmIdTo.class, "film_id", DataModelConstants.OPERATOR_LE);
+    filmsStatementBuilder.setBasicDefinition(FilmsSearchFormData.Title.class, "title", DataModelConstants.OPERATOR_CONTAINS);
     //TODO: complete the list
 
     //subselect in the where statement for categories

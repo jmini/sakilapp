@@ -18,7 +18,6 @@ package net.sakilapp.client.ui.desktop.outlines.pages;
 import net.sakilapp.client.ui.forms.FilmForm;
 import net.sakilapp.client.ui.searchforms.FilmsSearchForm;
 import net.sakilapp.shared.Icons;
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.services.code.RatingCodeType;
 import net.sakilapp.shared.services.lookup.LanguageLookupCall;
 import net.sakilapp.shared.services.outline.ICatalogOutlineService;
@@ -38,7 +37,7 @@ import org.eclipse.scout.rt.client.ui.basic.table.columns.AbstractStringColumn;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.AbstractPageWithTable;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.ISearchForm;
 import org.eclipse.scout.rt.client.ui.messagebox.MessageBox;
-import org.eclipse.scout.rt.shared.ScoutTexts;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.code.ICodeType;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.rt.shared.services.lookup.LookupCall;
@@ -51,7 +50,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
   @Override
   protected String getConfiguredIconId() {
-    return Icons.Folder;
+    return Icons.TreeNode;
   }
 
   @Override
@@ -70,7 +69,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("AllFilms");
+    return TEXTS.get("AllFilms");
   }
 
   @Override
@@ -150,7 +149,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("Id");
+        return TEXTS.get("Id");
       }
 
       @Override
@@ -164,7 +163,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return ScoutTexts.get("Title");
+        return TEXTS.get("Title");
       }
 
       @Override
@@ -183,7 +182,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("ReleaseYear");
+        return TEXTS.get("ReleaseYear");
       }
 
       @Override
@@ -197,7 +196,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return ScoutTexts.get("Language");
+        return TEXTS.get("Language");
       }
 
       @Override
@@ -216,7 +215,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("OriginalLanguage");
+        return TEXTS.get("OriginalLanguage");
       }
 
       @Override
@@ -235,7 +234,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("Length");
+        return TEXTS.get("Length");
       }
 
       @Override
@@ -249,7 +248,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("RentalPrice");
+        return TEXTS.get("RentalPrice");
       }
 
       @Override
@@ -263,7 +262,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("ReplacementCost");
+        return TEXTS.get("ReplacementCost");
       }
 
       @Override
@@ -289,7 +288,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("Rating");
+        return TEXTS.get("Rating");
       }
 
       @Override
@@ -303,7 +302,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("SpecialFeatures");
+        return TEXTS.get("SpecialFeatures");
       }
 
       @Override
@@ -317,7 +316,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("LastUpdate");
+        return TEXTS.get("LastUpdate");
       }
 
       @Override
@@ -336,7 +335,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredText() {
-        return ScoutTexts.get("NewMenu");
+        return TEXTS.get("NewMenu");
       }
 
       @Override
@@ -366,7 +365,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredText() {
-        return ScoutTexts.get("EditMenu");
+        return TEXTS.get("EditMenu");
       }
 
       @Override
@@ -386,7 +385,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected String getConfiguredText() {
-        return ScoutTexts.get("DeleteMenu");
+        return TEXTS.get("DeleteMenu");
       }
 
       @Override
@@ -396,7 +395,7 @@ public class FilmsTablePage extends AbstractPageWithTable<FilmsTablePage.Table> 
 
       @Override
       protected void execAction() throws ProcessingException {
-        if (MessageBox.showDeleteConfirmationMessage(Texts.get("Films"), getTable().getTitleColumn().getSelectedValues())) {
+        if (MessageBox.showDeleteConfirmationMessage(TEXTS.get("Films"), getTable().getTitleColumn().getSelectedValues())) {
           boolean result = SERVICES.getService(IFilmProcessService.class).delete(getTable().getFilmIdColumn().getSelectedValues());
           if (result) {
             reloadPage();

@@ -15,7 +15,6 @@
  ******************************************************************************/
 package net.sakilapp.client.ui.template.formfield;
 
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.AbstractMetadataBoxData;
 
 import org.eclipse.scout.commons.annotations.FormData;
@@ -23,6 +22,7 @@ import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.rt.client.ui.form.fields.datefield.AbstractDateField;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.form.fields.longfield.AbstractLongField;
+import org.eclipse.scout.rt.shared.TEXTS;
 
 @FormData(value = AbstractMetadataBoxData.class, sdkCommand = FormData.SdkCommand.CREATE, defaultSubtypeSdkCommand = FormData.DefaultSubtypeSdkCommand.CREATE)
 public abstract class AbstractMetadataBox extends AbstractGroupBox {
@@ -55,7 +55,7 @@ public abstract class AbstractMetadataBox extends AbstractGroupBox {
 
     @Override
     protected String getConfiguredLabel() {
-      return Texts.get("Id");
+      return TEXTS.get("Id");
     }
   }
 
@@ -69,7 +69,7 @@ public abstract class AbstractMetadataBox extends AbstractGroupBox {
 
     @Override
     protected String getConfiguredLabel() {
-      return Texts.get("LastUpdate");
+      return TEXTS.get("LastUpdate");
     }
   }
 }

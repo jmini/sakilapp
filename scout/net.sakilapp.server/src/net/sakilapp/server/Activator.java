@@ -13,10 +13,9 @@ package net.sakilapp.server;
 import javax.security.auth.Subject;
 
 import org.eclipse.core.runtime.Plugin;
-import org.osgi.framework.BundleContext;
-
+import org.eclipse.scout.commons.security.SimplePrincipal;
 import org.eclipse.scout.rt.server.scheduler.Scheduler;
-import org.eclipse.scout.rt.shared.services.common.security.SimplePrincipal;
+import org.osgi.framework.BundleContext;
 
 public class Activator extends Plugin{
 
@@ -27,7 +26,7 @@ public class Activator extends Plugin{
 
   /**
    * Returns the shared instance
-* @return the shared instance
+   * @return the shared instance
    */
   public static Activator getDefault() {
     return plugin;

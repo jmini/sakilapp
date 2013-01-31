@@ -14,13 +14,15 @@ import java.security.AllPermission;
 import java.security.Permissions;
 
 import org.eclipse.scout.rt.server.services.common.security.AbstractAccessControlService;
+import org.eclipse.scout.rt.shared.security.RemoteServiceAccessPermission;
 
 public class AccessControlService extends AbstractAccessControlService {
 
   @Override
   protected Permissions execLoadPermissions() {
     Permissions permissions = new Permissions();
-    //TODO feduser fill access control service
+    permissions.add(new RemoteServiceAccessPermission("*.shared.*", "*"));
+    //TODO jebr fill access control service
     permissions.add(new AllPermission());
     return permissions;
   }

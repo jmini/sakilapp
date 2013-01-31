@@ -10,24 +10,24 @@
  ******************************************************************************/
 package net.sakilapp.ui.swt.application;
 
+import net.sakilapp.ui.swt.perspective.Perspective;
+
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
-
-
 import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-/** <h3>ApplicationWorkbenchAdvisor</h3>
- *  Used for getting the initial perspective.
-*/
+/**
+ * <h3>ApplicationWorkbenchAdvisor</h3> Used for getting the initial perspective.
+ */
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 
   @Override
   public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
-  	return new ApplicationWorkbenchWindowAdvisor(configurer);
+    return new ApplicationWorkbenchWindowAdvisor(configurer);
   }
 
   @Override
-	public String getInitialWindowPerspectiveId() {
-		return "net.sakilapp.ui.swt.perspective.Perspective";
-	}
+  public String getInitialWindowPerspectiveId() {
+    return Perspective.ID;
+  }
 }

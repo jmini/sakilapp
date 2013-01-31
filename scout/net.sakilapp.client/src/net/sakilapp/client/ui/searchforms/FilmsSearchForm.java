@@ -35,7 +35,6 @@ import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBo
 import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.ReplacementCostField;
 import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.SpecialFeaturesField;
 import net.sakilapp.client.ui.searchforms.FilmsSearchForm.MainBox.TabBox.FieldBox.TitleField;
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.FilmsSearchFormData;
 import net.sakilapp.shared.services.code.RatingCodeType;
 import net.sakilapp.shared.services.code.SpecialFeatureCodeType;
@@ -58,7 +57,7 @@ import org.eclipse.scout.rt.client.ui.form.fields.longfield.AbstractLongField;
 import org.eclipse.scout.rt.client.ui.form.fields.sequencebox.AbstractSequenceBox;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
 import org.eclipse.scout.rt.client.ui.form.fields.tabbox.AbstractTabBox;
-import org.eclipse.scout.rt.shared.ScoutTexts;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.code.ICodeType;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.rt.shared.services.lookup.LookupCall;
@@ -69,7 +68,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("Films");
+    return TEXTS.get("Films");
   }
 
   /**
@@ -193,7 +192,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
         @Override
         public String getConfiguredLabel() {
-          return Texts.get("searchCriteria");
+          return TEXTS.get("searchCriteria");
         }
 
         @Order(10.0)
@@ -201,7 +200,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("Id");
+            return TEXTS.get("Id");
           }
 
           @Order(10.0)
@@ -209,7 +208,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
             @Override
             protected String getConfiguredLabel() {
-              return ScoutTexts.get("from");
+              return TEXTS.get("from");
             }
           }
 
@@ -218,7 +217,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
             @Override
             protected String getConfiguredLabel() {
-              return ScoutTexts.get("to");
+              return TEXTS.get("to");
             }
           }
         }
@@ -228,7 +227,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return ScoutTexts.get("Title");
+            return TEXTS.get("Title");
           }
         }
 
@@ -237,7 +236,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("ReleaseYear");
+            return TEXTS.get("ReleaseYear");
           }
 
           @Order(10.0)
@@ -245,7 +244,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
             @Override
             protected String getConfiguredLabel() {
-              return ScoutTexts.get("from");
+              return TEXTS.get("from");
             }
           }
 
@@ -254,7 +253,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
             @Override
             protected String getConfiguredLabel() {
-              return ScoutTexts.get("to");
+              return TEXTS.get("to");
             }
           }
         }
@@ -269,7 +268,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return ScoutTexts.get("Language");
+            return TEXTS.get("Language");
           }
 
           @Override
@@ -288,7 +287,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("OriginalLanguage");
+            return TEXTS.get("OriginalLanguage");
           }
 
           @Override
@@ -302,7 +301,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("Length");
+            return TEXTS.get("Length");
           }
         }
 
@@ -311,7 +310,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("RentalPrice");
+            return TEXTS.get("RentalPrice");
           }
 
           //TODO: from - to
@@ -329,7 +328,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("ReplacementCost");
+            return TEXTS.get("ReplacementCost");
           }
         }
 
@@ -343,7 +342,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("Rating");
+            return TEXTS.get("Rating");
           }
 
           @Override
@@ -362,7 +361,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("SpecialFeatures");
+            return TEXTS.get("SpecialFeatures");
           }
 
           @Override
@@ -376,7 +375,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
           @Override
           protected String getConfiguredLabel() {
-            return Texts.get("LastUpdate");
+            return TEXTS.get("LastUpdate");
           }
 
           @Order(10.0)
@@ -384,7 +383,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
             @Override
             protected String getConfiguredLabel() {
-              return ScoutTexts.get("from");
+              return TEXTS.get("from");
             }
           }
 
@@ -393,7 +392,7 @@ public class FilmsSearchForm extends AbstractSearchForm {
 
             @Override
             protected String getConfiguredLabel() {
-              return ScoutTexts.get("to");
+              return TEXTS.get("to");
             }
           }
         }

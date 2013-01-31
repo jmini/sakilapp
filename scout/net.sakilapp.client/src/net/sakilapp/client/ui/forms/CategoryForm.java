@@ -20,7 +20,6 @@ import net.sakilapp.client.ui.forms.CategoryForm.MainBox.CategoryNameField;
 import net.sakilapp.client.ui.forms.CategoryForm.MainBox.MetadataBox;
 import net.sakilapp.client.ui.forms.CategoryForm.MainBox.OkButton;
 import net.sakilapp.client.ui.template.formfield.AbstractMetadataBox;
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.CategoryFormData;
 import net.sakilapp.shared.security.UpdateCategoryPermission;
 import net.sakilapp.shared.services.process.ICategoryProcessService;
@@ -34,6 +33,7 @@ import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractCancelButton;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractOkButton;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.service.SERVICES;
 
 @FormData(value = CategoryFormData.class, sdkCommand = FormData.SdkCommand.CREATE)
@@ -45,7 +45,7 @@ public class CategoryForm extends AbstractForm {
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("Category");
+    return TEXTS.get("Category");
   }
 
   public void startModify() throws ProcessingException {
@@ -114,7 +114,7 @@ public class CategoryForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("Category");
+        return TEXTS.get("Category");
       }
 
       @Override

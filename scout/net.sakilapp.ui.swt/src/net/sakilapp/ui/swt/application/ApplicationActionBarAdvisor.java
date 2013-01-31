@@ -14,7 +14,6 @@ import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
@@ -45,27 +44,19 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     register(exitAction);
 
     //TODO JBR: change these Actions => should correspond IViewButton of the scout desktop
-    catalogAction = ActionFactory.ABOUT.create(window); //net.sakilapp.client.ui.desktop.Desktop.CatalogOutlineViewButton
-    catalogAction.setText("Catalog");
+    catalogAction = new SwtOutlineViewAction("Catalog", net.sakilapp.client.ui.desktop.Desktop.CatalogOutlineViewButton.class);
     register(catalogAction);
 
-    retailAction = ActionFactory.ABOUT.create(window); //net.sakilapp.client.ui.desktop.Desktop.RetailOutlineViewButton
-    retailAction.setText("Retail");
+    retailAction = new SwtOutlineViewAction("Retail", net.sakilapp.client.ui.desktop.Desktop.RetailOutlineViewButton.class);
     register(retailAction);
 
-    customersAction = ActionFactory.ABOUT.create(window); //net.sakilapp.client.ui.desktop.Desktop.CustomersOutlineViewButton
-    customersAction.setText("Customers");
+    customersAction = new SwtOutlineViewAction("Customers", net.sakilapp.client.ui.desktop.Desktop.CustomersOutlineViewButton.class);
     register(customersAction);
   }
 
   @Override
   protected void fillMenuBar(IMenuManager menuBar) {
-    MenuManager fileMenu = new MenuManager("&File",
-        IWorkbenchActionConstants.M_FILE);
-    menuBar.add(fileMenu);
-    fileMenu.add(new Separator("additions"));
-    fileMenu.add(new Separator("exit"));
-    fileMenu.add(exitAction);
+    menuBar.add(new MenuManager("", IWorkbenchActionConstants.M_FILE));
   }
 
   @Override

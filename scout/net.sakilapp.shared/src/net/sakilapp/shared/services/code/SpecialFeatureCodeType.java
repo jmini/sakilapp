@@ -15,10 +15,9 @@
  ******************************************************************************/
 package net.sakilapp.shared.services.code;
 
-import net.sakilapp.shared.Texts;
-
 import org.eclipse.scout.commons.annotations.Order;
 import org.eclipse.scout.commons.exception.ProcessingException;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.code.AbstractCode;
 import org.eclipse.scout.rt.shared.services.common.code.AbstractCodeType;
 
@@ -32,7 +31,7 @@ public class SpecialFeatureCodeType extends AbstractCodeType<String> {
 
   @Override
   protected String getConfiguredText() {
-    return Texts.get("SpecialFeature");
+    return TEXTS.get("SpecialFeature");
   }
 
   @Override
@@ -47,7 +46,7 @@ public class SpecialFeatureCodeType extends AbstractCodeType<String> {
 
     @Override
     protected String getConfiguredText() {
-      return Texts.get("Trailers");
+      return TEXTS.get("Trailers");
     }
 
     @Override
@@ -63,7 +62,7 @@ public class SpecialFeatureCodeType extends AbstractCodeType<String> {
 
     @Override
     protected String getConfiguredText() {
-      return Texts.get("Commentaries");
+      return TEXTS.get("Commentaries");
     }
 
     @Override
@@ -79,7 +78,7 @@ public class SpecialFeatureCodeType extends AbstractCodeType<String> {
 
     @Override
     protected String getConfiguredText() {
-      return Texts.get("DeletedScenes");
+      return TEXTS.get("DeletedScenes");
     }
 
     @Override
@@ -95,7 +94,7 @@ public class SpecialFeatureCodeType extends AbstractCodeType<String> {
 
     @Override
     protected String getConfiguredText() {
-      return Texts.get("BehindTheScenes");
+      return TEXTS.get("BehindTheScenes");
     }
 
     @Override

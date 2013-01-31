@@ -1,8 +1,14 @@
 package net.sakilapp.shared.formdata;
 
 import java.util.Date;
-import org.eclipse.scout.rt.shared.data.form.fields.AbstractValueFieldData;
+
+import net.sakilapp.shared.services.code.RatingCodeType;
+import net.sakilapp.shared.services.code.SpecialFeatureCodeType;
+import net.sakilapp.shared.services.lookup.LanguageLookupCall;
+
 import org.eclipse.scout.rt.shared.data.form.AbstractFormData;
+import org.eclipse.scout.rt.shared.data.form.ValidationRule;
+import org.eclipse.scout.rt.shared.data.form.fields.AbstractValueFieldData;
 
 public class FilmsSearchFormData extends AbstractFormData {
   private static final long serialVersionUID = 1L;
@@ -70,108 +76,171 @@ public class FilmsSearchFormData extends AbstractFormData {
     return getFieldByClass(Title.class);
   }
 
-  public class FilmIdFrom extends AbstractValueFieldData<Long> {
+  public static class FilmIdFrom extends AbstractValueFieldData<Long> {
     private static final long serialVersionUID = 1L;
 
     public FilmIdFrom() {
     }
   }
 
-  public class FilmIdTo extends AbstractValueFieldData<Long> {
+  public static class FilmIdTo extends AbstractValueFieldData<Long> {
     private static final long serialVersionUID = 1L;
 
     public FilmIdTo() {
     }
   }
 
-  public class Language extends AbstractValueFieldData<Long[]> {
+  public static class Language extends AbstractValueFieldData<Long[]> {
     private static final long serialVersionUID = 1L;
 
     public Language() {
     }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(java.util.Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.LOOKUP_CALL, LanguageLookupCall.class);
+    }
   }
 
-  public class LastUpdateFrom extends AbstractValueFieldData<Date> {
+  public static class LastUpdateFrom extends AbstractValueFieldData<Date> {
     private static final long serialVersionUID = 1L;
 
     public LastUpdateFrom() {
     }
   }
 
-  public class LastUpdateTo extends AbstractValueFieldData<Date> {
+  public static class LastUpdateTo extends AbstractValueFieldData<Date> {
     private static final long serialVersionUID = 1L;
 
     public LastUpdateTo() {
     }
   }
 
-  public class Length extends AbstractValueFieldData<String> {
+  public static class Length extends AbstractValueFieldData<String> {
     private static final long serialVersionUID = 1L;
 
     public Length() {
     }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(java.util.Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.MAX_LENGTH, 4000);
+    }
   }
 
-  public class OriginalLanguage extends AbstractValueFieldData<Long[]> {
+  public static class OriginalLanguage extends AbstractValueFieldData<Long[]> {
     private static final long serialVersionUID = 1L;
 
     public OriginalLanguage() {
     }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(java.util.Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.LOOKUP_CALL, LanguageLookupCall.class);
+    }
   }
 
-  public class Rating extends AbstractValueFieldData<String[]> {
+  public static class Rating extends AbstractValueFieldData<String[]> {
     private static final long serialVersionUID = 1L;
 
     public Rating() {
     }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(java.util.Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.CODE_TYPE, RatingCodeType.class);
+    }
   }
 
-  public class ReleaseYearFrom extends AbstractValueFieldData<Date> {
+  public static class ReleaseYearFrom extends AbstractValueFieldData<Date> {
     private static final long serialVersionUID = 1L;
 
     public ReleaseYearFrom() {
     }
   }
 
-  public class ReleaseYearTo extends AbstractValueFieldData<Date> {
+  public static class ReleaseYearTo extends AbstractValueFieldData<Date> {
     private static final long serialVersionUID = 1L;
 
     public ReleaseYearTo() {
     }
   }
 
-  public class RentalDuration extends AbstractValueFieldData<Integer> {
+  public static class RentalDuration extends AbstractValueFieldData<Integer> {
     private static final long serialVersionUID = 1L;
 
     public RentalDuration() {
     }
   }
 
-  public class RentalRate extends AbstractValueFieldData<Double> {
+  public static class RentalRate extends AbstractValueFieldData<Double> {
     private static final long serialVersionUID = 1L;
 
     public RentalRate() {
     }
   }
 
-  public class ReplacementCost extends AbstractValueFieldData<String> {
+  public static class ReplacementCost extends AbstractValueFieldData<String> {
     private static final long serialVersionUID = 1L;
 
     public ReplacementCost() {
     }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(java.util.Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.MAX_LENGTH, 4000);
+    }
   }
 
-  public class SpecialFeatures extends AbstractValueFieldData<String[]> {
+  public static class SpecialFeatures extends AbstractValueFieldData<String[]> {
     private static final long serialVersionUID = 1L;
 
     public SpecialFeatures() {
     }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(java.util.Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.CODE_TYPE, SpecialFeatureCodeType.class);
+    }
   }
 
-  public class Title extends AbstractValueFieldData<String> {
+  public static class Title extends AbstractValueFieldData<String> {
     private static final long serialVersionUID = 1L;
 
     public Title() {
+    }
+
+    /**
+     * list of derived validation rules.
+     */
+    @Override
+    protected void initValidationRules(java.util.Map<String, Object> ruleMap) {
+      super.initValidationRules(ruleMap);
+      ruleMap.put(ValidationRule.MAX_LENGTH, 4000);
     }
   }
 }

@@ -21,7 +21,6 @@ import net.sakilapp.client.ui.forms.ActorForm.MainBox.LastNameField;
 import net.sakilapp.client.ui.forms.ActorForm.MainBox.MetadataBox;
 import net.sakilapp.client.ui.forms.ActorForm.MainBox.OkButton;
 import net.sakilapp.client.ui.template.formfield.AbstractMetadataBox;
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.ActorFormData;
 import net.sakilapp.shared.security.UpdateActorPermission;
 import net.sakilapp.shared.services.process.IActorProcessService;
@@ -35,6 +34,7 @@ import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractCancelButton;
 import org.eclipse.scout.rt.client.ui.form.fields.button.AbstractOkButton;
 import org.eclipse.scout.rt.client.ui.form.fields.groupbox.AbstractGroupBox;
 import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringField;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.service.SERVICES;
 
 @FormData(value = ActorFormData.class, sdkCommand = FormData.SdkCommand.CREATE)
@@ -46,7 +46,7 @@ public class ActorForm extends AbstractForm {
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("Actor");
+    return TEXTS.get("Actor");
   }
 
   public void startModify() throws ProcessingException {
@@ -118,7 +118,7 @@ public class ActorForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("FirstName");
+        return TEXTS.get("FirstName");
       }
 
       @Override
@@ -137,7 +137,7 @@ public class ActorForm extends AbstractForm {
 
       @Override
       protected String getConfiguredLabel() {
-        return Texts.get("LastName");
+        return TEXTS.get("LastName");
       }
 
       @Override

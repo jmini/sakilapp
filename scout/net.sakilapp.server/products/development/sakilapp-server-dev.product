@@ -28,6 +28,7 @@
    </vm>
 
    <plugins>
+      <plugin id="com.mysql.jdbc_5117.fragment" fragment="true"/>
       <plugin id="javax.servlet"/>
       <plugin id="net.sakilapp.server"/>
       <plugin id="net.sakilapp.shared"/>
@@ -42,7 +43,6 @@
       <plugin id="org.eclipse.equinox.http.registry"/>
       <plugin id="org.eclipse.equinox.http.servlet"/>
       <plugin id="org.eclipse.equinox.launcher"/>
-      <plugin id="org.eclipse.equinox.launcher.gtk.linux.x86" fragment="true"/>
       <plugin id="org.eclipse.equinox.preferences"/>
       <plugin id="org.eclipse.equinox.registry"/>
       <plugin id="org.eclipse.equinox.security"/>
@@ -58,8 +58,6 @@
       <plugin id="org.eclipse.scout.rt.jdbc.derby"/>
       <plugin id="org.eclipse.scout.rt.jdbc.derby.source"/>
       <plugin id="org.eclipse.scout.rt.server"/>
-      <plugin id="org.eclipse.scout.rt.server.jdbc.mysql517.fragment" fragment="true"/>
-      <plugin id="org.eclipse.scout.rt.server.jdbc.mysql517.fragment.source"/>
       <plugin id="org.eclipse.scout.rt.server.source"/>
       <plugin id="org.eclipse.scout.rt.shared"/>
       <plugin id="org.eclipse.scout.rt.shared.source"/>

@@ -20,17 +20,17 @@ import java.util.Collection;
 import net.sakilapp.client.ui.desktop.outlines.pages.ActorsTablePage;
 import net.sakilapp.client.ui.desktop.outlines.pages.CategoriesTablePage;
 import net.sakilapp.client.ui.desktop.outlines.pages.FilmsTablePage;
-import net.sakilapp.shared.Texts;
 
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.rt.client.ui.desktop.outline.AbstractOutline;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
+import org.eclipse.scout.rt.shared.TEXTS;
 
 public class CatalogOutline extends AbstractOutline {
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("Catalog");
+    return TEXTS.get("Catalog");
   }
 
   @Override

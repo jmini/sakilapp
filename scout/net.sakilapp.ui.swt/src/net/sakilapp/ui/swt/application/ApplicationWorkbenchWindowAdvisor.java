@@ -16,13 +16,12 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
-/**
- * <h3>ApplicationWorkbenchWindowAdvisor</h3> Used for workbench window behaviors.
+/** <h3>ApplicationWorkbenchWindowAdvisor</h3>
+ *  Used for workbench window behaviors.
  */
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
-  public ApplicationWorkbenchWindowAdvisor(
-      IWorkbenchWindowConfigurer configurer) {
+  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
     super(configurer);
   }
 
@@ -35,12 +34,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
   public void preWindowOpen() {
     IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
     configurer.setInitialSize(new Point(1024, 800));
-    configurer.setShowCoolBar(true);
+    configurer.setShowCoolBar(false);
     configurer.setShowStatusLine(true);
     configurer.setShowProgressIndicator(true);
     configurer.setShowMenuBar(true);
-    configurer.setShowPerspectiveBar(false);
-    //TODO: configurer.setTitle("RCP Application");
-
   }
 }

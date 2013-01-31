@@ -17,7 +17,6 @@ package net.sakilapp.client.ui.desktop.outlines.pages;
 
 import net.sakilapp.client.ui.forms.ActorForm;
 import net.sakilapp.client.ui.searchforms.ActorsSearchForm;
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.services.outline.ICatalogOutlineService;
 import net.sakilapp.shared.services.process.IActorProcessService;
 
@@ -35,7 +34,7 @@ import org.eclipse.scout.rt.client.ui.desktop.outline.pages.IPage;
 import org.eclipse.scout.rt.client.ui.desktop.outline.pages.ISearchForm;
 import org.eclipse.scout.rt.client.ui.messagebox.MessageBox;
 import org.eclipse.scout.rt.shared.AbstractIcons;
-import org.eclipse.scout.rt.shared.ScoutTexts;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.jdbc.SearchFilter;
 import org.eclipse.scout.service.SERVICES;
 
@@ -48,7 +47,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
   @Override
   protected String getConfiguredIconId() {
-    return AbstractIcons.Folder;
+    return AbstractIcons.TreeNode;
   }
 
   @Override
@@ -67,7 +66,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
   @Override
   protected String getConfiguredTitle() {
-    return Texts.get("ByActor");
+    return TEXTS.get("ByActor");
   }
 
   @Override
@@ -109,7 +108,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
     @Override
     protected String getConfiguredDefaultIconId() {
-      return AbstractIcons.Folder;
+      return AbstractIcons.TreeNode;
     }
 
     @Order(10.0)
@@ -117,7 +116,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("Id");
+        return TEXTS.get("Id");
       }
 
       @Override
@@ -141,7 +140,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("FirstName");
+        return TEXTS.get("FirstName");
       }
 
       @Override
@@ -160,7 +159,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("LastName");
+        return TEXTS.get("LastName");
       }
 
       @Override
@@ -179,7 +178,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected String getConfiguredHeaderText() {
-        return Texts.get("LastUpdate");
+        return TEXTS.get("LastUpdate");
       }
 
       @Override
@@ -198,7 +197,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected String getConfiguredText() {
-        return ScoutTexts.get("NewMenu");
+        return TEXTS.get("NewMenu");
       }
 
       @Override
@@ -228,7 +227,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected String getConfiguredText() {
-        return ScoutTexts.get("EditMenu");
+        return TEXTS.get("EditMenu");
       }
 
       @Override
@@ -248,7 +247,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected String getConfiguredText() {
-        return ScoutTexts.get("DeleteMenu");
+        return TEXTS.get("DeleteMenu");
       }
 
       @Override
@@ -265,7 +264,7 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
           actors[i] = StringUtility.join(" ", firstNames[i], lastNames[i]);
         }
 
-        if (MessageBox.showDeleteConfirmationMessage(Texts.get("Actor"), actors)) {
+        if (MessageBox.showDeleteConfirmationMessage(TEXTS.get("Actor"), actors)) {
           boolean result = SERVICES.getService(IActorProcessService.class).delete(getTable().getActorIdColumn().getSelectedValues());
           if (result) {
             reloadPage();

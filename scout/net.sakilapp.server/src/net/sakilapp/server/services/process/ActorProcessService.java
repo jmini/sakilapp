@@ -15,7 +15,6 @@
  ******************************************************************************/
 package net.sakilapp.server.services.process;
 
-import net.sakilapp.shared.Texts;
 import net.sakilapp.shared.formdata.ActorFormData;
 import net.sakilapp.shared.security.CreateActorPermission;
 import net.sakilapp.shared.security.DeleteActorPermission;
@@ -27,6 +26,7 @@ import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.exception.VetoException;
 import org.eclipse.scout.commons.holders.NVPair;
 import org.eclipse.scout.rt.server.services.common.jdbc.SQL;
+import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.security.ACCESS;
 import org.eclipse.scout.service.AbstractService;
 
@@ -34,7 +34,7 @@ public class ActorProcessService extends AbstractService implements IActorProces
 
   public ActorFormData prepareCreate(ActorFormData formData) throws ProcessingException {
     if (!ACCESS.check(new CreateActorPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     //Nothing to do for the preparation of the creation.
     return formData;
@@ -42,7 +42,7 @@ public class ActorProcessService extends AbstractService implements IActorProces
 
   public ActorFormData create(ActorFormData formData) throws ProcessingException {
     if (!ACCESS.check(new CreateActorPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     //TODO: Add a Sync block?
     SQL.insert(
@@ -63,7 +63,7 @@ public class ActorProcessService extends AbstractService implements IActorProces
 
   public ActorFormData load(ActorFormData formData) throws ProcessingException {
     if (!ACCESS.check(new ReadActorPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     SQL.selectInto(
         "select      last_update, " +
@@ -83,7 +83,7 @@ public class ActorProcessService extends AbstractService implements IActorProces
 
   public ActorFormData store(ActorFormData formData) throws ProcessingException {
     if (!ACCESS.check(new UpdateActorPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     SQL.update(
         " update      actor " +
@@ -98,7 +98,7 @@ public class ActorProcessService extends AbstractService implements IActorProces
 
   public boolean delete(Long[] actorIds) throws ProcessingException {
     if (!ACCESS.check(new DeleteActorPermission())) {
-      throw new VetoException(Texts.get("AuthorizationFailed"));
+      throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     int nbRows = SQL.delete(
         " delete       from actor" +
