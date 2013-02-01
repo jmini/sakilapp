@@ -13,17 +13,14 @@
       <vmArgs>-Xms64m
 -Xmx512m
 -XX:MaxPermSize=256m</vmArgs>
-      <vmArgsMac>-Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+      <programArgsMac>--launcher.secondThread</programArgsMac>
    </launcherArgs>
 
    <windowImages/>
 
    <launcher name="sakilapp">
       <solaris/>
-      <win useIco="true">
-         <ico path="/net.sakilapp.ui.swing/icons/bsi.ico"/>
-         <bmp/>
-      </win>
+      <win/>
    </launcher>
 
    <vm>
@@ -33,8 +30,6 @@
       <plugin id="net.sakilapp.client" fragment=""/>
       <plugin id="net.sakilapp.shared" fragment=""/>
       <plugin id="net.sakilapp.ui.swing" fragment=""/>
-      <plugin id="ch.qos.logback.core"/>
-      <plugin id="ch.qos.logback.slf4j" fragment="true"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.net"/>
@@ -54,13 +49,26 @@
       <plugin id="org.eclipse.scout.rt.shared"/>
       <plugin id="org.eclipse.scout.rt.ui.swing"/>
       <plugin id="org.eclipse.scout.service"/>
+      <plugin id="org.eclipse.scout.svg.client"/>
+      <plugin id="org.eclipse.scout.svg.ui.swing"/>
       <plugin id="org.eclipse.swt"/>
-      <plugin id="org.eclipse.swt.gtk.linux.x86" fragment="true"/>
+      <plugin id="org.eclipse.swt.cocoa.macosx.x86_64" fragment="true"/>
       <plugin id="org.eclipse.update.configurator"/>
-      <plugin id="org.slf4j.api"/>
-      <plugin id="org.slf4j.jcl"/>
-      <plugin id="org.slf4j.jul"/>
-      <plugin id="org.slf4j.log4j"/>
+      <plugin id="org.apache.batik.bridge"/>
+      <plugin id="org.apache.batik.css"/>
+      <plugin id="org.apache.batik.dom"/>
+      <plugin id="org.apache.batik.dom.svg"/>
+      <plugin id="org.apache.batik.ext.awt"/>
+      <plugin id="org.apache.batik.parser"/>
+      <plugin id="org.apache.batik.svggen"/>
+      <plugin id="org.apache.batik.swing"/>
+      <plugin id="org.apache.batik.transcoder"/>
+      <plugin id="org.apache.batik.util"/>
+      <plugin id="org.apache.batik.util.gui"/>
+      <plugin id="org.apache.batik.xml"/>
+      <plugin id="org.w3c.dom.svg"/>
+      <plugin id="org.w3c.css.sac"/>
+      <plugin id="org.w3c.dom.smil"/>
    </plugins>
 
 

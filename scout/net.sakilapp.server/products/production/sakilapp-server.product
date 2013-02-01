@@ -4,8 +4,8 @@
 <product name="sakilapp Server" id="net.sakilapp.server.product" application="net.sakilapp.server.app" useFeatures="false" includeLaunchers="true">
 
    <configIni use="default">
-      <linux>/net.sakilapp.server/products/development/config.ini</linux>
-      <macosx>/net.sakilapp.server/products/development/config.ini</macosx>
+      <linux>/net.sakilapp.server/products/production/config.ini</linux>
+      <macosx>/net.sakilapp.server/products/production/config.ini</macosx>
       <win32>/net.sakilapp.server/products/production/config.ini</win32>
    </configIni>
 
@@ -29,6 +29,7 @@
    </vm>
 
    <plugins>
+      <plugin id="com.mysql.jdbc_5117.fragment" fragment="true"/>
       <plugin id="net.sakilapp.server" fragment=""/>
       <plugin id="net.sakilapp.shared" fragment=""/>
       <plugin id="javax.servlet"/>
