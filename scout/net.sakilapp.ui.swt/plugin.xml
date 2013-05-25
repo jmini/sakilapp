@@ -5,8 +5,9 @@
          name=""
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="Sakilapp"
-            fixed="true"
+            name="sakilapp"
+            icon="resources/icons/eclipse_scout.gif"
+            fixed="false"
             class="net.sakilapp.ui.swt.perspective.Perspective"
             id="net.sakilapp.ui.swt.perspective.Perspective">
       </perspective>
@@ -15,56 +16,99 @@
          name=""
          point="org.eclipse.ui.views">
       <view
-            name="OutlineView"
-            icon="resources/icons/eclipse_scout.gif"
-            restorable="true"
-            class="net.sakilapp.ui.swt.views.OutlineView"
-            id="net.sakilapp.ui.swt.views.OutlineView">
-      </view>
-      <view
-            name="DetailView"
-            icon="resources/icons/eclipse_scout.gif"
-            restorable="true"
-            class="net.sakilapp.ui.swt.views.DetailView"
-            id="net.sakilapp.ui.swt.views.DetailView">
-      </view>
-      <view
             name="Center View"
             allowMultiple="true"
             icon="resources/icons/eclipse_scout.gif"
+            category="net.sakilapp.ui.swt.viewCategory"
             restorable="true"
             class="net.sakilapp.ui.swt.views.CenterView"
             id="net.sakilapp.ui.swt.views.CenterView">
       </view>
       <view
-            name="Table View"
+            name="West view"
+            allowMultiple="true"
             icon="resources/icons/eclipse_scout.gif"
+            category="net.sakilapp.ui.swt.viewCategory"
             restorable="true"
-            class="net.sakilapp.ui.swt.views.TableView"
-            id="net.sakilapp.ui.swt.views.TableView">
+            class="net.sakilapp.ui.swt.views.WestView"
+            id="net.sakilapp.ui.swt.views.WestView">
       </view>
       <view
-            name="Search View"
+            name="North view"
+            allowMultiple="true"
             icon="resources/icons/eclipse_scout.gif"
+            category="net.sakilapp.ui.swt.viewCategory"
             restorable="true"
-            class="net.sakilapp.ui.swt.views.SearchView"
-            id="net.sakilapp.ui.swt.views.SearchView">
+            class="net.sakilapp.ui.swt.views.NorthView"
+            id="net.sakilapp.ui.swt.views.NorthView">
+      </view>
+      <view
+            name="North west view"
+            allowMultiple="true"
+            icon="resources/icons/eclipse_scout.gif"
+            category="net.sakilapp.ui.swt.viewCategory"
+            restorable="true"
+            class="net.sakilapp.ui.swt.views.NorthWestView"
+            id="net.sakilapp.ui.swt.views.NorthWestView">
+      </view>
+      <view
+            name="North east view"
+            allowMultiple="true"
+            icon="resources/icons/eclipse_scout.gif"
+            category="net.sakilapp.ui.swt.viewCategory"
+            restorable="true"
+            class="net.sakilapp.ui.swt.views.NorthEastView"
+            id="net.sakilapp.ui.swt.views.NorthEastView">
+      </view>
+      <view
+            name="East view"
+            allowMultiple="true"
+            icon="resources/icons/eclipse_scout.gif"
+            category="net.sakilapp.ui.swt.viewCategory"
+            restorable="true"
+            class="net.sakilapp.ui.swt.views.EastView"
+            id="net.sakilapp.ui.swt.views.EastView">
+      </view>
+      <view
+            name="South view"
+            allowMultiple="true"
+            icon="resources/icons/eclipse_scout.gif"
+            category="net.sakilapp.ui.swt.viewCategory"
+            restorable="true"
+            class="net.sakilapp.ui.swt.views.SouthView"
+            id="net.sakilapp.ui.swt.views.SouthView">
+      </view>
+      <view
+            name="South west view"
+            allowMultiple="true"
+            icon="resources/icons/eclipse_scout.gif"
+            category="net.sakilapp.ui.swt.viewCategory"
+            restorable="true"
+            class="net.sakilapp.ui.swt.views.SouthWestView"
+            id="net.sakilapp.ui.swt.views.SouthWestView">
+      </view>
+      <view
+            name="South east view"
+            allowMultiple="true"
+            icon="resources/icons/eclipse_scout.gif"
+            category="net.sakilapp.ui.swt.viewCategory"
+            restorable="true"
+            class="net.sakilapp.ui.swt.views.SouthEastView"
+            id="net.sakilapp.ui.swt.views.SouthEastView">
       </view>
       <view
             name="Progress View"
+            allowMultiple="false"
             icon="resources/icons/progress_view.gif"
             category="org.eclipse.ui"
             restorable="true"
             class="org.eclipse.ui.ExtensionFactory:progressView"
             id="org.eclipse.ui.views.ProgressView">
       </view>
-      <view
-            name="East View"
-            icon="resources/icons/eclipse_scout.gif"
-            restorable="true"
-            class="net.sakilapp.ui.swt.views.EastView"
-            id="net.sakilapp.ui.swt.views.EastView">
-      </view>
+      <category
+            name="sakilapp"
+            id="net.sakilapp.ui.swt.viewCategory">
+      </category>
    </extension>
    <extension
          name=""
@@ -100,11 +144,11 @@
          name=""
          point="org.eclipse.core.runtime.products">
       <product
-            name=""
+            name="sakilapp"
             application="net.sakilapp.ui.swt.application">
          <property
                name="appName"
-               value="Sakilapp">
+               value="sakilapp">
          </property>
          <property
                name="windowImages"
@@ -135,74 +179,6 @@
                id="org.eclipse.scout.swt.menu.dynamic">
          </dynamic>
       </menuContribution>
-   </extension>
-   <extension
-         name=""
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="net.sakilapp.ui.swt.perspective.Perspective">
-         <view
-               minimized="false"
-               relative="org.eclipse.ui.editorss"
-               closeable="false"
-               visible="false"
-               relationship="left"
-               id="net.sakilapp.ui.swt.views.OutlineView">
-         </view>
-         <view
-               minimized="false"
-               ratio="0.75"
-               relative="net.sakilapp.ui.swt.views.OutlineView"
-               closeable="true"
-               visible="false"
-               relationship="right"
-               id="net.sakilapp.ui.swt.views.EastView">
-         </view>
-         <view
-               minimized="false"
-               ratio="0.25"
-               relative="net.sakilapp.ui.swt.views.OutlineView"
-               closeable="false"
-               visible="false"
-               relationship="right"
-               id="net.sakilapp.ui.swt.views.TableView">
-         </view>
-         <view
-               minimized="false"
-               ratio="0.25"
-               relative="net.sakilapp.ui.swt.views.TableView"
-               closeable="false"
-               visible="false"
-               relationship="bottom"
-               id="net.sakilapp.ui.swt.views.DetailView">
-         </view>
-         <view
-               minimized="false"
-               ratio="0.66"
-               relative="net.sakilapp.ui.swt.views.TableView"
-               closeable="false"
-               visible="false"
-               relationship="bottom"
-               id="net.sakilapp.ui.swt.views.SearchView">
-         </view>
-         <view
-               minimized="false"
-               relative="net.sakilapp.ui.swt.views.TableView"
-               closeable="true"
-               visible="false"
-               relationship="stack"
-               id="net.sakilapp.ui.swt.views.CenterView">
-         </view>
-         <view
-               minimized="false"
-               ratio="0.75"
-               relative="net.sakilapp.ui.swt.views.EastView"
-               closeable="true"
-               visible="false"
-               relationship="bottom"
-               id="org.eclipse.ui.views.ProgressView">
-         </view>
-      </perspectiveExtension>
    </extension>
 
 </plugin>

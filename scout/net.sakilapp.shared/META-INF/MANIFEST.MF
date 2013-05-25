@@ -4,14 +4,15 @@ Bundle-Name: net.sakilapp.shared
 Bundle-SymbolicName: net.sakilapp.shared;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: net.sakilapp.shared.Activator
-Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.scout.rt.shared;visibility:=reexport
 Export-Package: net.sakilapp.shared,
  net.sakilapp.shared.formdata,
- net.sakilapp.shared.services.outline,
- net.sakilapp.shared.services.code,
- net.sakilapp.shared.services.lookup,
  net.sakilapp.shared.security,
+ net.sakilapp.shared.services.code,
+ net.sakilapp.shared.services.common.text,
+ net.sakilapp.shared.services.lookup,
+ net.sakilapp.shared.services.outline,
  net.sakilapp.shared.services.process
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.scout.rt.shared;visibility:=reexport
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

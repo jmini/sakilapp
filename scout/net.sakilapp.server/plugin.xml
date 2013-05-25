@@ -1,49 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-  <extension point="org.eclipse.scout.service.services">
-    <service class="org.eclipse.scout.rt.server.services.common.bookmark.FileSystemBookmarkStorageService" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory" session="net.sakilapp.server.ServerSession"/>
-    <service class="org.eclipse.scout.rt.server.services.common.workflow.WorkflowProviderService" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory" session="net.sakilapp.server.ServerSession"/>
-    <service class="net.sakilapp.server.services.custom.security.AccessControlService" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory" session="net.sakilapp.server.ServerSession"/>
-    <service class="net.sakilapp.server.services.common.sql.SakilaMySqlService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
-    <service class="net.sakilapp.server.services.outline.CatalogOutlineService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
-    <service class="net.sakilapp.server.services.lookup.LanguageLookupService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
-    <service class="net.sakilapp.server.services.process.CategoryProcessService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
-    <service class="net.sakilapp.server.services.process.FilmProcessService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
-    <service class="net.sakilapp.server.services.process.ActorProcessService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
-    <service class="net.sakilapp.server.services.outline.CustomersOutlineService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
-    <service class="net.sakilapp.server.services.outline.RetailOutlineService" session="net.sakilapp.server.ServerSession" factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"/>
+
+   <extension
+         name=""
+         point="org.eclipse.scout.service.services">
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="org.eclipse.scout.rt.server.services.common.bookmark.FileSystemBookmarkStorageService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="org.eclipse.scout.rt.server.services.common.workflow.WorkflowProviderService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="net.sakilapp.server.services.custom.security.AccessControlService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="net.sakilapp.server.services.common.sql.SakilaMySqlService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="net.sakilapp.server.services.outline.CatalogOutlineService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="net.sakilapp.server.services.lookup.LanguageLookupService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="net.sakilapp.server.services.process.CategoryProcessService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="net.sakilapp.server.services.process.FilmProcessService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="net.sakilapp.server.services.process.ActorProcessService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="net.sakilapp.server.services.outline.CustomersOutlineService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
+      <service
+         factory="org.eclipse.scout.rt.server.services.ServerServiceFactory"
+         class="net.sakilapp.server.services.outline.RetailOutlineService"
+         session="net.sakilapp.server.ServerSession">
+      </service>
   </extension>
-  <extension point="org.eclipse.equinox.http.registry.servlets">
-    <servlet alias="/process" class="org.eclipse.scout.rt.server.ServiceTunnelServlet">
-      <init-param name="min-version" value="0.0.0"/>
-    </servlet>
-    <servlet alias="/remotefiles" class="org.eclipse.scout.rt.server.RemoteFileServlet">
-     </servlet>
-    <servlet alias="/updatesite" class="org.eclipse.scout.rt.server.RemoteFileServlet">
-      <init-param name="folder" value="/updatesite"/>
-    </servlet>
-    <servlet alias="/" class="org.eclipse.scout.rt.server.ResourceServlet">
-      <init-param name="bundle-name" value="net.sakilapp.server"/>
-      <init-param name="bundle-path" value="/resources/html"/>
-    </servlet>
-  </extension>
-  <extension point="org.eclipse.scout.http.servletfilter.filters">
-    <filter aliases="/" class="org.eclipse.scout.rt.server.servlet.filter.BasicSecurityFilter" ranking="20">
-      <init-param name="realm" value="BSIAG Development"/>
-      <init-param name="users" value="admin=manager,allen=allen,blake=blake"/>
-    </filter>
-    <filter aliases="/" class="org.eclipse.scout.rt.server.servlet.filter.AnonymousSecurityFilter" ranking="30">
-    </filter>
-  </extension>
-  <extension id="app" name="Server Application" point="org.eclipse.core.runtime.applications">
-    <application>
-      <run class="net.sakilapp.server.ServerApplication"/>
-    </application>
-  </extension>
-  <extension id="product" point="org.eclipse.core.runtime.products">
-    <product application="net.sakilapp.server.app" name="sakilapp Server">
-      <property name="appName" value="sakilapp Server">
-       </property>
-    </product>
-  </extension>
+   <extension
+         name=""
+         point="org.eclipse.equinox.http.registry.servlets">
+      <servlet
+            alias="/process"
+            class="org.eclipse.scout.rt.server.ServiceTunnelServlet">
+         <init-param
+               name="min-version"
+               value="0.0.0">
+         </init-param>
+      </servlet>
+      <servlet
+            alias="/remotefiles"
+            class="org.eclipse.scout.rt.server.RemoteFileServlet">
+      </servlet>
+      <servlet
+            alias="/updatesite"
+            class="org.eclipse.scout.rt.server.RemoteFileServlet">
+         <init-param
+               name="folder"
+               value="/updatesite">
+         </init-param>
+      </servlet>
+      <servlet
+            alias="/"
+            class="org.eclipse.scout.rt.server.ResourceServlet">
+         <init-param
+               name="bundle-name"
+               value="net.sakilapp.server">
+         </init-param>
+         <init-param
+               name="bundle-path"
+               value="/resources/html">
+         </init-param>
+      </servlet>
+   </extension>
+   <extension
+         name=""
+         point="org.eclipse.scout.http.servletfilter.filters">
+      <filter
+            aliases="/process /remotefiles /updatesite"
+            class="org.eclipse.scout.http.servletfilter.security.BasicSecurityFilter"
+            ranking="20">
+      </filter>
+      <filter
+            aliases="/process /remotefiles /updatesite"
+            class="org.eclipse.scout.http.servletfilter.security.AnonymousSecurityFilter"
+            ranking="30">
+      </filter>
+   </extension>
+   <extension
+         id="app"
+         name="Server Application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="net.sakilapp.server.ServerApplication">
+         </run>
+      </application>
+   </extension>
+   <extension
+         id="product"
+         name=""
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="sakilapp Server"
+            application="net.sakilapp.server.app">
+         <property
+               name="appName"
+               value="sakilapp Server">
+         </property>
+      </product>
+   </extension>
+
 </plugin>

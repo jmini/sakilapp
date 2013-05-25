@@ -26,6 +26,7 @@ import org.eclipse.scout.service.AbstractService;
 @Priority(100)
 public class DBMockCatalogOutlineService extends AbstractService implements ICatalogOutlineService {
 
+  @Override
   public Object[][] loadActors(SearchFilter filter) throws ProcessingException {
 
     Object[][] result = new Object[][]{
@@ -40,6 +41,7 @@ public class DBMockCatalogOutlineService extends AbstractService implements ICat
     return result;
   }
 
+  @Override
   public Object[][] loadCategories(SearchFilter filter) throws ProcessingException {
 
     Object[][] result = new Object[][]{
@@ -56,6 +58,7 @@ public class DBMockCatalogOutlineService extends AbstractService implements ICat
     return result;
   }
 
+  @Override
   public Object[][] loadFilms(SearchFilter filter, Long categoryIdFilter, Long actorIdFilter) throws ProcessingException {
 
     Object[][] result = new Object[][]{

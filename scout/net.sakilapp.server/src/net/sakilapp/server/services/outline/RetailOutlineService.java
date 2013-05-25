@@ -4,5 +4,5 @@ import net.sakilapp.shared.services.outline.IRetailOutlineService;
 
 import org.eclipse.scout.service.AbstractService;
 
-public class RetailOutlineService extends AbstractService implements IRetailOutlineService{
+public class RetailOutlineService extends AbstractService implements IRetailOutlineService {
 }

@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-  <extension point="org.eclipse.scout.service.services">
-    <proxy class="net.sakilapp.shared.services.outline.ICatalogOutlineService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
-    <proxy class="net.sakilapp.shared.services.lookup.ILanguageLookupService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
-    <proxy class="net.sakilapp.shared.services.process.ICategoryProcessService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
-    <proxy class="net.sakilapp.shared.services.process.IFilmProcessService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
-    <proxy class="net.sakilapp.shared.services.process.IActorProcessService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
-    <proxy class="net.sakilapp.shared.services.outline.ICustomersOutlineService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
-    <proxy class="net.sakilapp.shared.services.outline.IRetailOutlineService" factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"/>
-  </extension>
-  <extension point="org.eclipse.scout.service.services">
-  </extension>
+
+   <extension
+         name=""
+         point="org.eclipse.scout.service.services">
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="net.sakilapp.shared.services.outline.ICatalogOutlineService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="net.sakilapp.shared.services.lookup.ILanguageLookupService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="net.sakilapp.shared.services.process.ICategoryProcessService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="net.sakilapp.shared.services.process.IFilmProcessService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="net.sakilapp.shared.services.process.IActorProcessService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="net.sakilapp.shared.services.outline.ICustomersOutlineService">
+      </proxy>
+      <proxy
+            factory="org.eclipse.scout.rt.client.services.ClientProxyServiceFactory"
+            class="net.sakilapp.shared.services.outline.IRetailOutlineService">
+      </proxy>
+      </extension>
+
 </plugin>

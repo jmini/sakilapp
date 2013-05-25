@@ -1,25 +1,19 @@
-/*******************************************************************************
- * Copyright (c) 2010 BSI Business Systems Integration AG.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- * 
- * Contributors:
- *     BSI Business Systems Integration AG - initial API and implementation
- ******************************************************************************/
 package net.sakilapp.ui.swt;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import net.sakilapp.ui.swt.application.ApplicationActionBarAdvisor;
 import net.sakilapp.ui.swt.editor.ScoutEditorPart;
 import net.sakilapp.ui.swt.views.CenterView;
-import net.sakilapp.ui.swt.views.DetailView;
 import net.sakilapp.ui.swt.views.EastView;
-import net.sakilapp.ui.swt.views.OutlineView;
-import net.sakilapp.ui.swt.views.SearchView;
-import net.sakilapp.ui.swt.views.TableView;
+import net.sakilapp.ui.swt.views.NorthEastView;
+import net.sakilapp.ui.swt.views.NorthView;
+import net.sakilapp.ui.swt.views.NorthWestView;
+import net.sakilapp.ui.swt.views.SouthEastView;
+import net.sakilapp.ui.swt.views.SouthView;
+import net.sakilapp.ui.swt.views.SouthWestView;
+import net.sakilapp.ui.swt.views.WestView;
 
 import org.eclipse.scout.rt.client.AbstractClientSession;
 import org.eclipse.scout.rt.client.ui.desktop.IDesktop;
@@ -32,36 +26,32 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 
-/**
- * <h3>SwtEnvironment</h3> This class provides the possibility to write a own representation of any scout field.
- * Furthermore the scout view id to swt view id mapping is done here. Ensure that each
- * swt view id you are mapping to a certain scout view id is defined in the plugin.xml
- * as a view extension. <br>
- * e.g.
- * 
- * <pre>
- *  public ISwtScoutSmartField createSmartField(Composite parent, ISmartField<?> model) {
- *    // create your own component
- *    ISwtScoutSmartField sf = ...
- *    return sf;
- *  }
- * </pre>
- */
 public class SwtEnvironment extends AbstractSwtEnvironment {
 
-  public static final String DEFAULT_STACK_VIEW_ID = "com.bsiag.crm.ui.swt.views.defaultStackView";
+  private ApplicationActionBarAdvisor m_advisor;
 
   public SwtEnvironment(Bundle bundle, String perspectiveId, Class<? extends AbstractClientSession> clientSessionClazz) {
     super(bundle, perspectiveId, clientSessionClazz);
 
-    registerPart(IForm.VIEW_ID_OUTLINE, OutlineView.class.getName());
-    registerPart(IForm.VIEW_ID_PAGE_DETAIL, DetailView.class.getName());
+    registerPart(IForm.VIEW_ID_OUTLINE, NorthWestView.class.getName());
+    registerPart(IForm.VIEW_ID_OUTLINE_SELECTOR, SouthWestView.class.getName());
     registerPart(IForm.VIEW_ID_CENTER, CenterView.class.getName());
-    registerPart(IForm.VIEW_ID_PAGE_TABLE, TableView.class.getName());
-    registerPart(IForm.VIEW_ID_PAGE_SEARCH, SearchView.class.getName());
+    registerPart(IForm.VIEW_ID_PAGE_TABLE, CenterView.class.getName());
+    registerPart(IForm.VIEW_ID_PAGE_DETAIL, NorthView.class.getName());
+    registerPart(IForm.VIEW_ID_PAGE_SEARCH, SouthView.class.getName());
+    registerPart(IForm.VIEW_ID_N, NorthView.class.getName());
+    registerPart(IForm.VIEW_ID_NW, NorthWestView.class.getName());
+    registerPart(IForm.VIEW_ID_W, WestView.class.getName());
+    registerPart(IForm.VIEW_ID_SW, SouthWestView.class.getName());
+    registerPart(IForm.VIEW_ID_S, SouthView.class.getName());
+    registerPart(IForm.VIEW_ID_SE, SouthEastView.class.getName());
     registerPart(IForm.VIEW_ID_E, EastView.class.getName());
+    registerPart(IForm.VIEW_ID_NE, NorthEastView.class.getName());
+
     registerPart(IForm.EDITOR_ID, ScoutEditorPart.class.getName());
+
     addEnvironmentListener(new ISwtEnvironmentListener() {
+      @Override
       public void environmentChanged(SwtEnvironmentEvent e) {
         if (e.getType() == SwtEnvironmentEvent.STOPPED) {
           PlatformUI.getWorkbench().close();
@@ -69,6 +59,7 @@ public class SwtEnvironment extends AbstractSwtEnvironment {
       }
     });
     addEnvironmentListener(new ISwtEnvironmentListener() {
+      @Override
       public void environmentChanged(SwtEnvironmentEvent e) {
         if (e.getType() == SwtEnvironmentEvent.STARTED) {
           removeEnvironmentListener(this);
@@ -76,14 +67,22 @@ public class SwtEnvironment extends AbstractSwtEnvironment {
           if (d != null) {
             setWindowTitle(d.getTitle());
             d.addPropertyChangeListener(IDesktop.PROP_TITLE, new PropertyChangeListener() {
+              @Override
               public void propertyChange(PropertyChangeEvent evt) {
                 setWindowTitle((String) evt.getNewValue());
               }
             });
+            if (m_advisor != null) {
+              m_advisor.initViewButtons(d);
+            }
           }
         }
       }
     });
+  }
+
+  public void setAdvisor(ApplicationActionBarAdvisor advisor) {
+    m_advisor = advisor;
   }
 
   private void setWindowTitle(final String title) {
@@ -91,6 +90,7 @@ public class SwtEnvironment extends AbstractSwtEnvironment {
       final Shell s = w.getShell();
       if (!s.isDisposed()) {
         s.getDisplay().asyncExec(new Runnable() {
+          @Override
           public void run() {
             s.setText(title);
           }

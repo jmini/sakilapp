@@ -3,9 +3,15 @@ Bundle-ManifestVersion: 2
 Bundle-Name: My Application
 Bundle-SymbolicName: net.sakilapp.ui.swt;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
 Bundle-Activator: net.sakilapp.ui.swt.Activator
-Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: net.sakilapp.ui.swt;uses:="org.eclipse.scout.rt.ui.swt,org.eclipse.scout.rt.client.session,org.osgi.framework",
+ net.sakilapp.ui.swt.application,
+ net.sakilapp.ui.swt.application.button,
+ net.sakilapp.ui.swt.application.menu,
+ net.sakilapp.ui.swt.editor,
+ net.sakilapp.ui.swt.perspective,
+ net.sakilapp.ui.swt.views
 Require-Bundle: net.sakilapp.client;visibility:=reexport,
  net.sakilapp.shared,
  org.eclipse.scout.rt.ui.swt,
@@ -14,11 +20,5 @@ Require-Bundle: net.sakilapp.client;visibility:=reexport,
  org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.ui.views
-Export-Package: net.sakilapp.ui.swt;uses:="org.eclipse.scout.rt.ui.swt,
- org.eclipse.scout.rt.client.session,
- org.osgi.framework",
- net.sakilapp.ui.swt,
- net.sakilapp.ui.swt.perspective,
- net.sakilapp.ui.swt.views,
- net.sakilapp.ui.swt.application
-Bundle-ClassPath: .
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-ActivationPolicy: lazy

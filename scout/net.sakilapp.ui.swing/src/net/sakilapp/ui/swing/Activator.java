@@ -23,10 +23,12 @@ public class Activator implements BundleActivator {
     return plugin;
   }
 
+  @Override
   public void start(BundleContext context) throws Exception {
     plugin = this;
   }
 
+  @Override
   public void stop(BundleContext context) throws Exception {
     plugin = null;
   }

@@ -67,13 +67,13 @@ public class CategoryProcessService extends AbstractService implements ICategory
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     SQL.selectInto(
-            "select      last_update, " +
-                "            name " +
-                " from       category " +
-                " where      category_id = :id " +
-                " into       :lastUpdate, " +
-                "            :categoryName ",
-            formData.getMetadataBox(),
+        "select      last_update, " +
+            "            name " +
+            " from       category " +
+            " where      category_id = :id " +
+            " into       :lastUpdate, " +
+            "            :categoryName ",
+        formData.getMetadataBox(),
         formData
         );
 

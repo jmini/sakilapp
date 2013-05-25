@@ -47,6 +47,7 @@ public class LocalLookupService extends AbstractLookupService implements ILookup
   /**
    * Complete override using local data
    */
+  @Override
   public LookupRow[] getDataByKey(LookupCall call) throws ProcessingException {
     ArrayList<LookupRow> list = new ArrayList<LookupRow>();
     Object key = call.getKey();
@@ -63,6 +64,7 @@ public class LocalLookupService extends AbstractLookupService implements ILookup
   /**
    * Complete override using local data
    */
+  @Override
   public LookupRow[] getDataByText(LookupCall call) throws ProcessingException {
     ArrayList<LookupRow> list = new ArrayList<LookupRow>();
     Pattern p = createLowerCaseSearchPattern(call.getText());
@@ -77,6 +79,7 @@ public class LocalLookupService extends AbstractLookupService implements ILookup
   /**
    * Complete override using local data
    */
+  @Override
   public LookupRow[] getDataByAll(LookupCall call) throws ProcessingException {
     ArrayList<LookupRow> list = new ArrayList<LookupRow>();
     Pattern p = createLowerCaseSearchPattern(call.getAll());
@@ -91,6 +94,7 @@ public class LocalLookupService extends AbstractLookupService implements ILookup
   /**
    * Complete override using local data
    */
+  @Override
   public LookupRow[] getDataByRec(LookupCall call) throws ProcessingException {
     ArrayList<LookupRow> list = new ArrayList<LookupRow>();
     return list.toArray(new LookupRow[0]);

@@ -10,7 +10,6 @@
  ******************************************************************************/
 package net.sakilapp.client;
 
-
 import net.sakilapp.client.ui.desktop.Desktop;
 
 import org.eclipse.scout.commons.annotations.FormData;
@@ -22,28 +21,28 @@ import org.eclipse.scout.rt.client.ClientJob;
 import org.eclipse.scout.rt.client.servicetunnel.http.HttpServiceTunnel;
 import org.eclipse.scout.rt.shared.services.common.code.CODES;
 
-public class ClientSession extends AbstractClientSession{
+public class ClientSession extends AbstractClientSession {
   private static IScoutLogger logger = ScoutLogManager.getLogger(ClientSession.class);
 
-  public ClientSession(){
+  public ClientSession() {
     super(true);
   }
 
   /**
    * @return session in current ThreadContext
    */
-  public static ClientSession get(){
+  public static ClientSession get() {
     return ClientJob.getCurrentSession(ClientSession.class);
   }
 
   @FormData
-  public Long getPersonNr(){
-    return getSharedContextVariable("personNr",Long.class);
+  public Long getPersonNr() {
+    return getSharedContextVariable("personNr", Long.class);
   }
 
   @Override
-  public void execLoadSession() throws ProcessingException{
-    setServiceTunnel(new HttpServiceTunnel(this,getBundle().getBundleContext().getProperty("server.url")));
+  public void execLoadSession() throws ProcessingException {
+    setServiceTunnel(new HttpServiceTunnel(this, getBundle().getBundleContext().getProperty("server.url")));
 
     //pre-load all known code types
     CODES.getAllCodeTypes(net.sakilapp.shared.Activator.PLUGIN_ID);
@@ -55,6 +54,6 @@ public class ClientSession extends AbstractClientSession{
   }
 
   @Override
-  public void execStoreSession() throws ProcessingException{
+  public void execStoreSession() throws ProcessingException {
   }
 }

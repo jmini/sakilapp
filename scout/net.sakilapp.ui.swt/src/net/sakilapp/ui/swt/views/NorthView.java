@@ -5,9 +5,9 @@ import net.sakilapp.ui.swt.Activator;
 import org.eclipse.scout.rt.ui.swt.ISwtEnvironment;
 import org.eclipse.scout.rt.ui.swt.window.desktop.view.AbstractScoutView;
 
-public class CenterView extends AbstractScoutView {
+public class NorthView extends AbstractScoutView {
 
-  public CenterView() {
+  public NorthView() {
   }
 
   @Override
