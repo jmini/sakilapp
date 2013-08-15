@@ -17,3 +17,9 @@ classes/
 # Maven #
 target/
 
+# Xtend #
+xtend-gen/
+*._trace
+
+# EGit #
+**/.gitignore
