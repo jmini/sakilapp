@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 Jérémie Bresson
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +14,9 @@
  * limitations under the License.
  ******************************************************************************/
 package net.sakilapp.client.ui.desktop.outlines.pages;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import net.sakilapp.client.ui.forms.ActorForm;
 import net.sakilapp.client.ui.searchforms.ActorsSearchForm;
@@ -257,11 +260,11 @@ public class ActorsTablePage extends AbstractPageWithTable<ActorsTablePage.Table
 
       @Override
       protected void execAction() throws ProcessingException {
-        String[] actors = new String[getTable().getSelectedRowCount()];
-        String[] firstNames = getTable().getFirstNameColumn().getSelectedValues();
-        String[] lastNames = getTable().getLastNameColumn().getSelectedValues();
-        for (int i = 0; i < actors.length; i++) {
-          actors[i] = StringUtility.join(" ", firstNames[i], lastNames[i]);
+        List<String> actors = new ArrayList<String>();
+        List<String> firstNames = getTable().getFirstNameColumn().getSelectedValues();
+        List<String> lastNames = getTable().getLastNameColumn().getSelectedValues();
+        for (int i = 0; i < actors.size(); i++) {
+          actors.add(StringUtility.join(" ", firstNames.get(i), lastNames.get(i)));
         }
 
         if (MessageBox.showDeleteConfirmationMessage(TEXTS.get("Actor"), actors)) {

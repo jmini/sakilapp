@@ -7,7 +7,6 @@ Bundle-ClassPath: .
 Bundle-Activator: net.sakilapp.ui.swt.Activator
 Export-Package: net.sakilapp.ui.swt;uses:="org.eclipse.scout.rt.ui.swt,org.eclipse.scout.rt.client.session,org.osgi.framework",
  net.sakilapp.ui.swt.application,
- net.sakilapp.ui.swt.application.button,
  net.sakilapp.ui.swt.application.menu,
  net.sakilapp.ui.swt.editor,
  net.sakilapp.ui.swt.perspective,
@@ -20,5 +19,5 @@ Require-Bundle: net.sakilapp.client;visibility:=reexport,
  org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.ui.views
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

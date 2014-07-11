@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     BSI Business Systems Integration AG - initial API and implementation
  ******************************************************************************/
@@ -12,13 +12,14 @@ package net.sakilapp.client;
 
 import net.sakilapp.client.ui.desktop.Desktop;
 
+import org.eclipse.scout.commons.UriUtility;
 import org.eclipse.scout.commons.annotations.FormData;
 import org.eclipse.scout.commons.exception.ProcessingException;
 import org.eclipse.scout.commons.logger.IScoutLogger;
 import org.eclipse.scout.commons.logger.ScoutLogManager;
 import org.eclipse.scout.rt.client.AbstractClientSession;
 import org.eclipse.scout.rt.client.ClientJob;
-import org.eclipse.scout.rt.client.servicetunnel.http.HttpServiceTunnel;
+import org.eclipse.scout.rt.client.servicetunnel.http.ClientHttpServiceTunnel;
 import org.eclipse.scout.rt.shared.services.common.code.CODES;
 
 public class ClientSession extends AbstractClientSession {
@@ -42,7 +43,7 @@ public class ClientSession extends AbstractClientSession {
 
   @Override
   public void execLoadSession() throws ProcessingException {
-    setServiceTunnel(new HttpServiceTunnel(this, getBundle().getBundleContext().getProperty("server.url")));
+    setServiceTunnel(new ClientHttpServiceTunnel(this, UriUtility.toUrl(getBundle().getBundleContext().getProperty("server.url"))));
 
     //pre-load all known code types
     CODES.getAllCodeTypes(net.sakilapp.shared.Activator.PLUGIN_ID);

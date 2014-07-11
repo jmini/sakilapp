@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 Jérémie Bresson
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,6 +30,7 @@ import org.eclipse.scout.service.AbstractService;
 
 public class CatalogOutlineService extends AbstractService implements ICatalogOutlineService {
 
+  @Override
   public Object[][] loadActors(SearchFilter filter) throws ProcessingException {
     //TODO: add security
 
@@ -50,10 +51,11 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
             " from   actor " +
             " where  1 = 1 " +
             actorsStatementBuilder.build(filter.getFormData()),
-        actorsStatementBuilder.getBindMap());
+            actorsStatementBuilder.getBindMap());
     return result;
   }
 
+  @Override
   public Object[][] loadCategories(SearchFilter filter) throws ProcessingException {
     //TODO: add security
 
@@ -71,10 +73,11 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
             " from   category " +
             " where  1 = 1 " +
             categoriesStatementBuilder.build(filter.getFormData()),
-        categoriesStatementBuilder.getBindMap());
+            categoriesStatementBuilder.getBindMap());
     return result;
   }
 
+  @Override
   public Object[][] loadFilms(SearchFilter filter, Long categoryIdFilter, Long actorIdFilter) throws ProcessingException {
     //TODO: add security
 
@@ -119,9 +122,9 @@ public class CatalogOutlineService extends AbstractService implements ICatalogOu
             sqlWhereCategory +
             sqlWhereActor +
             filmsStatementBuilder.build(filter.getFormData()),
-        filmsStatementBuilder.getBindMap(),
-        new NVPair("categoryId", categoryIdFilter),
-        new NVPair("actorId", actorIdFilter)
+            filmsStatementBuilder.getBindMap(),
+            new NVPair("categoryId", categoryIdFilter),
+            new NVPair("actorId", actorIdFilter)
         );
 
     return result;

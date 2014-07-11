@@ -12,4 +12,4 @@ Require-Bundle: org.eclipse.scout.rt.ui.swing,
 Export-Package: net.sakilapp.ui.swing;uses:="org.eclipse.scout.rt.ui.swing,org.eclipse.scout.rt.client.session,org.osgi.framework",
  net.sakilapp.ui.swing
 Bundle-ClassPath: .
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7

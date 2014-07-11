@@ -1,12 +1,16 @@
 package net.sakilapp.ui.swt.application.menu;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sakilapp.ui.swt.Activator;
 
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.scout.rt.client.ui.action.menu.IMenu;
+import org.eclipse.scout.rt.client.ui.action.menu.MenuUtility;
 import org.eclipse.scout.rt.ui.swt.ISwtEnvironment;
-import org.eclipse.scout.rt.ui.swt.SwtMenuUtility;
+import org.eclipse.scout.rt.ui.swt.action.menu.SwtScoutMenuContributionItem;
 import org.eclipse.ui.actions.CompoundContributionItem;
 
 public class DesktopMenuBar extends CompoundContributionItem {
@@ -16,10 +20,13 @@ public class DesktopMenuBar extends CompoundContributionItem {
     ISwtEnvironment env = Activator.getDefault().getEnvironment();
     if (env != null && env.isInitialized()) {
       if (env.getClientSession() != null && env.getClientSession().getDesktop() != null) {
-        IMenu[] menus = env.getClientSession().getDesktop().getMenus();
-        if (menus != null && menus.length > 0) {
-          return SwtMenuUtility.getMenuContribution(menus, env);
+        List<IMenu> menus = env.getClientSession().getDesktop().getMenus();
+        List<IMenu> consolidatedMenus = MenuUtility.consolidateMenus(menus);
+        List<IContributionItem> swtContributionItems = new ArrayList<IContributionItem>();
+        for (IMenu menu : consolidatedMenus) {
+          swtContributionItems.add(new SwtScoutMenuContributionItem(menu, env));
         }
+        return swtContributionItems.toArray(new IContributionItem[swtContributionItems.size()]);
       }
     }
     return new IContributionItem[0];

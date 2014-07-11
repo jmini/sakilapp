@@ -12,7 +12,8 @@
    <launcherArgs>
       <vmArgs>-Xms64m
 -Xmx512m
--XX:MaxPermSize=256m</vmArgs>
+-XX:MaxPermSize=256m
+      </vmArgs>
    </launcherArgs>
 
    <windowImages/>
@@ -35,7 +36,6 @@
       <plugin id="net.sakilapp.server"/>
       <plugin id="net.sakilapp.server.dbmock"/>
       <plugin id="net.sakilapp.shared"/>
-      <plugin id="org.apache.commons.codec"/>
       <plugin id="org.eclipse.core.contenttype"/>
       <plugin id="org.eclipse.core.jobs"/>
       <plugin id="org.eclipse.core.runtime"/>
@@ -60,9 +60,8 @@
       <plugin id="org.eclipse.osgi"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.scout.commons"/>
-      <plugin id="org.eclipse.scout.http.servletfilter"/>
-      <plugin id="org.eclipse.scout.jaxws216"/>
       <plugin id="org.eclipse.scout.rt.server"/>
+      <plugin id="org.eclipse.scout.rt.server.commons"/>
       <plugin id="org.eclipse.scout.rt.shared"/>
       <plugin id="org.eclipse.scout.service"/>
       <plugin id="org.eclipse.update.configurator"/>

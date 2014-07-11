@@ -11,6 +11,7 @@
 package net.sakilapp.client.ui.desktop;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.sakilapp.client.ClientSession;
 import net.sakilapp.client.ui.desktop.outlines.CatalogOutline;
@@ -40,15 +41,12 @@ public class Desktop extends AbstractDesktop implements IDesktop {
   }
 
   @Override
-  protected Class<? extends IOutline>[] getConfiguredOutlines() {
+  protected List<Class<? extends IOutline>> getConfiguredOutlines() {
     ArrayList<Class<? extends IOutline>> list = new ArrayList<Class<? extends IOutline>>();
     list.add(CatalogOutline.class);
     list.add(RetailOutline.class);
     list.add(CustomersOutline.class);
-
-    @SuppressWarnings("unchecked")
-    Class<? extends IOutline>[] result = (Class<? extends IOutline>[]) list.toArray(new Class<?>[list.size()]);
-    return result;
+    return list;
   }
 
   @Override
@@ -66,8 +64,8 @@ public class Desktop extends AbstractDesktop implements IDesktop {
     DefaultOutlineTableForm tableForm = new DefaultOutlineTableForm();
     tableForm.startView();
 
-    if (getAvailableOutlines().length > 0) {
-      setOutline(getAvailableOutlines()[0]);
+    if (getAvailableOutlines().size() > 0) {
+      setOutline(getAvailableOutlines().get(0));
     }
   }
 

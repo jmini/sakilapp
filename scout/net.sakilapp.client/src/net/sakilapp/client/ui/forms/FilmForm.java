@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 Jérémie Bresson
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +14,8 @@
  * limitations under the License.
  ******************************************************************************/
 package net.sakilapp.client.ui.forms;
+
+import java.util.List;
 
 import net.sakilapp.client.ui.desktop.outlines.pages.ActorsTablePage;
 import net.sakilapp.client.ui.desktop.outlines.pages.CategoriesTablePage;
@@ -66,6 +68,7 @@ import org.eclipse.scout.rt.client.ui.form.fields.stringfield.AbstractStringFiel
 import org.eclipse.scout.rt.client.ui.form.fields.tablefield.AbstractTableField;
 import org.eclipse.scout.rt.shared.TEXTS;
 import org.eclipse.scout.rt.shared.services.common.code.ICodeType;
+import org.eclipse.scout.rt.shared.services.lookup.ILookupCall;
 import org.eclipse.scout.rt.shared.services.lookup.LookupCall;
 import org.eclipse.scout.service.SERVICES;
 
@@ -163,7 +166,7 @@ public class FilmForm extends AbstractForm {
 
   /**
    * Convenience Method to access the id of the category that is in the form
-   * 
+   *
    * @return filmId
    *         id of the film represented by the form
    */
@@ -173,7 +176,7 @@ public class FilmForm extends AbstractForm {
 
   /**
    * Convenience Method to set the categoryNr in the id field.
-   * 
+   *
    * @param filmId
    *          id of the film represented by the form
    */
@@ -246,7 +249,7 @@ public class FilmForm extends AbstractForm {
       }
 
       @Override
-      protected Class<? extends LookupCall> getConfiguredLookupCall() {
+      protected Class<? extends ILookupCall<Integer>> getConfiguredLookupCall() {
         return YearLookupCall.class;
       }
     }
@@ -260,7 +263,7 @@ public class FilmForm extends AbstractForm {
       }
 
       @Override
-      protected Class<? extends LookupCall> getConfiguredLookupCall() {
+      protected Class<? extends LookupCall<Long>> getConfiguredLookupCall() {
         return LanguageLookupCall.class;
       }
 
@@ -279,7 +282,7 @@ public class FilmForm extends AbstractForm {
       }
 
       @Override
-      protected Class<? extends LookupCall> getConfiguredLookupCall() {
+      protected Class<? extends LookupCall<Long>> getConfiguredLookupCall() {
         return LanguageLookupCall.class;
       }
     }
@@ -388,7 +391,7 @@ public class FilmForm extends AbstractForm {
     public class RatingField extends AbstractSmartField<String> {
 
       @Override
-      protected Class<? extends ICodeType<?>> getConfiguredCodeType() {
+      protected Class<? extends ICodeType<?, String>> getConfiguredCodeType() {
         return RatingCodeType.class;
       }
 
@@ -402,7 +405,7 @@ public class FilmForm extends AbstractForm {
     public class SpecialFeaturesField extends AbstractListBox<String> {
 
       @Override
-      protected Class<? extends ICodeType> getConfiguredCodeType() {
+      protected Class<? extends ICodeType<?, String>> getConfiguredCodeType() {
         return SpecialFeatureCodeType.class;
       }
 
@@ -449,8 +452,8 @@ public class FilmForm extends AbstractForm {
           return getColumnSet().getColumnByClass(LastNameColumn.class);
         }
 
-        private ITableRow searchRowByActorId(ITableRow[] rows, Long id) {
-          for (ITableRow r : rows) {
+        private ITableRow searchRowByActorId(List<ITableRow> list, Long id) {
+          for (ITableRow r : list) {
             if (CompareUtility.equals(id, getActorIdColumn().getValue(r))) {
               return r;
             }
@@ -610,8 +613,8 @@ public class FilmForm extends AbstractForm {
           return getColumnSet().getColumnByClass(NameColumn.class);
         }
 
-        private ITableRow searchRowByCategoryId(ITableRow[] rows, Long id) {
-          for (ITableRow r : rows) {
+        private ITableRow searchRowByCategoryId(List<ITableRow> list, Long id) {
+          for (ITableRow r : list) {
             if (CompareUtility.equals(id, getCategoryIdColumn().getValue(r))) {
               return r;
             }

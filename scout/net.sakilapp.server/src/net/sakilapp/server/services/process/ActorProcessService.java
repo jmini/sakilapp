@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 Jérémie Bresson
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,6 +14,8 @@
  * limitations under the License.
  ******************************************************************************/
 package net.sakilapp.server.services.process;
+
+import java.util.List;
 
 import net.sakilapp.shared.formdata.ActorFormData;
 import net.sakilapp.shared.security.CreateActorPermission;
@@ -32,6 +34,7 @@ import org.eclipse.scout.service.AbstractService;
 
 public class ActorProcessService extends AbstractService implements IActorProcessService {
 
+  @Override
   public ActorFormData prepareCreate(ActorFormData formData) throws ProcessingException {
     if (!ACCESS.check(new CreateActorPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
@@ -40,6 +43,7 @@ public class ActorProcessService extends AbstractService implements IActorProces
     return formData;
   }
 
+  @Override
   public ActorFormData create(ActorFormData formData) throws ProcessingException {
     if (!ACCESS.check(new CreateActorPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
@@ -48,7 +52,7 @@ public class ActorProcessService extends AbstractService implements IActorProces
     SQL.insert(
         " insert into      actor(first_name, last_name) " +
             " values (:firstName, :lastName) ",
-        formData
+            formData
         );
     SQL.selectInto(
         " select      actor_id, " +
@@ -57,10 +61,11 @@ public class ActorProcessService extends AbstractService implements IActorProces
             " where       actor_id = LAST_INSERT_ID() " +
             " into        :id, " +
             "             :lastUpdate ",
-        formData.getMetadataBox());
+            formData.getMetadataBox());
     return formData;
   }
 
+  @Override
   public ActorFormData load(ActorFormData formData) throws ProcessingException {
     if (!ACCESS.check(new ReadActorPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
@@ -74,13 +79,14 @@ public class ActorProcessService extends AbstractService implements IActorProces
             " into       :lastUpdate, " +
             "            :firstName," +
             "            :lastName ",
-        formData.getMetadataBox(),
-        formData
+            formData.getMetadataBox(),
+            formData
         );
 
     return formData;
   }
 
+  @Override
   public ActorFormData store(ActorFormData formData) throws ProcessingException {
     if (!ACCESS.check(new UpdateActorPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
@@ -90,20 +96,21 @@ public class ActorProcessService extends AbstractService implements IActorProces
             " set         first_name = :firstName," +
             "             last_name = :lastName " +
             " where       actor_id = :id ",
-        formData.getMetadataBox(),
-        formData
+            formData.getMetadataBox(),
+            formData
         );
     return formData;
   }
 
-  public boolean delete(Long[] actorIds) throws ProcessingException {
+  @Override
+  public boolean delete(List<Long> actorIds) throws ProcessingException {
     if (!ACCESS.check(new DeleteActorPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     int nbRows = SQL.delete(
         " delete       from actor" +
             " where    actor_id = :id",
-        new NVPair("id", actorIds)
+            new NVPair("id", actorIds)
         );
     return nbRows > 0;
   }

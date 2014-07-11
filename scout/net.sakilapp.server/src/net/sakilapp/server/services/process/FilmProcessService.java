@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2011 Jérémie Bresson
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,7 +15,11 @@
  ******************************************************************************/
 package net.sakilapp.server.services.process;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import net.sakilapp.shared.formdata.FilmFormData;
 import net.sakilapp.shared.formdata.FilmFormData.ActorsTable;
@@ -40,6 +44,7 @@ import org.eclipse.scout.service.AbstractService;
 
 public class FilmProcessService extends AbstractService implements IFilmProcessService {
 
+  @Override
   public FilmFormData prepareCreate(FilmFormData formData) throws ProcessingException {
     if (!ACCESS.check(new CreateFilmPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
@@ -48,6 +53,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
     return formData;
   }
 
+  @Override
   public FilmFormData create(FilmFormData formData) throws ProcessingException {
     if (!ACCESS.check(new CreateFilmPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
@@ -80,8 +86,8 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
             " :Rating," +
             " :SpecialFeatureList " +
             " ) ",
-        new NVPair("SpecialFeatureList", StringUtility.join(",", formData.getSpecialFeatures().getValue())),
-        formData
+            new NVPair("SpecialFeatureList", StringUtility.join(",", formData.getSpecialFeatures().getValue())),
+            formData
         );
     SQL.selectInto(
         " select      film_id, " +
@@ -90,13 +96,14 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
             " where       film_id = LAST_INSERT_ID() " +
             " into        :id, " +
             "             :lastUpdate ",
-        formData.getMetadataBox());
+            formData.getMetadataBox());
 
     storeFilmActor(formData);
     storeFilmCategory(formData);
     return formData;
   }
 
+  @Override
   public FilmFormData load(FilmFormData formData) throws ProcessingException {
     if (!ACCESS.check(new ReadFilmPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
@@ -130,9 +137,9 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
             "            :ReplacementCost, " +
             "            :Rating," +
             "            :SpecialFeatureList",
-        formData.getMetadataBox(),
-        new NVPair("SpecialFeatureList", SpecialFeatureList),
-        formData
+            formData.getMetadataBox(),
+            new NVPair("SpecialFeatureList", SpecialFeatureList),
+            formData
         );
 
     SQL.selectInto(
@@ -145,8 +152,8 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
             " into   :ActorId, " +
             "        :FirstName," +
             "        :LastName ",
-        formData.getMetadataBox(),
-        formData.getActorsTable()
+            formData.getMetadataBox(),
+            formData.getActorsTable()
         );
 
     SQL.selectInto(
@@ -157,18 +164,21 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
             " and    category_id in (select category_id from film_category where film_id = :id) " +
             " into   :CategoryId, " +
             "        :Name ",
-        formData.getMetadataBox(),
-        formData.getCategoriesTable()
+            formData.getMetadataBox(),
+            formData.getCategoriesTable()
         );
 
     String specialFeatureList = SpecialFeatureList.getValue();
     if (specialFeatureList != null) {
-      formData.getSpecialFeatures().setValue(specialFeatureList.split(","));
+      Set<String> set = new HashSet<String>();
+      set.addAll(Arrays.asList(specialFeatureList.split(",")));
+      formData.getSpecialFeatures().setValue(set);
     }
 
     return formData;
   }
 
+  @Override
   public FilmFormData store(FilmFormData formData) throws ProcessingException {
     if (!ACCESS.check(new UpdateFilmPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
@@ -188,9 +198,9 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
             "             rating               = :Rating," +
             "             special_features     = :SpecialFeatureList" +
             " where       film_id = :id ",
-        formData.getMetadataBox(),
-        new NVPair("SpecialFeatureList", StringUtility.join(",", formData.getSpecialFeatures().getValue())),
-        formData
+            formData.getMetadataBox(),
+            new NVPair("SpecialFeatureList", StringUtility.join(",", formData.getSpecialFeatures().getValue())),
+            formData
         );
     storeFilmActor(formData);
     storeFilmCategory(formData);
@@ -215,8 +225,8 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
                   "    :id, " +
                   "    :ActorId " +
                   " ) ",
-              formData.getMetadataBox(),
-              new NVPair("ActorId", table.getActorId(i))
+                  formData.getMetadataBox(),
+                  new NVPair("ActorId", table.getActorId(i))
               );
           break;
         case ITableHolder.STATUS_DELETED:
@@ -224,8 +234,8 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
               " delete       from film_actor " +
                   " where    film_id = :id " +
                   " and      actor_id = :ActorId",
-              formData.getMetadataBox(),
-              new NVPair("ActorId", table.getActorId(i))
+                  formData.getMetadataBox(),
+                  new NVPair("ActorId", table.getActorId(i))
               );
           break;
         case ITableHolder.STATUS_NON_CHANGED:
@@ -255,8 +265,8 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
                   "    :id, " +
                   "    :CategoryId " +
                   " ) ",
-              formData.getMetadataBox(),
-              new NVPair("CategoryId", table.getCategoryId(i))
+                  formData.getMetadataBox(),
+                  new NVPair("CategoryId", table.getCategoryId(i))
               );
           break;
         case ITableHolder.STATUS_DELETED:
@@ -264,8 +274,8 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
               " delete       from film_category " +
                   " where    film_id = :id " +
                   " and      category_id = :CategoryId",
-              formData.getMetadataBox(),
-              new NVPair("CategoryId", table.getCategoryId(i))
+                  formData.getMetadataBox(),
+                  new NVPair("CategoryId", table.getCategoryId(i))
               );
           break;
         case ITableHolder.STATUS_NON_CHANGED:
@@ -280,7 +290,7 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
   /**
    * This function clean the status if a row was deleted and added
    * TODO: make the check client-side.
-   * 
+   *
    * @param table
    *          the tableFieldData
    * @param valueColumn
@@ -305,14 +315,15 @@ public class FilmProcessService extends AbstractService implements IFilmProcessS
     }
   }
 
-  public boolean delete(Long[] filmIds) throws ProcessingException {
+  @Override
+  public boolean delete(List<Long> filmIds) throws ProcessingException {
     if (!ACCESS.check(new DeleteFilmPermission())) {
       throw new VetoException(TEXTS.get("AuthorizationFailed"));
     }
     int nbRows = SQL.delete(
         " delete       from film" +
             " where    film_id = :id",
-        new NVPair("id", filmIds)
+            new NVPair("id", filmIds)
         );
     return nbRows > 0;
   }

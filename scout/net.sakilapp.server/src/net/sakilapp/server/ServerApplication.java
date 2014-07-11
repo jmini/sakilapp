@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
- * 
+ *
  * Contributors:
  *     BSI Business Systems Integration AG - initial API and implementation
  ******************************************************************************/
@@ -33,6 +33,7 @@ import org.eclipse.scout.commons.logger.ScoutLogManager;
 public class ServerApplication implements IApplication {
   private static IScoutLogger logger = ScoutLogManager.getLogger(ServerApplication.class);
 
+  @Override
   public Object start(IApplicationContext context) throws Exception {
     //start the scheduler
     /*
@@ -40,11 +41,12 @@ public class ServerApplication implements IApplication {
     scheduler.addJob(new LoadJobs());
     scheduler.start();
     Activator.getDefault().setScheduler(scheduler);
-    */
+     */
     logger.info("sakilapp server initialized");
     return EXIT_OK;
   }
 
+  @Override
   public void stop() {
   }
 

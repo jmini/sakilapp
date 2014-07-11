@@ -7,7 +7,9 @@ Bundle-Activator: net.sakilapp.server.dbmock.Activator
 Export-Package: net.sakilapp.server.services.lookup,
  net.sakilapp.server.services.outline
 Require-Bundle: org.eclipse.core.runtime,
- net.sakilapp.server;bundle-version="1.0.0",
- com.bsiag.scout.rt.server.jdbc.mysql5117
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+ net.sakilapp.server,
+ com.bsiag.scout.rt.server.jdbc.mysql5117,
+ org.eclipse.scout.rt.server,
+ net.sakilapp.shared
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
